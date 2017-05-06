@@ -1,0 +1,170 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'spoon'
+apply plugin: 'org.stoyicker.android-check'
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.buddybuild"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file("../keystore/android_rize_keystore.jks")
+            keyAlias System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+            storePassword System.getenv("SIGNING_STORE_PASSWORD")
+        }
+    }
+    buildTypes {
+        buildTypes {
+            debug {
+                applicationIdSuffix ".debug"
+                debuggable true
+                signingConfig signingConfigs.debug
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
+            }
+            release {
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/LICENSE'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        abortOnError true
+        ignoreWarnings false
+        lintConfig file('../config/lint.xml')
+    }
+}
+
+check {
+    checkstyle {
+        config '../config/checkstyle.xml'
+        abortOnError true
+    }
+    findbugs { skip true }
+    pmd { skip true }
+}
+
+dependencies {
+
+    // Better logging
+    // https://github.com/JakeWharton/timber
+    // Apache 2.0
+    compile 'com.jakewharton.timber:timber:' + rootProject.ext.timberLibVersion
+
+    // Dependency injection
+    // http://google.github.io/dagger/
+    // Apache 2.0
+    compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
+    annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
+
+    // HTTP client
+    // http://square.github.io/retrofit/
+    // Apache 2.0
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+    // RxJava2 and Reactive Extensions for Android
+    // https://github.com/ReactiveX/RxJava
+    // https://github.com/ReactiveX/RxAndroid
+    // Apache 2.0
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    // Dependency Injection for Views
+    // http://jakewharton.github.io/butterknife/
+    // Apache 2.0
+    compile 'com.jakewharton:butterknife:8.5.1'
+    provided 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    // Annotation-based model creation
+    // https://projectlombok.org
+    // MIT
+    provided "org.projectlombok:lombok:1.16.6"
+
+    // Monkey test the network connection
+    // https://github.com/tir38/android-network-monkey
+    // Apache 2.0
+    compile 'io.jasonatwood:networkmonkey:1.0'
+
+    // Only needed for API 19-20
+    compile 'com.android.support:multidex:1.0.1'
+
+    // support libs; not all of these are directly used by the app
+    // some are used by third-party libs and we need to ensure they are all on the same version number
+    // so override third-party libs dependencies' by declaring them as top level dependencies
+    compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
+    compile "com.android.support:recyclerview-v7:" + rootProject.ext.supportLibVersion
+    compile "com.android.support:design:" + rootProject.ext.supportLibVersion
+
+    // ---------------
+    // UNIT TEST DEPENDENCIES
+    // ---------------
+    testCompile 'junit:junit:' + rootProject.ext.junitVersion
+    testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
+    testCompile 'org.mockito:mockito-core:2.0.53-beta'
+
+    // ---------------
+    // UI TEST DEPENDENCIES
+    // ---------------
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile 'junit:junit:' + rootProject.ext.junitVersion
+
+    // Mocking HTTP services during UI tests
+    // http://wiremock.org/
+    // Apache 2.0
+    androidTestCompile("com.github.tomakehurst:wiremock:2.1.7") {
+        //Allows us to use the Android version of Apache httpclient instead
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+
+        //Resolves the Duplicate Class Exception
+        //Error:Execution failed for task ':app:transformClassesWithJarMergingForDebugAndroidTest'.
+        //       > com.android.build.api.transform.TransformException: java.util.zip.ZipException: duplicate entry: org/objectweb/asm/AnnotationVisitor.class
+        exclude group: 'asm', module: 'asm'
+
+        //Fixes conflict with Android's version
+        //Warning:Dependency org.json:json:20090211 is ignored for debugAndroidTest as it may be conflicting with the internal version provided by Android.
+        //In case of problem, please repackage with jarjar to change the class packages
+        exclude group: 'org.json', module: 'json'
+    }
+    androidTestCompile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+
+    // Run UI tests on a bunch of devices at once
+    // http://square.github.io/spoon/
+    // Apache 2.0
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.6.4'
+
+    // A better screenshot tool (integrates with Spoon)
+    // https://github.com/jraska/Falcon
+    // Apache 2.0
+    androidTestCompile 'com.jraska:falcon:1.0.3'
+    androidTestCompile 'com.jraska:falcon-spoon-compat:1.0.3'
+}

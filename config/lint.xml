@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!--- suppressed errors -->
+    <issue id="InvalidPackage">
+        <!-- due to an issue with okio, we need to exclude lint errors for it.-->
+        <!-- http://stackoverflow.com/questions/35492259/lint-error-on-okio -->
+        <!-- https://github.com/square/okio/issues/58 -->
+        <ignore regexp=".*okio.*"/>
+        <ignore regexp=".*retrofit.*"/>
+    </issue>
+
+    <!-- suppressed warnings -->
+
+    <!--suppress since we can't put digital asset on buddybuild.com-->
+    <issue id="GoogleAppIndexingWarning" severity="ignore"/>
+
+</lint>
