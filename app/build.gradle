@@ -25,21 +25,20 @@ android {
         }
     }
     buildTypes {
-        buildTypes {
-            debug {
-                applicationIdSuffix ".debug"
-                debuggable true
-                signingConfig signingConfigs.debug
-                minifyEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
-            }
-            release {
-                minifyEnabled true
-                shrinkResources true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.release
-            }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
+            buildConfigField "String", "ACCESS_TOKEN", "\"" + System.getenv("BB_ACCESS_TOKEN") + "\"";
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     packagingOptions {
@@ -70,6 +69,7 @@ check {
 }
 
 dependencies {
+    compile project(':core')
 
     // Better logging
     // https://github.com/JakeWharton/timber
@@ -87,7 +87,8 @@ dependencies {
     // Apache 2.0
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
     // RxJava2 and Reactive Extensions for Android
@@ -148,6 +149,7 @@ dependencies {
         //Resolves the Duplicate Class Exception
         //Error:Execution failed for task ':app:transformClassesWithJarMergingForDebugAndroidTest'.
         //       > com.android.build.api.transform.TransformException: java.util.zip.ZipException: duplicate entry: org/objectweb/asm/AnnotationVisitor.class
+        //       > com.android.build.api.transform.TransformExrception: java.util.zip.ZipException: duplicate entry: org/objectweb/asm/AnnotationVisitor.class
         exclude group: 'asm', module: 'asm'
 
         //Fixes conflict with Android's version

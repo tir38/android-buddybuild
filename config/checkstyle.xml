@@ -7,11 +7,7 @@
 
 <!-- Custom Checkstyle config-->
 <module name="Checker">
-
-    <module name="SuppressionFilter">
-        <property name="file" value="config/suppression.xml"/>
-    </module>
-
+    
     <!--module name="NewlineAtEndOfFile"/-->
     <module name="FileLength"/>
     <module name="FileTabCharacter"/>
@@ -92,9 +88,10 @@
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
 
-        <module name="FinalParameters"/>
+        <!-- someday =( -->
+        <!--<module name="FinalParameters"/> -->
 
-        <!-- Personally added checks -->
+        <!-- personally added checks -->
         <module name="IllegalThrows"/>
 
     </module>

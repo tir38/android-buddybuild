@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:layout_marginLeft="@dimen/material_side_margin"
+              android:layout_marginRight="@dimen/material_side_margin"
+              android:layout_marginTop="8dp"
+              android:orientation="horizontal"
+              tools:ignore="UseCompoundDrawables">
+    <!--suppress since we are going to put more in this view soon anyways-->
+
+    <TextView
+        android:id="@+id/list_item_app_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="a budd build app"/>
+
+    <ImageView
+        android:id="@+id/list_item_platform_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        tools:src="@drawable/ic_android_24dp"/>
+
+</LinearLayout>

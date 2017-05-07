@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+//noinspection GroovyUnusedAssignment // we really do need these
+sourceCompatibility = "1.7"
+//noinspection GroovyUnusedAssignment // we really do need these
+targetCompatibility = "1.7"
+
+
+dependencies {
+    // Annotation-based model creation
+    // https://projectlombok.org
+    // MIT
+    compileOnly "org.projectlombok:lombok:1.12.6"
+
+    testCompile 'junit:junit:' + rootProject.ext.junitVersion
+    testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
+}
