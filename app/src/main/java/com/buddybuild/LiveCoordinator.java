@@ -5,6 +5,7 @@ import com.buddybuild.rest.RestCoordinator;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class LiveCoordinator implements Coordinator {
 
@@ -15,12 +16,12 @@ public class LiveCoordinator implements Coordinator {
     }
 
     @Override
-    public Observable<Boolean> login(String email, String password) {
+    public Single<Boolean> login(String email, String password) {
         return restCoordinator.login(email, password);
     }
 
     @Override
-    public Observable<List<App>> getApps() {
+    public Single<List<App>> getApps() {
         return restCoordinator.getApps();
     }
 }

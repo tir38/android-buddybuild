@@ -22,7 +22,7 @@ public class MainModule {
 
     @Provides
     @Singleton
-    Coordinator provideCoordinator(RestCoordinator restCoordinator) { // TODO do i like this?
+    Coordinator provideCoordinator(RestCoordinator restCoordinator) {
         return new LiveCoordinator(restCoordinator);
     }
 }

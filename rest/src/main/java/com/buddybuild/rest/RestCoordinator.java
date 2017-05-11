@@ -5,7 +5,7 @@ import com.buddybuild.App;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Coordinates all requests to the BuddyBuild REST API
@@ -27,7 +27,7 @@ public class RestCoordinator {
      *
      * @return
      */
-    public Observable<List<App>> getApps() {
+    public Single<List<App>> getApps() {
         return webService.getApps().map(response -> {
             List<App> apps = new ArrayList<>();
             if (response.isSuccessful()) {
@@ -52,7 +52,7 @@ public class RestCoordinator {
      * @param password
      * @return
      */
-    public Observable<Boolean> login(String email, String password) {
+    public Single<Boolean> login(String email, String password) {
         return dashboardWebService.login(new LoginRequestBody(email, password))
                 .map(response -> {
                     if (response.isSuccessful()) {
