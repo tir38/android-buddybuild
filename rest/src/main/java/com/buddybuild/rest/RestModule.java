@@ -19,14 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestModule {
     @Provides
     @Singleton
-    RestCoordinator provideWebserviceWrapper(WebService webService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
-        return new RestCoordinator(webService, dashboardWebService, tokenStore);
+    RestCoordinator provideWebserviceWrapper(ApiWebService apiWebService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
+        return new RestCoordinator(apiWebService, dashboardWebService, tokenStore);
     }
 
     @Provides
     @Singleton
-    WebService provideWebservice(OkHttpClient okHttpClient) {
-
+    ApiWebService provideApiWebservice(OkHttpClient okHttpClient) {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.buddybuild.com/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -34,7 +33,7 @@ public class RestModule {
 
         return builder.client(okHttpClient)
                 .build()
-                .create(WebService.class);
+                .create(ApiWebService.class);
     }
 
     @Provides
@@ -55,7 +54,7 @@ public class RestModule {
     OkHttpClient provideOkHttpClient(TokenStore tokenStore) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
-        // add access sessionToken
+        // add session token
         okHttpClientBuilder.addInterceptor(chain -> {
             String tokenString = "Bearer " + tokenStore.getToken();
             Request request = chain.request();

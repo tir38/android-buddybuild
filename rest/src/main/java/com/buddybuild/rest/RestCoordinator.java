@@ -12,12 +12,12 @@ import io.reactivex.Single;
  */
 public class RestCoordinator {
 
-    private WebService webService;
+    private ApiWebService apiWebService;
     private DashboardWebService dashboardWebService;
     private TokenStore tokenStore;
 
-    RestCoordinator(WebService webService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
-        this.webService = webService;
+    RestCoordinator(ApiWebService apiWebService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
+        this.apiWebService = apiWebService;
         this.dashboardWebService = dashboardWebService;
         this.tokenStore = tokenStore;
     }
@@ -28,7 +28,7 @@ public class RestCoordinator {
      * @return
      */
     public Single<List<App>> getApps() {
-        return webService.getApps().map(response -> {
+        return apiWebService.getApps().map(response -> {
             List<App> apps = new ArrayList<>();
             if (response.isSuccessful()) {
                 List<AppResponseBody> appResponseBodies = response.body();

@@ -4,7 +4,6 @@ import com.buddybuild.rest.RestCoordinator;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class LiveCoordinator implements Coordinator {
