@@ -7,7 +7,8 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 
 
-public interface WebService {
+// TODO rename to ApiWebService
+interface WebService {
 
     // https://api.buddybuild.com/v1/apps
     @GET("apps")

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.buddybuild.Coordinator;
 import com.buddybuild.LiveCoordinator;
-import com.buddybuild.rest.WebService;
+import com.buddybuild.rest.RestCoordinator;
 
 import javax.inject.Singleton;
 
@@ -22,7 +22,7 @@ public class MainModule {
 
     @Provides
     @Singleton
-    Coordinator provideCoordinator(WebService webService) {
-        return new LiveCoordinator(webService);
+    Coordinator provideCoordinator(RestCoordinator restCoordinator) { // TODO do i like this?
+        return new LiveCoordinator(restCoordinator);
     }
 }

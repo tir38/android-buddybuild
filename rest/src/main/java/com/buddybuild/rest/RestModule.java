@@ -17,23 +17,50 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class RestModule {
+    @Provides
+    @Singleton
+    RestCoordinator provideWebserviceWrapper(WebService webService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
+        return new RestCoordinator(webService, dashboardWebService, tokenStore);
+    }
 
     @Provides
     @Singleton
-    WebService provideWebservice() {
+    WebService provideWebservice(OkHttpClient okHttpClient) {
 
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.buddybuild.com/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
 
+        return builder.client(okHttpClient)
+                .build()
+                .create(WebService.class);
+    }
+
+    @Provides
+    @Singleton
+    DashboardWebService provideDashboardWebService(OkHttpClient okHttpClient) {
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://dashboard.buddybuild.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
+
+        return builder.client(okHttpClient)
+                .build()
+                .create(DashboardWebService.class);
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient(TokenStore tokenStore) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
-        // add access token
+        // add access sessionToken
         okHttpClientBuilder.addInterceptor(chain -> {
+            String tokenString = "Bearer " + tokenStore.getToken();
             Request request = chain.request();
             request = request.newBuilder()
-                    .header("Authorization", "Bearer FOOBAR")
+                    .header("Authorization", tokenString)
                     .build();
             return chain.proceed(request);
         });
@@ -41,13 +68,17 @@ public class RestModule {
         // add logging interceptor
         // (since this will use system Log (not Timber) we have to manually disable logging in release builds)
 //        if (BuildConfig.DEBUG) { // TODO figure out how to disable logging when in this module
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            okHttpClientBuilder.addInterceptor(loggingInterceptor);
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        okHttpClientBuilder.addInterceptor(loggingInterceptor);
 //        }
 
-        return builder.client(okHttpClientBuilder.build())
-                .build()
-                .create(WebService.class);
+        return okHttpClientBuilder.build();
+    }
+
+    @Provides
+    @Singleton
+    TokenStore provideTokenStore() {
+        return new LiveTokenStore();
     }
 }
