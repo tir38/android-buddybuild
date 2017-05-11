@@ -11,6 +11,9 @@ sourceCompatibility = "1.7"
 //noinspection GroovyUnusedAssignment // we really do need these
 targetCompatibility = "1.7"
 
+tasks.withType(Checkstyle) {
+    configFile rootProject.file('config/checkstyle.xml')
+}
 
 dependencies {
     // Annotation-based model creation

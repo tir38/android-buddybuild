@@ -32,7 +32,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
-            buildConfigField "String", "ACCESS_TOKEN", "\"" + System.getenv("BB_ACCESS_TOKEN") + "\"";
         }
         release {
             minifyEnabled true
@@ -70,6 +69,7 @@ check {
 
 dependencies {
     compile project(':core')
+    compile project(':rest')
 
     // Better logging
     // https://github.com/JakeWharton/timber
@@ -81,15 +81,6 @@ dependencies {
     // Apache 2.0
     compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
     annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
-
-    // HTTP client
-    // http://square.github.io/retrofit/
-    // Apache 2.0
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
     // RxJava2 and Reactive Extensions for Android
     // https://github.com/ReactiveX/RxJava
@@ -108,11 +99,6 @@ dependencies {
     // https://projectlombok.org
     // MIT
     provided "org.projectlombok:lombok:1.16.6"
-
-    // Monkey test the network connection
-    // https://github.com/tir38/android-network-monkey
-    // Apache 2.0
-    compile 'io.jasonatwood:networkmonkey:1.0'
 
     // Only needed for API 19-20
     compile 'com.android.support:multidex:1.0.1'
