@@ -31,11 +31,11 @@ public class RestCoordinator {
         return webService.getApps().map(response -> {
             List<App> apps = new ArrayList<>();
             if (response.isSuccessful()) {
-                List<AppResponse> appResponses = response.body();
-                for (AppResponse appResponse : appResponses) {
-                    App app = appResponse.toApp();
+                List<AppResponseBody> appResponseBodies = response.body();
+                for (AppResponseBody appResponseBody : appResponseBodies) {
+                    App app = appResponseBody.toApp();
                     if (app != null) {
-                        apps.add(appResponse.toApp());
+                        apps.add(appResponseBody.toApp());
                     }
                 }
                 return apps;

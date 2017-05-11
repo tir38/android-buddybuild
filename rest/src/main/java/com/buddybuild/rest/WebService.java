@@ -12,5 +12,5 @@ interface WebService {
 
     // https://api.buddybuild.com/v1/apps
     @GET("apps")
-    Single<Response<List<AppResponse>>> getApps();
+    Single<Response<List<AppResponseBody>>> getApps();
 }

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import timber.log.Timber;
 
-public class AppResponse {
+public class AppResponseBody {
 
     private static final String IOS_SERVER_STRING = "ios";
     private static final String ANDROID_SERVER_STRING = "android";
@@ -22,7 +22,7 @@ public class AppResponse {
      *
      * @return {@link App} if json is complete, or null if incomplete
      */
-    public App toApp() {
+    App toApp() {
         if (id == null || name == null || platformString == null) {
             Timber.w("incomplete json");
             return null;
