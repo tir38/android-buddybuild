@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.buddybuild.App;
 import com.buddybuild.BuddyBuildApplication;
@@ -80,16 +79,6 @@ public class AppsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        coordinator.login(ADD IN)
-                .doOnNext(aBoolean -> getApps()) // TODO hacky
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        aBoolean -> Toast.makeText(getContext(), "boolean", Toast.LENGTH_SHORT).show());
-
-    }
-
-    private void getApps() {
         coordinator.getApps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -2,6 +2,7 @@ package com.buddybuild.di;
 
 import com.buddybuild.rest.RestModule;
 import com.buddybuild.ui.AppsFragment;
+import com.buddybuild.ui.LoginFragment;
 
 import javax.inject.Singleton;
 
@@ -15,5 +16,7 @@ import dagger.Component;
 public interface MainComponent {
 
     void inject(AppsFragment appsFragment);
+
+    void inject(LoginFragment loginFragment);
 }
 
