@@ -51,8 +51,13 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, view);
-
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @OnClick(R.id.fragment_login_button)
@@ -61,22 +66,17 @@ public class LoginFragment extends Fragment {
                 && !emailEditText.getText().toString().equals("")
                 && passwordEditText.getText() != null
                 && !passwordEditText.getText().toString().equals("")) {
+
             coordinator.login(emailEditText.getText().toString(), passwordEditText.getText().toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(success -> {
                         if (success) {
                             Intent intent = AppsActivity.newIntent(getContext());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-                            // TODO clear stack
                         }
                     });
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }
