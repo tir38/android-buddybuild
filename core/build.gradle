@@ -6,10 +6,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-//noinspection GroovyUnusedAssignment // we really do need these
-sourceCompatibility = "1.7"
-//noinspection GroovyUnusedAssignment // we really do need these
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
 tasks.withType(Checkstyle) {
     configFile rootProject.file('config/checkstyle.xml')

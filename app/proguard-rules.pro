@@ -7,9 +7,6 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
-# for RetroLambda
--dontwarn java.lang.invoke.*
-
 # for OkHttp
 -dontwarn okhttp3.**
 -dontwarn okio.**
