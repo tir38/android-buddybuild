@@ -31,6 +31,8 @@ ext {
     timberLibVersion = "4.5.1"
     supportLibVersion = "25.3.0"
     googleLibVersion = "9.8.0"
+
     junitVersion = "4.12"
     assertJVersion = "3.6.2"
+    mockitoVersion = "2.0.53-beta"
 }

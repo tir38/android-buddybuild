@@ -1,6 +1,6 @@
 package com.buddybuild.rest;
 
-import com.buddybuild.App;
+import com.buddybuild.core.App;
 import com.google.gson.annotations.SerializedName;
 
 import timber.log.Timber;
@@ -24,7 +24,7 @@ public class AppResponseBody {
      */
     App toApp() {
         if (id == null || name == null || platformString == null) {
-            Timber.w("incomplete json");
+            Timber.e("incomplete json");
             return null;
         }
 
@@ -34,7 +34,7 @@ public class AppResponseBody {
         } else if (platformString.equals(ANDROID_SERVER_STRING)) {
             platform = App.Platform.ANDROID;
         } else {
-            Timber.w("unknown platform: %s", platformString);
+            Timber.e("unknown platform: %s", platformString);
             return null;
         }
 

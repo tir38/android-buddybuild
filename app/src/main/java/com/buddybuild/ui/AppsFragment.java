@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.buddybuild.App;
+import com.buddybuild.core.App;
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.R;

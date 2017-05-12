@@ -1,5 +1,6 @@
 package com.buddybuild;
 
+import com.buddybuild.core.App;
 import com.buddybuild.rest.RestCoordinator;
 
 import java.util.List;

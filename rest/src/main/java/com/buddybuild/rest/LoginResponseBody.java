@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 class LoginResponseBody {
     @SerializedName("token")
-    protected String sessionToken;
+    private String sessionToken;
 
-    public String getSessionToken() {
+    String getSessionToken() {
         return sessionToken;
     }
 }

@@ -1,6 +1,8 @@
 package com.buddybuild;
 
 
+import com.buddybuild.core.App;
+
 import java.util.List;
 
 import io.reactivex.Single;

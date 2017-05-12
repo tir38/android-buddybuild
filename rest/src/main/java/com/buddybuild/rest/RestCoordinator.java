@@ -1,6 +1,6 @@
 package com.buddybuild.rest;
 
-import com.buddybuild.App;
+import com.buddybuild.core.App;
 
 import java.util.ArrayList;
 import java.util.List;

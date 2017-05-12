@@ -19,6 +19,9 @@ dependencies {
     // MIT
     compileOnly "org.projectlombok:lombok:1.12.6"
 
+    // ---------------
+    // UNIT TEST DEPENDENCIES
+    // ---------------
     testCompile 'junit:junit:' + rootProject.ext.junitVersion
     testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
 }
