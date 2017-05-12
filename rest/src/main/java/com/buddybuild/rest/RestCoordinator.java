@@ -23,37 +23,38 @@ public class RestCoordinator {
     }
 
     /**
-     * TODO
-     *
-     * @return
+     * @return a {@link Single} which emits a list of {@link App}s
      */
     public Single<List<App>> getApps() {
-        return apiWebService.getApps().map(response -> {
-            List<App> apps = new ArrayList<>();
-            if (response.isSuccessful()) {
-                List<AppResponseBody> appResponseBodies = response.body();
-                for (AppResponseBody appResponseBody : appResponseBodies) {
-                    App app = appResponseBody.toApp();
-                    if (app != null) {
-                        apps.add(appResponseBody.toApp());
+        return apiWebService
+                .getApps()
+                .map(response -> {
+                    List<App> apps = new ArrayList<>();
+                    if (response.isSuccessful()) {
+                        List<AppResponseBody> appResponseBodies = response.body();
+                        for (AppResponseBody appResponseBody : appResponseBodies) {
+                            App app = appResponseBody.toApp();
+                            if (app != null) {
+                                apps.add(appResponseBody.toApp());
+                            }
+                        }
+                        return apps;
+                    } else {
+                        return apps; // for now on failure just emit empty list
                     }
-                }
-                return apps;
-            } else {
-                return apps; // TODO handle nonsuccess
-            }
-        });
+                });
     }
 
     /**
-     * TODO
+     * Login to BuddyBuild API
      *
-     * @param email
-     * @param password
-     * @return
+     * @param email    user's email
+     * @param password user's password
+     * @return a {@link Single} that emits true if success, and false if failure
      */
     public Single<Boolean> login(String email, String password) {
-        return dashboardWebService.login(new LoginRequestBody(email, password))
+        return dashboardWebService
+                .login(new LoginRequestBody(email, password))
                 .map(response -> {
                     if (response.isSuccessful()) {
                         tokenStore.setToken(response.body().getSessionToken());

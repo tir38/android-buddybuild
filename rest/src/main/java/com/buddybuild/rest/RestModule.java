@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class RestModule {
+
     @Provides
     @Singleton
     RestCoordinator provideWebserviceWrapper(ApiWebService apiWebService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
@@ -66,11 +67,11 @@ public class RestModule {
 
         // add logging interceptor
         // (since this will use system Log (not Timber) we have to manually disable logging in release builds)
-//        if (BuildConfig.DEBUG) { // TODO figure out how to disable logging when in this module
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okHttpClientBuilder.addInterceptor(loggingInterceptor);
-//        }
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpClientBuilder.addInterceptor(loggingInterceptor);
+        }
 
         return okHttpClientBuilder.build();
     }
