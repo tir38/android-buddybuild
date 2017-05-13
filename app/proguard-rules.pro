@@ -1,6 +1,8 @@
 # general
 -dontobfuscate
 
+-dontwarn java.lang.invoke.*
+
 # for Retrofit2
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
