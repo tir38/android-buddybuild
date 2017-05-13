@@ -8,9 +8,7 @@ import org.mockito.Mockito;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,28 +16,15 @@ import retrofit2.mock.BehaviorDelegate;
 import retrofit2.mock.MockRetrofit;
 import retrofit2.mock.NetworkBehavior;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 public class RestCoordinatorTest {
 
     private DashboardWebService mockDashboardWebService;
     private ApiWebService mockApiWebService;
     private TokenStore spyTokenStore;
-
-    static final class MockDashboardWebService implements DashboardWebService {
-
-        private BehaviorDelegate<DashboardWebService> behaviorDelegate;
-
-        public MockDashboardWebService(BehaviorDelegate<DashboardWebService> behaviorDelegate) {
-            this.behaviorDelegate = behaviorDelegate;
-        }
-
-        @Override
-        public Single<Response<LoginResponseBody>> login(LoginRequestBody loginRequestBody) {
-            String json = JsonStringReader.readJsonSampleFromFile("login/valid_login_response");
-            Gson gson = new Gson();
-            LoginResponseBody loginResponseBody = gson.fromJson(json, LoginResponseBody.class);
-            return behaviorDelegate.returningResponse(loginResponseBody).login(loginRequestBody);
-        }
-    }
+    private BehaviorDelegate<DashboardWebService> dashboardWebServiceBehaviorDelegate;
 
     @Before
     public void setUp() throws Exception {
@@ -59,10 +44,8 @@ public class RestCoordinatorTest {
                 .networkBehavior(perfectNetworkBehavior)
                 .build();
 
-        BehaviorDelegate<DashboardWebService> behaviorDelegate = mockRetrofit.create(DashboardWebService.class);
-
-        mockDashboardWebService = new MockDashboardWebService(behaviorDelegate);
-
+        dashboardWebServiceBehaviorDelegate = mockRetrofit.create(DashboardWebService.class);
+        mockDashboardWebService = Mockito.mock(DashboardWebService.class);
         mockApiWebService = Mockito.mock(ApiWebService.class);
         spyTokenStore = Mockito.spy(TokenStore.class);
     }
@@ -72,6 +55,17 @@ public class RestCoordinatorTest {
         // arrange
         String email = "a@b.com";
         String password = "password";
+
+        String json = JsonStringReader.readJsonSampleFromFile("login/valid_login_response");
+        Gson gson = new Gson();
+        LoginResponseBody loginResponseBody = gson.fromJson(json, LoginResponseBody.class);
+
+        when(mockDashboardWebService.login(Mockito.any(LoginRequestBody.class)))
+                .thenReturn(
+                        dashboardWebServiceBehaviorDelegate
+                                .returningResponse(loginResponseBody)
+                                .login(new LoginRequestBody(email, password))
+                );
 
         RestCoordinator restCoordinator
                 = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
@@ -84,6 +78,6 @@ public class RestCoordinatorTest {
         // assert
         testObserver.assertNoErrors();
         testObserver.assertValueCount(1);
-        Mockito.verify(spyTokenStore).setToken("some returned token");
+        verify(spyTokenStore).setToken("some returned token");
     }
 }
