@@ -8,17 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.buddybuild.core.App;
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.R;
+import com.buddybuild.core.App;
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,27 +30,30 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Fragment for displaying list of {@link App}s
  */
 public class AppsFragment extends Fragment {
 
-
     @Inject
     protected Coordinator coordinator;
 
     @BindView(R.id.fragment_apps_recyclerview)
     RecyclerView recyclerView;
-    @BindView(R.id.fragment_apps_toolbar)
-    Toolbar toolbar;
-
 
     private Unbinder unbinder;
     private AppsAdapter adapter;
 
+    private Callbacks callbacks;
+
     public static AppsFragment newInstance() {
         return new AppsFragment();
+    }
+
+    interface Callbacks {
+        void onAppClicked(String appId);
     }
 
     @Override
@@ -58,6 +61,12 @@ public class AppsFragment extends Fragment {
         super.onAttach(context);
         BuddyBuildApplication application = (BuddyBuildApplication) context.getApplicationContext();
         application.getComponent().inject(this);
+
+        try {
+            callbacks = (Callbacks) context;
+        } catch (ClassCastException e) {
+            Timber.e(e, "context does not implement callbacks");
+        }
     }
 
     @Nullable
@@ -69,8 +78,8 @@ public class AppsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new AppsAdapter();
         recyclerView.setAdapter(adapter);
-
-        toolbar.setTitle(R.string.buddybuild);
+        Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.line_divider);
+        recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 
         return view;
     }
@@ -78,7 +87,6 @@ public class AppsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         coordinator.getApps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -91,9 +99,10 @@ public class AppsFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private static class AppsAdapter extends RecyclerView.Adapter<AppViewHolder> {
+    private class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder> {
 
         private List<App> apps = new ArrayList<>();
+        private int selectedItem;
 
         @Override
         public AppViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -103,7 +112,13 @@ public class AppsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(AppViewHolder holder, int position) {
-            holder.bind(apps.get(position));
+            holder.itemView.setSelected(selectedItem == position);
+            holder.bind(apps.get(position), v -> {
+                callbacks.onAppClicked(apps.get(position).getId());
+                notifyItemChanged(selectedItem);
+                selectedItem = holder.getAdapterPosition();
+                notifyItemChanged(selectedItem);
+            });
         }
 
         @Override
@@ -116,36 +131,39 @@ public class AppsFragment extends Fragment {
             this.apps.addAll(apps);
             notifyDataSetChanged();
         }
-    }
 
-    private static class AppViewHolder extends RecyclerView.ViewHolder {
+        class AppViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView nameTextView;
-        private final ImageView platformIconView;
-        private final Drawable androidIcon;
-        private final Drawable iosIcon;
+            private final TextView nameTextView;
+            private final ImageView platformIconView;
+            private final Drawable androidIcon;
+            private final Drawable iosIcon;
+            private View itemView;
 
-        private AppViewHolder(View itemView) {
-            super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.list_item_app_name);
-            platformIconView = (ImageView) itemView.findViewById(R.id.list_item_platform_icon);
-            androidIcon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_android_24dp);
-            iosIcon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_apple_24dp);
+            private AppViewHolder(View itemView) {
+                super(itemView);
+                nameTextView = (TextView) itemView.findViewById(R.id.list_item_app_name);
+                platformIconView = (ImageView) itemView.findViewById(R.id.list_item_platform_icon);
+                androidIcon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_android_24dp);
+                iosIcon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_apple_24dp);
+                this.itemView = itemView;
+            }
 
-        }
+            private void bind(App app, View.OnClickListener onClickListener) {
+                itemView.setOnClickListener(onClickListener);
 
-        private void bind(App app) {
-            nameTextView.setText(app.getName());
+                nameTextView.setText(app.getName());
 
-            switch (app.getPlatform()) {
-                case ANDROID:
-                    platformIconView.setImageDrawable(androidIcon);
-                    break;
-                case IOS:
-                    platformIconView.setImageDrawable(iosIcon);
-                    break;
-                default:
-                    throw new IllegalStateException("unknown platform");
+                switch (app.getPlatform()) {
+                    case ANDROID:
+                        platformIconView.setImageDrawable(androidIcon);
+                        break;
+                    case IOS:
+                        platformIconView.setImageDrawable(iosIcon);
+                        break;
+                    default:
+                        throw new IllegalStateException("unknown platform");
+                }
             }
         }
     }

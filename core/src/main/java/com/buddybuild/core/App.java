@@ -21,7 +21,17 @@ public class App {
     }
 
     public enum Platform {
-        ANDROID,
-        IOS
+        ANDROID("ANDROID"),
+        IOS("IOS");
+
+        private String prettyString;
+
+        Platform(String prettyString) {
+            this.prettyString = prettyString;
+        }
+
+        public String prettyString() {
+            return prettyString;
+        }
     }
 }
