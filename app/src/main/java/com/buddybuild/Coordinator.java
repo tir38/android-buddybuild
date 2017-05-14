@@ -2,6 +2,7 @@ package com.buddybuild;
 
 
 import com.buddybuild.core.App;
+import com.buddybuild.core.Branch;
 
 import java.util.List;
 
@@ -19,9 +20,17 @@ public interface Coordinator {
     Single<Boolean> login(String email, String password);
 
     /**
-     * Get all apps for a signed-in user
+     * Get all {@link App}s for a signed-in user
      *
      * @return
      */
     Single<List<App>> getApps();
+
+    /**
+     * Get all {@link Branch}es for a given {@link App}
+     *
+     * @param appId
+     * @return
+     */
+    Single<List<Branch>> getBranches(String appId);
 }
