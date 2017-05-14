@@ -98,6 +98,11 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
+    // Easily add item decoration to recyclerviews
+    // http://bignerdranch.github.io/simple-item-decoration/
+    // MIT
+    compile 'com.bignerdranch.android:simple-item-decoration:1.0.0'
+
     // Only needed for API pre21
     compile 'com.android.support:multidex:1.0.1'
 

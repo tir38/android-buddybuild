@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(success -> {
                         if (success) {
-                            Intent intent = AppsActivity.newIntent(getContext());
+                            Intent intent = OverviewActivity.newIntent(getContext());
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }

@@ -11,6 +11,8 @@ public class LiveCoordinator implements Coordinator {
 
     private RestCoordinator restCoordinator;
 
+    private List<App> apps;
+
     public LiveCoordinator(RestCoordinator restCoordinator) {
         this.restCoordinator = restCoordinator;
     }
@@ -22,6 +24,7 @@ public class LiveCoordinator implements Coordinator {
 
     @Override
     public Single<List<App>> getApps() {
-        return restCoordinator.getApps();
+        return restCoordinator.getApps()
+                .doOnSuccess(apps -> LiveCoordinator.this.apps = apps); // update mem cache
     }
 }
