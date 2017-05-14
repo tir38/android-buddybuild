@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.stoyicker.android-check'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError true
+        ignoreWarnings false
+        lintConfig file('../config/lint.xml')
+    }
+}
+
+check {
+    checkstyle {
+        config '../config/checkstyle.xml'
+        abortOnError true
+    }
+    findbugs { skip true }
+    pmd { skip true }
+}
+
+dependencies {
+    compile project(':core')
+
+    // REST + HTTP client
+    // http://square.github.io/retrofit/
+    // Apache 2.0
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+    // Better logging
+    // https://github.com/JakeWharton/timber
+    // Apache 2.0
+    compile 'com.jakewharton.timber:timber:' + rootProject.ext.timberLibVersion
+
+    // Dependency injection
+    // http://google.github.io/dagger/
+    // Apache 2.0
+    compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
+    annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
+
+    compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
+
+    // ---------------
+    // UNIT TEST DEPENDENCIES
+    // ---------------
+    testCompile 'junit:junit:' + rootProject.ext.junitVersion
+    testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
+    testCompile 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
+
+    testCompile 'com.squareup.retrofit2:retrofit-mock:2.2.0'
+}

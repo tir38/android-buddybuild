@@ -1,14 +1,13 @@
 # general
 -dontobfuscate
 
+-dontwarn java.lang.invoke.*
+
 # for Retrofit2
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
-
-# for RetroLambda
--dontwarn java.lang.invoke.*
 
 # for OkHttp
 -dontwarn okhttp3.**

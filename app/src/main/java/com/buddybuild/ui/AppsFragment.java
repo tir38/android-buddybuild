@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.buddybuild.App;
+import com.buddybuild.core.App;
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.R;
@@ -78,6 +78,7 @@ public class AppsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         coordinator.getApps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

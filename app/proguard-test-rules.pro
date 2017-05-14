@@ -1,7 +1,5 @@
 -dontobfuscate
 
--dontwarn
-
 -dontwarn org.hamcrest.**
 -dontwarn android.test.**
 

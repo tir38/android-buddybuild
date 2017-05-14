@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'spoon'
 apply plugin: 'org.stoyicker.android-check'
-
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -14,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
     }
     signingConfigs {
         release {
@@ -32,12 +30,12 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
-            buildConfigField "String", "ACCESS_TOKEN", "\"" + System.getenv("BB_ACCESS_TOKEN") + "\"";
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
             signingConfig signingConfigs.release
         }
     }
@@ -51,6 +49,10 @@ android {
     }
     dataBinding {
         enabled = true
+    }
+    dexOptions {
+        preDexLibraries = true
+        javaMaxHeapSize "2g"
     }
     lintOptions {
         abortOnError true
@@ -70,6 +72,7 @@ check {
 
 dependencies {
     compile project(':core')
+    compile project(':rest')
 
     // Better logging
     // https://github.com/JakeWharton/timber
@@ -82,15 +85,6 @@ dependencies {
     compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
     annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
 
-    // HTTP client
-    // http://square.github.io/retrofit/
-    // Apache 2.0
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-
     // RxJava2 and Reactive Extensions for Android
     // https://github.com/ReactiveX/RxJava
     // https://github.com/ReactiveX/RxAndroid
@@ -102,19 +96,9 @@ dependencies {
     // http://jakewharton.github.io/butterknife/
     // Apache 2.0
     compile 'com.jakewharton:butterknife:8.5.1'
-    provided 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
-    // Annotation-based model creation
-    // https://projectlombok.org
-    // MIT
-    provided "org.projectlombok:lombok:1.16.6"
-
-    // Monkey test the network connection
-    // https://github.com/tir38/android-network-monkey
-    // Apache 2.0
-    compile 'io.jasonatwood:networkmonkey:1.0'
-
-    // Only needed for API 19-20
+    // Only needed for API pre21
     compile 'com.android.support:multidex:1.0.1'
 
     // support libs; not all of these are directly used by the app
@@ -129,7 +113,7 @@ dependencies {
     // ---------------
     testCompile 'junit:junit:' + rootProject.ext.junitVersion
     testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
-    testCompile 'org.mockito:mockito-core:2.0.53-beta'
+    testCompile 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
 
     // ---------------
     // UI TEST DEPENDENCIES

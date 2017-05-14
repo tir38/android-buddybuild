@@ -1,4 +1,4 @@
-package com.buddybuild;
+package com.buddybuild.core;
 
 import lombok.Getter;
 

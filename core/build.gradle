@@ -6,11 +6,12 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-//noinspection GroovyUnusedAssignment // we really do need these
-sourceCompatibility = "1.7"
-//noinspection GroovyUnusedAssignment // we really do need these
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
+tasks.withType(Checkstyle) {
+    configFile rootProject.file('config/checkstyle.xml')
+}
 
 dependencies {
     // Annotation-based model creation
@@ -18,6 +19,9 @@ dependencies {
     // MIT
     compileOnly "org.projectlombok:lombok:1.12.6"
 
+    // ---------------
+    // UNIT TEST DEPENDENCIES
+    // ---------------
     testCompile 'junit:junit:' + rootProject.ext.junitVersion
     testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
 }

@@ -1,11 +1,11 @@
 package com.buddybuild.rest;
 
-import com.buddybuild.App;
+import com.buddybuild.core.App;
 import com.google.gson.annotations.SerializedName;
 
 import timber.log.Timber;
 
-public class AppResponse {
+public class AppResponseBody {
 
     private static final String IOS_SERVER_STRING = "ios";
     private static final String ANDROID_SERVER_STRING = "android";
@@ -22,9 +22,9 @@ public class AppResponse {
      *
      * @return {@link App} if json is complete, or null if incomplete
      */
-    public App toApp() {
+    App toApp() {
         if (id == null || name == null || platformString == null) {
-            Timber.w("incomplete json");
+            Timber.e("incomplete json");
             return null;
         }
 
@@ -34,7 +34,7 @@ public class AppResponse {
         } else if (platformString.equals(ANDROID_SERVER_STRING)) {
             platform = App.Platform.ANDROID;
         } else {
-            Timber.w("unknown platform: %s", platformString);
+            Timber.e("unknown platform: %s", platformString);
             return null;
         }
 

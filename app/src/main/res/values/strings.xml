@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">BuddyBuild</string>
     <string name="buddybuild">BuddyBuild</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
