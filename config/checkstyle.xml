@@ -32,7 +32,7 @@
 
         <!-- be sure to update code style in android studio -->
         <module name="LineLength">
-            <property name="max" value="200"/>
+            <property name="max" value="120"/>
         </module>
         <!--<module name="MethodLength"/>-->
         <module name="ParameterNumber"/>
