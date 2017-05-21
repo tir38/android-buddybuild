@@ -7,7 +7,6 @@
 -keep class android.support.test.** { *; }
 
 -keep class junit.runner.** { *; }
--keep class junit.framework.** { *; }
 -keep class org.jmock.core.** { *; }
 -keep class org.easymock.** { *; }
 

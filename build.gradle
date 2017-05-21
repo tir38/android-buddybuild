@@ -29,10 +29,11 @@ ext {
 
     daggerLibVersion = "2.10"
     timberLibVersion = "4.5.1"
+    threetenapbLibVersion = "1.0.5"
     supportLibVersion = "25.3.0"
     googleLibVersion = "9.8.0"
 
     junitVersion = "4.12"
-    assertJVersion = "3.6.2"
+    assertJVersion = "3.7.0"
     mockitoVersion = "2.0.53-beta"
 }

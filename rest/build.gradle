@@ -41,7 +41,6 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
     // Better logging
@@ -54,6 +53,13 @@ dependencies {
     // Apache 2.0
     compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
     annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
+
+    // An adaptation of the JSR-310 backport for Android
+    // (i.e. better date and time classes)
+    // https://github.com/JakeWharton/ThreeTenABP
+    // Apache 2.0
+    compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
+
 
     compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
 

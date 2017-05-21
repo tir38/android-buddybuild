@@ -25,11 +25,13 @@ public class Branch {
     }
 
     /**
-     * TODO
+     * Get the most recent Build Event of any {@link Build}
      *
-     * @return
+     * @return ZonedDateTime representing latest event
      */
+    @SuppressWarnings("WeakerAccess") // keep public
     public ZonedDateTime getMostRecentBuildEvent() {
+        //noinspection ConstantConditions // lint things builds cannot ever be null, not sure why but it's not true =(
         if (builds == null || builds.isEmpty()) {
             return null;
         }

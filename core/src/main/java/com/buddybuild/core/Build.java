@@ -16,7 +16,7 @@ public class Build {
     private Boolean buildStatus;
 
     @Getter
-    private String branch;
+    private String branch; // TODO rename to branchName
 
     @Getter
     private Integer buildNumber;
@@ -28,13 +28,13 @@ public class Build {
     private String commitMessage;
 
     @Getter
-    private ZonedDateTime createTime;
+    private ZonedDateTime createTime; // TODO add tests
 
     @Getter
-    private ZonedDateTime startTime;
+    private ZonedDateTime startTime; // TODO add tests
 
     @Getter
-    private ZonedDateTime finishTime;
+    private ZonedDateTime finishTime; // TODO add tests
 
     /**
      * @return most recent build event: finished, started, then created... or null
@@ -103,6 +103,7 @@ public class Build {
             return this;
         }
 
+        // TODO add tests
         public Builder createTime(ZonedDateTime createTime) {
             this.createTime = createTime;
             return this;

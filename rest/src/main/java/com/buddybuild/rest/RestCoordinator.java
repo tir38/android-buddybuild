@@ -47,8 +47,13 @@ public class RestCoordinator {
                 });
     }
 
+    /**
+     * Get all open {@link Branch}es for a given {@link App}
+     *
+     * @param appId ID of the {@link App}
+     * @return Single of List<Branch>
+     */
     public Single<List<Branch>> getBranches(String appId) {
-        // TODO add tests
         return apiWebService
                 .getBranchesForApp(appId)
                 .map(response -> {
@@ -68,24 +73,23 @@ public class RestCoordinator {
                 });
     }
 
-    public Single<List<Build>> getBuilds(String appId) {
-        // TODO add tests
-        return apiWebService
-                .getBuildsForApp(appId)
+    /**
+     * Get up to five most recent {@link Build}s for a given {@link Branch} name
+     *
+     * @param appId      ID of the {@link App}
+     * @param branchName name of  the {@link Branch}
+     * @return Single of List<Build>
+     */
+    public Single<List<Build>> getBuildsForBranch(final String appId, final String branchName) {
+        return apiWebService.getBuildsForBranch(appId, branchName)
                 .map(response -> {
                     List<Build> builds = new ArrayList<>();
                     if (response.isSuccessful()) {
-                        List<BuildResponseBody> buildResponseBodies = response.body();
-                        for (BuildResponseBody buildResponseBody : buildResponseBodies) {
-                            Build build = buildResponseBody.toBuild();
-                            if (build != null) {
-                                builds.add(build);
-                            }
+                        for (BuildResponseBody buildResponseBody : response.body()) {
+                            builds.add(buildResponseBody.toBuild());
                         }
-                        return builds;
-                    } else {
-                        return builds; // for now on failure just emit empty list
                     }
+                    return builds; // for now emit empty list on failure
                 });
     }
 

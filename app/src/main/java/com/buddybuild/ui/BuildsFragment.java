@@ -24,6 +24,7 @@ import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -89,6 +90,10 @@ public class BuildsFragment extends Fragment {
     public void setApp(String appId) {
 
         coordinator.getBranches(appId)
+                .map(branches -> {
+                    Collections.sort(branches, new Branch.SortByMostRecentEvent());
+                    return branches;
+                })
                 .map(branches -> {
                     List<BranchItem> branchItems = new ArrayList<>();
                     for (Branch branch : branches) {

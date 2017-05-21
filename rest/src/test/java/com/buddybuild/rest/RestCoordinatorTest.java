@@ -31,7 +31,8 @@ public class RestCoordinatorTest {
         Retrofit dashboardRetrofit = new Retrofit.Builder()
                 .baseUrl("https://dashboard.buddybuild.com/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // This is the magic.... we can't use createWithScheduler(Schedulers.io())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // This is the magic....
+                // we can't use createWithScheduler(Schedulers.io())
                 .build();
 
         NetworkBehavior perfectNetworkBehavior = NetworkBehavior.create();

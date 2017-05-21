@@ -7,7 +7,11 @@
 
 <!-- Custom Checkstyle config-->
 <module name="Checker">
-    
+
+    <module name="SuppressionFilter">
+        <property name="file" value="config/checkstyle_suppression.xml"/>
+    </module>
+
     <!--module name="NewlineAtEndOfFile"/-->
     <module name="FileLength"/>
     <module name="FileTabCharacter"/>
