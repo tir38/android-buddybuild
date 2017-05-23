@@ -1,5 +1,7 @@
 package com.buddybuild.rest.util;
 
+import android.support.annotation.Nullable;
+
 import org.threeten.bp.ZonedDateTime;
 
 public class DateTimeUtil {
@@ -7,7 +9,11 @@ public class DateTimeUtil {
     private DateTimeUtil() {
     }
 
-    public static ZonedDateTime toZonedDateTime(String input) {
+    @Nullable
+    public static ZonedDateTime toZonedDateTime(@Nullable String input) {
+        if (input == null || input.equals("")) {
+            return null;
+        }
         return ZonedDateTime.parse(input);
     }
 }

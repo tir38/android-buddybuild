@@ -1,10 +1,12 @@
 package com.buddybuild.ui;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +24,9 @@ import com.buddybuild.R;
 import com.buddybuild.core.App;
 import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
+import com.buddybuild.ui.view.StatusIcon;
+import com.buddybuild.utils.DateUtils;
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,7 +73,10 @@ public class BuildsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_builds, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        // setup recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Drawable dividerDrawable = ContextCompat.getDrawable(getContext(), R.drawable.line_divider);
+        recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
         branchItems = new ArrayList<>();
         adapter = new BranchBuildsAdapter(branchItems);
         recyclerView.setAdapter(adapter);
@@ -170,14 +178,32 @@ public class BuildsFragment extends Fragment {
     private static class BuildViewHolder extends ChildViewHolder {
 
         private final TextView nameTextView;
+        private final StatusIcon statusIcon;
+        private final TextView authorTextView;
+        private final TextView commitTextView;
+        private final TextView timeTextView;
 
         private BuildViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.list_item_build_name);
+            ButterKnife.bind(this, itemView);
+            nameTextView = (TextView) itemView.findViewById(R.id.list_item_build_name_textview);
+            statusIcon = (StatusIcon) itemView.findViewById(R.id.list_item_build_status_icon);
+            authorTextView = (TextView) itemView.findViewById(R.id.list_item_build_author_textview);
+            commitTextView = (TextView) itemView.findViewById(R.id.list_item_build_commit_msg_textview);
+            timeTextView = (TextView) itemView.findViewById(R.id.list_item_build_time_textview);
         }
 
         private void bind(BuildItem buildItem) {
-            nameTextView.setText(String.valueOf(buildItem.build.getBuildNumber()));
+            Build build = buildItem.build;
+
+            String buildNumber = itemView.getContext()
+                    .getResources().getString(R.string.build_number, build.getBuildNumber());
+            nameTextView.setText(buildNumber);
+            authorTextView.setText(build.getAuthor());
+            commitTextView.setText(build.getCommitMessage().split("\n", 2)[0]); // truncate at first '\n'
+            String someTimeAgo = DateUtils.ago(build.getMostRecentBuildEvent());
+            timeTextView.setText(someTimeAgo);
+            statusIcon.setStatus(build.getBuildStatus());
         }
     }
 
@@ -186,24 +212,25 @@ public class BuildsFragment extends Fragment {
      */
     private class BranchItem implements Parent<BuildItem> {
         private final Branch branch;
+        private final List<BuildItem> buildItems;
 
         private BranchItem(Branch branch) {
             this.branch = branch;
+
+            buildItems = new ArrayList<>();
+            for (Build build : branch.getBuilds()) {
+                buildItems.add(new BuildItem(build));
+            }
         }
 
         @Override
         public List<BuildItem> getChildList() {
-            // TODO should I lazy create this only ONCE?
-            List<BuildItem> buildItems = new ArrayList<>();
-            for (Build build : branch.getBuilds()) {
-                buildItems.add(new BuildItem(build));
-            }
             return buildItems;
         }
 
         @Override
         public boolean isInitiallyExpanded() {
-            return false;
+            return branch.getName().equals("master");
         }
     }
 
