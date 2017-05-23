@@ -13,10 +13,10 @@ public class Build {
     private String id;
 
     @Getter
-    private Boolean buildStatus;
+    private Status buildStatus;
 
     @Getter
-    private String branch; // TODO rename to branchName
+    private String branchName;
 
     @Getter
     private Integer buildNumber;
@@ -49,11 +49,11 @@ public class Build {
         return createTime;
     }
 
-    private Build(String id, Boolean buildStatus, String branch, Integer buildNumber, String author, String
+    private Build(String id, Status buildStatus, String branchName, Integer buildNumber, String author, String
             commitMessage, ZonedDateTime createTime, ZonedDateTime startTime, ZonedDateTime finishTime) {
         this.id = id;
         this.buildStatus = buildStatus;
-        this.branch = branch;
+        this.branchName = branchName;
         this.buildNumber = buildNumber;
         this.author = author;
         this.commitMessage = commitMessage;
@@ -64,8 +64,8 @@ public class Build {
 
     public static class Builder {
         private String id;
-        private Boolean buildStatus;
-        private String branch;
+        private Status buildStatus;
+        private String branchName;
         private Integer buildNumber;
         private String author;
         private String commitMessage;
@@ -78,13 +78,13 @@ public class Build {
             return this;
         }
 
-        public Builder buildStatus(Boolean buildStatus) {
+        public Builder buildStatus(Status buildStatus) {
             this.buildStatus = buildStatus;
             return this;
         }
 
-        public Builder branch(String branch) {
-            this.branch = branch;
+        public Builder branchName(String branchName) {
+            this.branchName = branchName;
             return this;
         }
 
@@ -120,8 +120,16 @@ public class Build {
         }
 
         public Build build() {
-            return new Build(id, buildStatus, branch, buildNumber, author, commitMessage, createTime, startTime,
+            return new Build(id, buildStatus, branchName, buildNumber, author, commitMessage, createTime, startTime,
                     finishTime);
         }
+    }
+
+    public enum Status {
+        CANCELLED,
+        FAILED,
+        QUEUED,
+        RUNNING,
+        SUCCESS
     }
 }
