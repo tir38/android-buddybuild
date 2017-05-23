@@ -2,6 +2,7 @@ package com.buddybuild;
 
 
 import com.buddybuild.core.App;
+import com.buddybuild.core.Branch;
 
 import java.util.List;
 
@@ -12,16 +13,24 @@ public interface Coordinator {
     /**
      * login a user with email and password
      *
-     * @param email
-     * @param password
-     * @return an observable of boolean which emits true if successful, false if failed
+     * @param email    user's email address
+     * @param password user's password
+     * @return a single of boolean which emits true if successful, false if failed
      */
     Single<Boolean> login(String email, String password);
 
     /**
-     * Get all apps for a signed-in user
+     * Get all {@link App}s for a signed-in user
      *
-     * @return
+     * @return Single of List<App>
      */
     Single<List<App>> getApps();
+
+    /**
+     * Get all {@link Branch}es for a given {@link App}
+     *
+     * @param appId ID of the {@link App}
+     * @return single of List<Branch>
+     */
+    Single<List<Branch>> getBranches(String appId);
 }

@@ -1,6 +1,7 @@
 package com.buddybuild;
 
 import com.buddybuild.core.App;
+import com.buddybuild.core.Branch;
 import com.buddybuild.rest.RestCoordinator;
 
 import java.util.List;
@@ -10,8 +11,6 @@ import io.reactivex.Single;
 public class LiveCoordinator implements Coordinator {
 
     private RestCoordinator restCoordinator;
-
-    private List<App> apps;
 
     public LiveCoordinator(RestCoordinator restCoordinator) {
         this.restCoordinator = restCoordinator;
@@ -24,7 +23,18 @@ public class LiveCoordinator implements Coordinator {
 
     @Override
     public Single<List<App>> getApps() {
-        return restCoordinator.getApps()
-                .doOnSuccess(apps -> LiveCoordinator.this.apps = apps); // update mem cache
+        return restCoordinator.getApps();
+    }
+
+    @Override
+    public Single<List<Branch>> getBranches(final String appId) {
+        return restCoordinator.getBranches(appId)
+                .flattenAsObservable(branches -> branches) // emit each branch in list one at a time
+                .flatMap(branch -> restCoordinator.getBuildsForBranch(appId, branch.getName()).toObservable(),
+                        (branch, builds) -> {
+                            branch.setBuilds(builds); // add builds to branch
+                            return branch;
+                        })
+                .toList();
     }
 }

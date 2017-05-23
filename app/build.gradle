@@ -103,6 +103,17 @@ dependencies {
     // MIT
     compile 'com.bignerdranch.android:simple-item-decoration:1.0.0'
 
+    // Expand recycler view elements
+    // https://bignerdranch.github.io/expandable-recycler-view/
+    // MIT
+    compile 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+
+    // An adaptation of the JSR-310 backport for Android
+    // (i.e. better date and time classes)
+    // https://github.com/JakeWharton/ThreeTenABP
+    // Apache 2.0
+    compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
+
     // Only needed for API pre21
     compile 'com.android.support:multidex:1.0.1'
 
