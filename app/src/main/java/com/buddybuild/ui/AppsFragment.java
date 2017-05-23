@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.buddybuild.BuddyBuildApplication;
@@ -136,17 +136,13 @@ public class AppsFragment extends Fragment {
         class AppViewHolder extends RecyclerView.ViewHolder {
 
             private final TextView nameTextView;
-            private final ImageView platformIconView;
-            private final Drawable androidIcon;
-            private final Drawable iosIcon;
+            private final Button platformButton;
             private View itemView;
 
             private AppViewHolder(View itemView) {
                 super(itemView);
                 nameTextView = (TextView) itemView.findViewById(R.id.list_item_app_name);
-                platformIconView = (ImageView) itemView.findViewById(R.id.list_item_platform_icon);
-                androidIcon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_android_24dp);
-                iosIcon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_apple_24dp);
+                platformButton = (Button) itemView.findViewById(R.id.list_item_app_platform_button);
                 this.itemView = itemView;
             }
 
@@ -157,10 +153,10 @@ public class AppsFragment extends Fragment {
 
                 switch (app.getPlatform()) {
                     case ANDROID:
-                        platformIconView.setImageDrawable(androidIcon);
+                        platformButton.setText("ANDROID");
                         break;
                     case IOS:
-                        platformIconView.setImageDrawable(iosIcon);
+                        platformButton.setText("IOS");
                         break;
                     default:
                         throw new IllegalStateException("unknown platform");

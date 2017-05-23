@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#000000</color>
+
     <color name="bb_light_blue">#1A6D92</color>
     <color name="bb_dark_blue">#19589B</color>
     <color name="bb_list_item_divider">#BFE1F9</color>
     <color name="bb_list_item_pressed">#BFE1F9</color>
     <color name="bb_list_item_selected">#F0F7FF</color>
+
+
+    <!-- Blue BB button colors-->
+    <color name="bb_button_blue_edge_color">@color/bb_light_blue</color>
+    <color name="bb_button_blue_disabled_color">@color/bb_list_item_pressed</color>
+    <color name="bb_button_blue_enabled_color">@color/bb_light_blue</color>
+    <color name="bb_button_blue_touch_effect_color">@color/bb_dark_blue</color>
+    <color name="bb_button_blue_enabled_text_color">@color/bb_light_blue</color>
+    <color name="bb_button_blue_disabled_text_color">@color/bb_list_item_pressed</color>
+
 </resources>

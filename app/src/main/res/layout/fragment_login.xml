@@ -21,10 +21,11 @@
         android:hint="@string/password"
         android:inputType="textPassword"/>
 
-    <Button
+    <com.buddybuild.ui.view.BuddyBuildButton
         android:id="@+id/fragment_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="true"
         android:text="@string/login"/>
 
 </LinearLayout>
