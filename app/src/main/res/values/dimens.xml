@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="material_side_margin">16dp</dimen>
+
+    <dimen name="bb_button_padding">12dp</dimen>
+
+    <!-- private resources copied from AOSP -->
+    <dimen name="button_inset_horizontal_material">4dp</dimen>
+    <dimen name="button_inset_vertical_material">6dp</dimen>
+    <dimen name="control_corner_material">2dp</dimen>
+    <dimen name="ghost_button_stroke_width">1dp</dimen>
+
 </resources>
