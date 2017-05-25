@@ -3,6 +3,7 @@ package com.buddybuild.rest;
 import com.buddybuild.core.App;
 import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
+import com.buddybuild.core.LogItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,26 @@ public class RestCoordinator {
                         tokenStore.setToken(response.body().getSessionToken());
                     }
                     return response.isSuccessful();
+                });
+    }
+
+    /**
+     * Get Logs for a single {@link Build}
+     *
+     * @param buildId ID of the build
+     * @return a {@link Single} that emits list of logs
+     */
+    public Single<List<LogItem>> getLog(String buildId) {
+        return apiWebService.getLogs(buildId)
+                .map(listResponse -> {
+                    List<LogItem> logs = new ArrayList<>();
+                    if (listResponse.isSuccessful()) {
+                        List<LogItemResponseBody> body = listResponse.body();
+                        for (LogItemResponseBody item : body) {
+                            logs.add(item.toLogItem());
+                        }
+                    }
+                    return logs;
                 });
     }
 }

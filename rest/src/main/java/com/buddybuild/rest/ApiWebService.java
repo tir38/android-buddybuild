@@ -33,4 +33,8 @@ interface ApiWebService {
     @GET("apps/{app_id}/builds")
     Single<Response<List<BuildResponseBody>>> getBuildsForBranch(@Path("app_id") String appId,
                                                                  @Query("branch") String branch);
+
+    // e.g. https://api.buddybuild.com/api/builds/{:build_number}/logs
+    @GET("builds/{build_id}/logs")
+    Single<Response<List<LogItemResponseBody>>> getLogs(@Path("build_id") String buildId);
 }
