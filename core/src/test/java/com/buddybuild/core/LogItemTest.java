@@ -1,11 +1,10 @@
 package com.buddybuild.core;
 
 import org.junit.Test;
-
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
+import org.threeten.bp.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.threeten.bp.temporal.ChronoUnit.MINUTES;
 
 public final class LogItemTest {
 
@@ -32,7 +31,7 @@ public final class LogItemTest {
         String msg = "test message";
         LogItem.Level level = LogItem.Level.CI;
 
-        ZonedDateTime someOtherTime = now.minus(1, ChronoUnit.MINUTES);
+        ZonedDateTime someOtherTime = now.minus(1, MINUTES);
         String someOtherMessage = "some other test message";
 
         // act

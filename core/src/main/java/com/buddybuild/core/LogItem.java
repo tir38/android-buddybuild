@@ -1,7 +1,7 @@
 package com.buddybuild.core;
 
 
-import java.time.ZonedDateTime;
+import org.threeten.bp.ZonedDateTime;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
