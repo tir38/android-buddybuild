@@ -60,7 +60,6 @@ dependencies {
     // Apache 2.0
     compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
 
-
     compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
 
     // ---------------

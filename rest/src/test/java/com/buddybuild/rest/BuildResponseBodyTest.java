@@ -33,7 +33,8 @@ public class BuildResponseBodyTest {
         assertThat(build.getCommitMessage()).isEqualTo("Add new crash type");
         assertThat(build.getBuildNumber()).isEqualTo(2);
         assertThat(build.getAuthor()).isEqualTo("David Pie");
-        assertThat(build.getBranch()).isEqualTo("master");
+        assertThat(build.getBranchName()).isEqualTo("master");
+        assertThat(build.getBuildStatus()).isEqualTo(Build.Status.FAILED);
 
         // TODO add tests for build status and create, start, finish, times;
     }

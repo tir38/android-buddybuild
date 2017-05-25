@@ -16,7 +16,8 @@ public class BuildTest {
         String branch = "test branch";
         String commitMessage = "test commit message";
         Integer buildNumber = 123;
-        Boolean buildStatus = true;
+
+        Build.Status buildStatus = Build.Status.RUNNING;
         ZonedDateTime createTime = ZonedDateTime.now().minus(3, ChronoUnit.HOURS);
         ZonedDateTime startTime = ZonedDateTime.now().minus(2, ChronoUnit.HOURS);
         ZonedDateTime finishTime = ZonedDateTime.now().minus(1, ChronoUnit.HOURS);
@@ -25,7 +26,7 @@ public class BuildTest {
         Build build = new Build.Builder()
                 .id(buildId)
                 .author(author)
-                .branch(branch)
+                .branchName(branch)
                 .commitMessage(commitMessage)
                 .buildNumber(buildNumber)
                 .buildStatus(buildStatus)
@@ -37,7 +38,7 @@ public class BuildTest {
         // assert
         assertThat(build.getId()).isEqualTo(buildId);
         assertThat(build.getAuthor()).isEqualTo(author);
-        assertThat(build.getBranch()).isEqualTo(branch);
+        assertThat(build.getBranchName()).isEqualTo(branch);
         assertThat(build.getCommitMessage()).isEqualTo(commitMessage);
         assertThat(build.getBuildNumber()).isEqualTo(buildNumber);
         assertThat(build.getBuildStatus()).isEqualTo(buildStatus);

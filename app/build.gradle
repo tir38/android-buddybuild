@@ -130,6 +130,10 @@ dependencies {
     testCompile 'junit:junit:' + rootProject.ext.junitVersion
     testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
     testCompile 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
+    // we need TZ info in tests, but rely on TZ build into 310BP, not ABP
+    testCompile('org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion) {
+        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
+    }
 
     // ---------------
     // UI TEST DEPENDENCIES

@@ -29,6 +29,7 @@ ext {
 
     daggerLibVersion = "2.10"
     timberLibVersion = "4.5.1"
+    threetenbpLibVersion = "1.3.3"
     threetenapbLibVersion = "1.0.5"
     supportLibVersion = "25.3.0"
     googleLibVersion = "9.8.0"

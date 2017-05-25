@@ -9,5 +9,6 @@
     <dimen name="button_inset_vertical_material">6dp</dimen>
     <dimen name="control_corner_material">2dp</dimen>
     <dimen name="ghost_button_stroke_width">1dp</dimen>
+    <dimen name="status_icon_size">24dp</dimen>
 
 </resources>

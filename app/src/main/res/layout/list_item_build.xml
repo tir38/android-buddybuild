@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:paddingBottom="8dp"
-              android:paddingLeft="@dimen/material_side_margin"
-              android:paddingRight="@dimen/material_side_margin"
-              android:paddingTop="8dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/material_side_margin"
+                android:paddingRight="@dimen/material_side_margin"
+                android:paddingTop="8dp">
+
+    <com.buddybuild.ui.view.StatusIcon
+        android:id="@+id/list_item_build_status_icon"
+        android:layout_width="@dimen/status_icon_size"
+        android:layout_height="@dimen/status_icon_size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"/>
 
     <TextView
-        android:id="@+id/list_item_build_name"
+        android:id="@+id/list_item_build_name_textview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/list_item_build_status_icon"
+        android:paddingBottom="4dp"
+        android:textStyle="bold"
+        tools:text="My Build"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/list_item_build_time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_item_build_name_textview"
+        android:layout_toLeftOf="@+id/list_item_build_author_textview"
+        android:layout_toRightOf="@+id/list_item_build_status_icon"
+
+        tools:text="3 days ago"/>
+
+    <TextView
+        android:id="@+id/list_item_build_author_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/list_item_build_name_textview"
+        tools:text="S. Nagheenanajar"/>
+
+    <TextView
+        android:id="@+id/list_item_build_commit_msg_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/list_item_build_time_textview"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/list_item_build_status_icon"
+        android:ellipsize="end"
+        android:maxLines="3"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+
+</RelativeLayout>
