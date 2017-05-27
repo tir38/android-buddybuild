@@ -1,5 +1,7 @@
 package com.buddybuild.utils;
 
+import android.support.annotation.NonNull;
+
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.temporal.ChronoUnit;
 
@@ -14,6 +16,7 @@ public final class DateUtils {
      * Compute "x ago" (i.e. 3 days ago, 4 hours ago, 5 weeks ago)
      * starting with most recent
      * <p>
+     * 0 - 59 seconds -> "a few seconds ago"
      * 0 - 59 minutes ago
      * 0 - 23 hours ago
      * 1 - 6 days ago
@@ -24,12 +27,22 @@ public final class DateUtils {
      * @param zonedDateTime
      * @return
      */
-    public static String ago(ZonedDateTime zonedDateTime) {
+    public static String ago(@NonNull ZonedDateTime zonedDateTime) {
+        //noinspection ConstantConditions
+        if (zonedDateTime == null) {
+            throw new IllegalArgumentException("zonedDateTime cannot be null");
+        }
 
         ZonedDateTime now = ZonedDateTime.now();
 
         if (now.isBefore(zonedDateTime)) {
-            throw new IllegalArgumentException("input cannot be before now");
+            // something is screwy with the device's time stamp.
+            return "";
+        }
+
+        long secondsBetween = ChronoUnit.SECONDS.between(zonedDateTime, now);
+        if (secondsBetween < 59) {
+            return "a few seconds ago";
         }
 
         long minutesBetween = ChronoUnit.MINUTES.between(zonedDateTime, now);

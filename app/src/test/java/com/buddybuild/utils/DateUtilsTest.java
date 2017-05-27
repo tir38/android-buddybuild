@@ -9,6 +9,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DateUtilsTest {
 
     @Test
+    public void shouldReturnAFewSecondsAgo() throws Exception {
+        // arrange
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime testTime = now.minus(3, ChronoUnit.SECONDS);
+
+        // act
+        String output = DateUtils.ago(testTime);
+
+        // assert
+        assertThat(output).isEqualTo("a few seconds ago");
+    }
+
+    @Test
     public void shouldReturnMinuteAgo() throws Exception {
         // arrange
         ZonedDateTime now = ZonedDateTime.now();
