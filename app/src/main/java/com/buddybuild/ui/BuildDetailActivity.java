@@ -18,6 +18,6 @@ public class BuildDetailActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
         String buildId = getIntent().getExtras().getString(EXTRA_BUILD_ID);
-        return BuildDetailFragment.newInstance(buildId);
+        return BuildDetailPagerFragment.newInstance(buildId);
     }
 }

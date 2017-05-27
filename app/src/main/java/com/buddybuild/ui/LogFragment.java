@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.R;
-import com.buddybuild.core.Build;
 import com.buddybuild.core.LogItem;
 
 import java.util.ArrayList;
@@ -32,17 +30,15 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
- * Fragment for displaying details from a single build
+ * Fragment for displaying the logs from a single build
  */
-public final class BuildDetailFragment extends Fragment {
+public final class LogFragment extends Fragment {
 
     private static final String ARG_BUILD_ID = "ARG_BUILD_ID";
 
     @Inject
     protected Coordinator coordinator;
 
-    @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
     @BindView(R.id.fragment_build_detail_log_recyclerview)
     protected RecyclerView logsRecyclerView;
     @BindView(R.id.progress_indicator)
@@ -51,10 +47,10 @@ public final class BuildDetailFragment extends Fragment {
     private ProgressIndicatorDelegate progressIndicatorDelegate;
     private Unbinder unbinder;
 
-    public static BuildDetailFragment newInstance(String buildId) {
+    public static LogFragment newInstance(String buildId) {
         Bundle args = new Bundle();
         args.putString(ARG_BUILD_ID, buildId);
-        BuildDetailFragment fragment = new BuildDetailFragment();
+        LogFragment fragment = new LogFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +65,7 @@ public final class BuildDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_build_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_logs, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         logsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -80,11 +76,6 @@ public final class BuildDetailFragment extends Fragment {
         progressIndicatorDelegate.setProgressIndicator(progressIndicator);
 
         String buildId = getArguments().getString(ARG_BUILD_ID);
-        coordinator.getBuild(buildId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateUi);
-
         progressIndicatorDelegate.fadeInProgress();
         coordinator.getLogs(buildId)
                 .subscribeOn(Schedulers.io())
@@ -96,13 +87,6 @@ public final class BuildDetailFragment extends Fragment {
                                 () -> Timber.e(t)));
 
         return view;
-    }
-
-    private void updateUi(Build build) {
-        toolbar.setTitle(build.getBranchName());
-        toolbar.setSubtitle(getString(R.string.build_number, build.getBuildNumber()));
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        toolbar.setNavigationOnClickListener(v -> getActivity().finish());
     }
 
     @Override
