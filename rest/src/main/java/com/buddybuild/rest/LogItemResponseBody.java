@@ -4,7 +4,7 @@ import com.buddybuild.core.LogItem;
 import com.buddybuild.rest.util.DateTimeUtil;
 import com.google.gson.annotations.SerializedName;
 
-public final class LogItemResponseBody {
+final class LogItemResponseBody {
 
     @SerializedName("level")
     private String level;
@@ -13,8 +13,9 @@ public final class LogItemResponseBody {
     @SerializedName("timestamp")
     private String timestamp;
 
-    public LogItem toLogItem() {
-        return new LogItem(DateTimeUtil.toZonedDateTime(timestamp), message, getLogLevel());
+    LogItem toLogItem() {
+        String trimmedMsg = message.startsWith("\n") ? message.substring(2) : message;
+        return new LogItem(DateTimeUtil.toZonedDateTime(timestamp), trimmedMsg, getLogLevel());
     }
 
     /**
@@ -23,8 +24,14 @@ public final class LogItemResponseBody {
     // TODO add tests
     private LogItem.Level getLogLevel() {
         switch (level) {
+            case "cc":
+                return LogItem.Level.CC;
+            case "ce":
+                return LogItem.Level.CE;
             case "ci":
                 return LogItem.Level.CI;
+            case "ct":
+                return LogItem.Level.CT;
             default:
                 throw new IllegalStateException("unknown log level: " + level);
         }

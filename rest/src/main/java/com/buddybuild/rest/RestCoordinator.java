@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
+import io.reactivex.functions.Consumer;
 
 /**
  * Coordinates all requests to the BuddyBuild REST API
@@ -119,7 +120,7 @@ public class RestCoordinator {
      * @return a {@link Single} that emits list of logs
      */
     public Single<List<LogItem>> getLog(String buildId) {
-        return apiWebService.getLogs(buildId)
+        return dashboardWebService.getLogs(buildId)
                 .map(listResponse -> {
                     List<LogItem> logs = new ArrayList<>();
                     if (listResponse.isSuccessful()) {

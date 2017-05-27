@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="2dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginTop="2dp"
+              android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/list_item_log_line_number_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:minWidth="24dp"
+        android:textColor="@color/bb_log_line_number_color"
+        tools:text="1000"/>
+
+    <TextView
+        android:id="@+id/list_item_log_msg_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="test log message"/>
+
+</LinearLayout>

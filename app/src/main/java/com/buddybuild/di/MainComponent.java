@@ -2,6 +2,7 @@ package com.buddybuild.di;
 
 import com.buddybuild.rest.RestModule;
 import com.buddybuild.ui.AppsFragment;
+import com.buddybuild.ui.BuildDetailFragment;
 import com.buddybuild.ui.BuildsFragment;
 import com.buddybuild.ui.LoginFragment;
 import com.buddybuild.ui.OverviewActivity;
@@ -24,5 +25,7 @@ public interface MainComponent {
     void inject(OverviewActivity overviewActivity);
 
     void inject(BuildsFragment buildsFragment);
+
+    void inject(BuildDetailFragment buildDetailFragment);
 }
 

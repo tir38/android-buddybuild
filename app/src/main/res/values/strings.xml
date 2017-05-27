@@ -4,4 +4,5 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="build_number">Build %1$d</string>
+    <string name="logs">Logs</string>
 </resources>

@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * A single log line in a {@link Log}
+ * A single log line in a log
  */
 @EqualsAndHashCode
 public class LogItem {
@@ -33,6 +33,9 @@ public class LogItem {
     }
 
     public enum Level {
-        CI
+        CI,
+        CT,
+        CC,
+        CE
     }
 }

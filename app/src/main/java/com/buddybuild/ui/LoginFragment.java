@@ -52,6 +52,9 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        emailEditText.setText("jwatwood@gmail.com");
+
         return view;
     }
 
