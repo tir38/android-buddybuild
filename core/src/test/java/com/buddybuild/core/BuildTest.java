@@ -1,12 +1,16 @@
 package com.buddybuild.core;
 
 import org.junit.Test;
+import org.threeten.bp.Duration;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BuildTest {
+/**
+ * Unit tests for {@link Build}
+ */
+public final class BuildTest {
 
     @Test
     public void shouldCreateFromBuilder() throws Exception {
@@ -99,5 +103,48 @@ public class BuildTest {
 
         // assert
         assertThat(mostRecentBuildEvent).isEqualTo(createTime);
+    }
+
+
+    @Test
+    public void shouldComputeQueuedDuration() throws Exception {
+        // arrange
+        int hours = 2;
+        int minutes = 3;
+        ZonedDateTime startTime = ZonedDateTime.now();
+        ZonedDateTime createdTime = startTime.minus(hours, ChronoUnit.HOURS).minus(minutes, ChronoUnit.MINUTES);
+        Build build = new Build.Builder()
+                .startTime(startTime)
+                .createTime(createdTime)
+                .build();
+
+        Duration expectedDuration = Duration.ofHours(hours).plusMinutes(minutes);
+
+        // act
+        Duration buildDuration = build.getQueuedDuration();
+
+        // assert
+        assertThat(buildDuration).isEqualTo(expectedDuration);
+    }
+
+    @Test
+    public void shouldComputeBuildDuration() throws Exception {
+        // arrange
+        int hours = 1;
+        int minutes = 2;
+        ZonedDateTime finishTime = ZonedDateTime.now();
+        ZonedDateTime startTime = finishTime.minus(hours, ChronoUnit.HOURS).minus(minutes, ChronoUnit.MINUTES);
+        Build build = new Build.Builder()
+                .startTime(startTime)
+                .finishTime(finishTime)
+                .build();
+
+        Duration expectedDuration = Duration.ofHours(hours).plusMinutes(minutes);
+
+        // act
+        Duration buildDuration = build.getBuildDuration();
+
+        // assert
+        assertThat(buildDuration).isEqualTo(expectedDuration);
     }
 }
