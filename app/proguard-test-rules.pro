@@ -25,3 +25,11 @@
 -dontwarn org.slf4j.**
 -dontwarn org.apache.http.**
 -dontwarn sun.misc.Unsafe
+
+-dontwarn java.time.LocalDate
+-dontwarn java.time.LocalTime
+-dontwarn java.time.ZonedDateTime
+-dontwarn java.time.temporal.Temporal
+-dontwarn java.time.temporal.TemporalUnit
+-dontwarn java.time.OffsetTime
+-dontwarn java.time.OffsetDateTime

@@ -11,8 +11,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
-        testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
         release {
@@ -71,6 +70,10 @@ check {
 }
 
 dependencies {
+    // TODO finish transition to new AGP
+    // https://developer.android.com/studio/preview/features/new-android-plugin-migration.html#new_configurations
+    // once we don't have a million proguard-related errors
+
     compile project(':core')
     compile project(':rest')
 
@@ -114,15 +117,17 @@ dependencies {
     // Apache 2.0
     compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
 
-    // Only needed for API pre21
-    compile 'com.android.support:multidex:1.0.1'
-
     // support libs; not all of these are directly used by the app
     // some are used by third-party libs and we need to ensure they are all on the same version number
     // so override third-party libs dependencies' by declaring them as top level dependencies
     compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
     compile "com.android.support:recyclerview-v7:" + rootProject.ext.supportLibVersion
     compile "com.android.support:design:" + rootProject.ext.supportLibVersion
+
+    // Lifecycles, LiveData, and Viewmodel Architecture Components
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha1"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
 
     // ---------------
     // UNIT TEST DEPENDENCIES
@@ -138,39 +143,10 @@ dependencies {
     // ---------------
     // UI TEST DEPENDENCIES
     // ---------------
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
     androidTestCompile 'junit:junit:' + rootProject.ext.junitVersion
+    androidTestCompile "org.assertj:assertj-core:$rootProject.ext.assertJVersion"
 
-    // Mocking HTTP services during UI tests
-    // http://wiremock.org/
-    // Apache 2.0
-    androidTestCompile("com.github.tomakehurst:wiremock:2.1.7") {
-        //Allows us to use the Android version of Apache httpclient instead
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-
-        //Resolves the Duplicate Class Exception
-        //Error:Execution failed for task ':app:transformClassesWithJarMergingForDebugAndroidTest'.
-        //       > com.android.build.api.transform.TransformException: java.util.zip.ZipException: duplicate entry: org/objectweb/asm/AnnotationVisitor.class
-        //       > com.android.build.api.transform.TransformExrception: java.util.zip.ZipException: duplicate entry: org/objectweb/asm/AnnotationVisitor.class
-        exclude group: 'asm', module: 'asm'
-
-        //Fixes conflict with Android's version
-        //Warning:Dependency org.json:json:20090211 is ignored for debugAndroidTest as it may be conflicting with the internal version provided by Android.
-        //In case of problem, please repackage with jarjar to change the class packages
-        exclude group: 'org.json', module: 'json'
-    }
-    androidTestCompile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
-
-    // Run UI tests on a bunch of devices at once
-    // http://square.github.io/spoon/
-    // Apache 2.0
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.6.4'
-
-    // A better screenshot tool (integrates with Spoon)
-    // https://github.com/jraska/Falcon
-    // Apache 2.0
-    androidTestCompile 'com.jraska:falcon:1.0.3'
-    androidTestCompile 'com.jraska:falcon-spoon-compat:1.0.3'
+    // Android Testing Support Library's runner and rules
+    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
 }
