@@ -16,6 +16,7 @@ import java.util.List;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static org.assertj.core.api.Java6Assertions.assertThat;
+
 /**
  * Unit tests for {@link DateUtils}
  */
@@ -36,7 +37,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(3, ChronoUnit.SECONDS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("a few seconds ago");
@@ -49,7 +50,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(1, ChronoUnit.MINUTES);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("1 minute ago");
@@ -62,7 +63,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(59, ChronoUnit.MINUTES);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("59 minutes ago");
@@ -75,7 +76,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(1, ChronoUnit.HOURS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("1 hour ago");
@@ -88,7 +89,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(23, ChronoUnit.HOURS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("23 hours ago");
@@ -101,7 +102,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(1, ChronoUnit.DAYS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("1 day ago");
@@ -114,7 +115,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(6, ChronoUnit.DAYS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("6 days ago");
@@ -127,7 +128,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(1, ChronoUnit.WEEKS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("1 week ago");
@@ -140,7 +141,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(4, ChronoUnit.WEEKS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("4 weeks ago");
@@ -154,7 +155,7 @@ public final class DateUtilsTest {
                 .minus(8, ChronoUnit.DAYS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("1 month ago");
@@ -167,7 +168,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(11, ChronoUnit.MONTHS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("11 months ago");
@@ -180,7 +181,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(1, ChronoUnit.YEARS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("1 year ago");
@@ -193,7 +194,7 @@ public final class DateUtilsTest {
         ZonedDateTime testTime = now.minus(5, ChronoUnit.YEARS);
 
         // act
-        String output = DateUtils.ago(testTime);
+        String output = DateUtils.ago(testTime, context);
 
         // assert
         assertThat(output).isEqualTo("5 years ago");
@@ -215,6 +216,5 @@ public final class DateUtilsTest {
             // assert
             assertThat(actualString).isEqualTo(expectedString);
         }
-
     }
 }

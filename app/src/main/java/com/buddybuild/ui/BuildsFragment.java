@@ -202,7 +202,7 @@ public class BuildsFragment extends Fragment {
             nameTextView.setText(buildNumber);
             authorTextView.setText(build.getAuthor());
             commitTextView.setText(build.getCommitMessage().split("\n", 2)[0]); // truncate at first '\n'
-            String someTimeAgo = DateUtils.ago(build.getMostRecentBuildEvent());
+            String someTimeAgo = DateUtils.ago(build.getMostRecentBuildEvent(), getContext());
             timeTextView.setText(someTimeAgo);
             statusIcon.setStatus(build.getBuildStatus());
             itemView.setOnClickListener(v -> {

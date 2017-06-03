@@ -29,10 +29,11 @@ public final class DateUtils {
      * 1 - infinite years ago
      *
      * @param zonedDateTime
+     * @param context
      * @return
      */
     @NonNull
-    public static String ago(@NonNull ZonedDateTime zonedDateTime) {
+    public static String ago(@NonNull ZonedDateTime zonedDateTime, Context context) {
         //noinspection ConstantConditions
         if (zonedDateTime == null) {
             throw new IllegalArgumentException("zonedDateTime cannot be null");
@@ -47,55 +48,37 @@ public final class DateUtils {
 
         long secondsBetween = ChronoUnit.SECONDS.between(zonedDateTime, now);
         if (secondsBetween < 59) {
-            return "a few seconds ago";
+            return context.getResources().getString(R.string.a_few_seconds_ago);
         }
 
-        long minutesBetween = ChronoUnit.MINUTES.between(zonedDateTime, now);
-        if (minutesBetween == 1) {
-            return "1 minute ago";
-        }
+        int minutesBetween = (int) ChronoUnit.MINUTES.between(zonedDateTime, now);
         if (minutesBetween < 60) {
-            return String.valueOf(minutesBetween) + " minutes ago";
+            return context.getResources().getQuantityString(R.plurals.minutes_ago, minutesBetween, minutesBetween);
         }
 
-        long hoursBetween = ChronoUnit.HOURS.between(zonedDateTime, now);
-        if (hoursBetween == 1) {
-            return "1 hour ago";
-        }
+        int hoursBetween = (int) ChronoUnit.HOURS.between(zonedDateTime, now);
         if (hoursBetween < 24) {
-            return String.valueOf(hoursBetween) + " hours ago";
+            return context.getResources().getQuantityString(R.plurals.hours_ago, hoursBetween, hoursBetween);
         }
 
-        long daysBetween = ChronoUnit.DAYS.between(zonedDateTime, now);
-        if (daysBetween == 1) {
-            return "1 day ago";
-        }
+        int daysBetween = (int) ChronoUnit.DAYS.between(zonedDateTime, now);
         if (daysBetween < 7) {
-            return String.valueOf(daysBetween) + " days ago";
+            return context.getResources().getQuantityString(R.plurals.days_ago, daysBetween, daysBetween);
         }
 
-        long weeksBetween = ChronoUnit.WEEKS.between(zonedDateTime, now);
-        if (weeksBetween == 1) {
-            return "1 week ago";
-        }
+        int weeksBetween = (int) ChronoUnit.WEEKS.between(zonedDateTime, now);
         if (weeksBetween < 5) {
-            return String.valueOf(weeksBetween) + " weeks ago";
+            return context.getResources().getQuantityString(R.plurals.weeks_ago, weeksBetween, weeksBetween);
         }
 
-        long monthsBetween = ChronoUnit.MONTHS.between(zonedDateTime, now);
-        if (monthsBetween == 1) {
-            return "1 month ago";
-        }
+        int monthsBetween = (int) ChronoUnit.MONTHS.between(zonedDateTime, now);
         if (monthsBetween < 12) {
-            return String.valueOf(monthsBetween) + " months ago";
+            return context.getResources().getQuantityString(R.plurals.months_ago, monthsBetween, monthsBetween);
         }
 
-        long yearsBetween = ChronoUnit.YEARS.between(zonedDateTime, now);
-        if (yearsBetween == 1) {
-            return "1 year ago";
-        }
-        if (yearsBetween > 1) {
-            return String.valueOf(yearsBetween) + " years ago";
+        int yearsBetween = (int) ChronoUnit.YEARS.between(zonedDateTime, now);
+        if (yearsBetween >= 1) {
+            return context.getResources().getQuantityString(R.plurals.years_ago, yearsBetween , yearsBetween);
         }
 
         Timber.w("unhandled time: now %s, time in question %s", now, zonedDateTime);
@@ -103,6 +86,11 @@ public final class DateUtils {
     }
 
 
+    /**
+     * @param duration
+     * @param context
+     * @return
+     */
     @NonNull
     public static String duration(@NonNull Duration duration, Context context) {
         long allDays = duration.toDays();
