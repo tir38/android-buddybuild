@@ -1,12 +1,33 @@
 package com.buddybuild.utils;
 
+import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.util.Pair;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.threeten.bp.Duration;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.temporal.ChronoUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DateUtilsTest {
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+/**
+ * Unit tests for {@link DateUtils}
+ */
+@RunWith(AndroidJUnit4.class)
+public final class DateUtilsTest {
+
+    private Context context;
+
+    @Before
+    public void setUp() throws Exception {
+        context = getTargetContext();
+    }
 
     @Test
     public void shouldReturnAFewSecondsAgo() throws Exception {
@@ -130,7 +151,7 @@ public class DateUtilsTest {
         // arrange
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime testTime = now.minus(1, ChronoUnit.MONTHS)
-                .minus(8 , ChronoUnit.DAYS);
+                .minus(8, ChronoUnit.DAYS);
 
         // act
         String output = DateUtils.ago(testTime);
@@ -178,4 +199,22 @@ public class DateUtilsTest {
         assertThat(output).isEqualTo("5 years ago");
     }
 
+    @Test
+    public void shouldReturnDuration() throws Exception {
+        // arrange
+        List<Pair<Duration, String>> testCases = new ArrayList<>();
+        testCases.add(new Pair<>(Duration.ofDays(1), "1d 0h 0m 0s"));
+
+        for (Pair<Duration, String> testCase : testCases) {
+            Duration duration = testCase.first;
+            String expectedString = testCase.second;
+
+            // act
+            String actualString = DateUtils.duration(duration, context);
+
+            // assert
+            assertThat(actualString).isEqualTo(expectedString);
+        }
+
+    }
 }

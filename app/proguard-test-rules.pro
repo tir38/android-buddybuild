@@ -1,4 +1,5 @@
 -dontobfuscate
+-dontnote **
 
 -dontwarn org.hamcrest.**
 -dontwarn android.test.**
@@ -28,8 +29,17 @@
 
 -dontwarn java.time.LocalDate
 -dontwarn java.time.LocalTime
+-dontwarn java.time.LocalDateTime
 -dontwarn java.time.ZonedDateTime
 -dontwarn java.time.temporal.Temporal
 -dontwarn java.time.temporal.TemporalUnit
 -dontwarn java.time.OffsetTime
 -dontwarn java.time.OffsetDateTime
+-dontwarn java.time.Instant
+-dontwarn java.time.format.DateTimeFormatter
+-dontwarn java.io.File
+-dontwarn org.apache.tools.ant.**
+-dontwarn org.w3c.dom.bootstrap.**
+-dontwarn org.apache.tools.ant.Project
+-dontwarn org.assertj.core.internal.cglib.transform.AbstractProcessTask
+-dontwarn org.assertj.core.internal.cglib.transform.AbstractTransformTask

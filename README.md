@@ -9,3 +9,17 @@ We use BuddyBuild to build the BuddyBuild Android client. What did you expect?
 We load .json files from disk during unit tests. When running tests from CL (e.g. `./gradlew test`) the path that the tests is run on is not the same as when running tests from *within* Android Studio. To fix this, we need to tell Android Studio to run tests from the module path for all Android JUnit tests:
 
 ![android_studio_set_test_path_screenshot](readme_images/android_studio_set_test_path_screenshot.png)
+
+
+## Running All Tests
+We have tests for the following modules:
+
+* `core` - "local" unit tests
+* `rest` - "local" unit tests
+* `app` - "local" unit tests, "instrumentation" unit tests
+
+Run all of these tests via command line with
+
+```
+$ ./gradlew clean core:test rest:testDebugUnitTest app:testDebugUnitTest app:connectedDebugAndroidTest
+```

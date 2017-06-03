@@ -1,5 +1,5 @@
-# general
 -dontobfuscate
+-dontnote **
 
 -dontwarn java.lang.invoke.*
 
@@ -33,3 +33,6 @@
 -keep class android.support.v4.widget.** { *; }
 -keep class android.support.v4.view.** { *; }
 -keep class android.support.design.** { *; }
+
+-keep class org.threeten.bp.Duration { *; } # TODO remove once we reference this class in code
+-keep class com.buddybuild.utils.DateUtils { *; }

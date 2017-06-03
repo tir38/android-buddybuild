@@ -5,8 +5,7 @@ import org.threeten.bp.Duration;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.temporal.ChronoUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.assertj.core.api.Java6Assertions.assertThat;
 /**
  * Unit tests for {@link Build}
  */

@@ -37,7 +37,7 @@ ext {
     googleLibVersion = "9.8.0"
 
     junitVersion = "4.12"
-    assertJVersion = "3.7.0"
+    assertJVersion = "2.8.0"
     mockitoVersion = "2.0.53-beta"
     runnerVersion = "0.5"
     rulesVersion = "0.5"

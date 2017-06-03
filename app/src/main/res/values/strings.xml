@@ -5,4 +5,18 @@
     <string name="login">Login</string>
     <string name="build_number">Build %1$d</string>
     <string name="logs">Logs</string>
+    <string name="canceled">canceled</string>
+    <string name="failed">failed</string>
+    <string name="queued">queued</string>
+    <string name="running">running</string>
+    <string name="success">success</string>
+    <string name="build_status">Build Status</string>
+    <string name="buddybuild_sdk">buddybuild SDK</string>
+    <string name="started">Started</string>
+    <string name="queued_for">Queued for</string>
+    <string name="build_duration">Build duration</string>
+    <string name="days">%dd</string>
+    <string name="hours">%dh</string>
+    <string name="minutes">%dm</string>
+    <string name="seconds">%ds</string>
 </resources>

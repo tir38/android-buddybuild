@@ -1,7 +1,11 @@
 package com.buddybuild.utils;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.buddybuild.R;
+
+import org.threeten.bp.Duration;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.temporal.ChronoUnit;
 
@@ -27,6 +31,7 @@ public final class DateUtils {
      * @param zonedDateTime
      * @return
      */
+    @NonNull
     public static String ago(@NonNull ZonedDateTime zonedDateTime) {
         //noinspection ConstantConditions
         if (zonedDateTime == null) {
@@ -96,4 +101,39 @@ public final class DateUtils {
         Timber.w("unhandled time: now %s, time in question %s", now, zonedDateTime);
         return "";
     }
+
+
+    @NonNull
+    public static String duration(@NonNull Duration duration, Context context) {
+        long allDays = duration.toDays();
+        int wholeDays = (int) Math.floor(allDays);
+        long allHours = duration.toHours();
+        int remainderHours = (int) Math.floor(allHours - (allDays * 24));
+        long allMinutes = duration.toMinutes();
+        int remainderMinutes = (int) Math.floor(allMinutes - (allHours * 60));
+        long allSeconds = duration.getSeconds();
+        int remainderSeconds = (int) Math.floor(allSeconds - (allMinutes * 60));
+
+        // build string
+        String days = "";
+        String hours = "";
+        String minutes = "";
+        String seconds = "";
+
+        if (wholeDays > 0) {
+            days = context.getString(R.string.days, wholeDays) + " ";
+        }
+        if (remainderHours > 0 || wholeDays > 0) {
+            hours = context.getString(R.string.hours, remainderHours) + " ";
+        }
+        if (remainderMinutes > 0 || remainderHours > 0 || wholeDays > 0) {
+            minutes = context.getString(R.string.minutes, remainderMinutes) + " ";
+        }
+        if (remainderSeconds >= 0 || remainderMinutes > 0 || remainderHours > 0 || wholeDays > 0) {
+            seconds = context.getString(R.string.seconds, remainderSeconds);
+        }
+        return (days + hours + minutes + seconds);
+    }
 }
+
+
