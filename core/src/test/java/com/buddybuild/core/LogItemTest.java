@@ -3,7 +3,8 @@ package com.buddybuild.core;
 import org.junit.Test;
 import org.threeten.bp.ZonedDateTime;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;import static org.threeten.bp.temporal.ChronoUnit.MINUTES;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.threeten.bp.temporal.ChronoUnit.MINUTES;
 
 public final class LogItemTest {
 

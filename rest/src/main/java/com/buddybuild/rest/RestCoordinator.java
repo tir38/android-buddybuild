@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
-import io.reactivex.functions.Consumer;
 
 /**
  * Coordinates all requests to the BuddyBuild REST API

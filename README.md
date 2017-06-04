@@ -23,3 +23,14 @@ Run all of these tests via command line with
 ```
 $ ./gradlew clean core:test rest:testDebugUnitTest app:testDebugUnitTest app:connectedDebugAndroidTest
 ```
+
+
+## Running Lint And Checkstyle 
+
+We run Lint and Checkstyle on the project. Check `lint.xml` and `checkstyle.xml` to see our blacklisted/whitelisted 
+checks. Run all of these checks from command line with:
+
+```
+$ ./gradlew clean rest:lint app:lintDebug app:lintRelease
+$ ./gradlew clean core:checkStyleMain core:checkStyleTest rest:androidCheckstyle app:androidCheckstyle
+```
