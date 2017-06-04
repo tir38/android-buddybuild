@@ -5,6 +5,7 @@
               android:layout_height="wrap_content"
               android:layout_marginBottom="2dp"
               android:layout_marginLeft="16dp"
+              android:layout_marginStart="16dp"
               android:layout_marginTop="2dp"
               android:orientation="horizontal">
 
@@ -13,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:minWidth="24dp"
         android:textColor="@color/bb_log_line_number_color"
         tools:text="1000"/>

@@ -6,12 +6,10 @@ import com.buddybuild.core.Build;
 import com.buddybuild.core.LogItem;
 import com.buddybuild.rest.RestCoordinator;
 
-import java.net.CacheRequest;
 import java.util.List;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.functions.Consumer;
 
 public class LiveCoordinator implements Coordinator {
 
@@ -47,8 +45,8 @@ public class LiveCoordinator implements Coordinator {
 
     @Override
     public Maybe<Build> getBuild(String buildId) {
-        for (Branch branch: branches) {
-            for (Build build: branch.getBuilds()) {
+        for (Branch branch : branches) {
+            for (Build build : branch.getBuilds()) {
                 if (build.getId().equals(buildId)) {
                     return Maybe.just(build);
                 }

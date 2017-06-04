@@ -3,6 +3,7 @@ package com.buddybuild.di;
 import com.buddybuild.rest.RestModule;
 import com.buddybuild.ui.AppsFragment;
 import com.buddybuild.ui.BuildDetailPagerFragment;
+import com.buddybuild.ui.BuildDetailsFragment;
 import com.buddybuild.ui.LogFragment;
 import com.buddybuild.ui.BuildsFragment;
 import com.buddybuild.ui.LoginFragment;
@@ -30,5 +31,7 @@ public interface MainComponent {
     void inject(LogFragment logFragment);
 
     void inject(BuildDetailPagerFragment buildDetailPagerFragment);
+
+    void inject(BuildDetailsFragment buildDetailsFragment);
 }
 

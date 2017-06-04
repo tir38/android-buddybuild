@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_material_dialog_window_background"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:ignore="Overdraw">
+    <!-- ignore overdraw; we purposely want to put semitransparent view over rest of screen-->
 
     <!-- NOTE: on Pre-lollipop you have to manually set color in-code -->
     <ProgressBar

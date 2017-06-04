@@ -5,13 +5,12 @@
     <string name="login">Login</string>
     <string name="build_number">Build %1$d</string>
     <string name="logs">Logs</string>
-    <string name="canceled">canceled</string>
+    <string name="cancelled">cancelled</string>
     <string name="failed">failed</string>
     <string name="queued">queued</string>
     <string name="running">running</string>
     <string name="success">success</string>
     <string name="build_status">Build Status</string>
-    <string name="buddybuild_sdk">buddybuild SDK</string>
     <string name="started">Started</string>
     <string name="queued_for">Queued for</string>
     <string name="build_duration">Build duration</string>
@@ -20,6 +19,10 @@
     <string name="minutes">%dm</string>
     <string name="seconds">%ds</string>
     <string name="a_few_seconds_ago">a few seconds ago</string>
+    <string name="empty_value_placeholder">-</string>
+    <string name="details">Details</string>
+    <string name="android">android</string>
+    <string name="ios">ios</string>
     <plurals name="minutes_ago">
         <item quantity="one">1 minute ago</item>
         <item quantity="other">%d minutes ago</item>
@@ -37,7 +40,7 @@
         <item quantity="other">%d weeks ago</item>
     </plurals>
     <plurals name="months_ago">
-        <item quantity="one">1 months ago</item>
+        <item quantity="one">1 month ago</item>
         <item quantity="other">%d months ago</item>
     </plurals>
     <plurals name="years_ago">

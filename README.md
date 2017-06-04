@@ -21,7 +21,7 @@ We have tests for the following modules:
 Run all of these tests via command line with
 
 ```
-$ ./gradlew clean core:test rest:testDebugUnitTest app:testDebugUnitTest app:connectedDebugAndroidTest
+$ ./gradlew clean core:test rest:testDebugUnitTest app:connectedDebugAndroidTest
 ```
 
 

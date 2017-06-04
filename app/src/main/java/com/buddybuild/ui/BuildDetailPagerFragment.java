@@ -89,9 +89,9 @@ public final class BuildDetailPagerFragment extends Fragment {
             public CharSequence getPageTitle(int position) {
                 switch (position) {
                     case 0:
-                        return "Details";
+                        return getString(R.string.details);
                     case 1:
-                        return "Logs";
+                        return getString(R.string.logs);
                     default:
                         throw new IllegalStateException("unknown pager adapter position: " + position);
                 }

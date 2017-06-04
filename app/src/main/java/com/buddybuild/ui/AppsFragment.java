@@ -153,10 +153,10 @@ public class AppsFragment extends Fragment {
 
                 switch (app.getPlatform()) {
                     case ANDROID:
-                        platformButton.setText("ANDROID");
+                        platformButton.setText(getString(R.string.android));
                         break;
                     case IOS:
-                        platformButton.setText("IOS");
+                        platformButton.setText(getString(R.string.ios));
                         break;
                     default:
                         throw new IllegalStateException("unknown platform");

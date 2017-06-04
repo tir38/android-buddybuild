@@ -78,7 +78,7 @@ public final class DateUtils {
 
         int yearsBetween = (int) ChronoUnit.YEARS.between(zonedDateTime, now);
         if (yearsBetween >= 1) {
-            return context.getResources().getQuantityString(R.plurals.years_ago, yearsBetween , yearsBetween);
+            return context.getResources().getQuantityString(R.plurals.years_ago, yearsBetween, yearsBetween);
         }
 
         Timber.w("unhandled time: now %s, time in question %s", now, zonedDateTime);

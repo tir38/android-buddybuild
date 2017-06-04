@@ -53,8 +53,6 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        emailEditText.setText("jwatwood@gmail.com");
-
         return view;
     }
 

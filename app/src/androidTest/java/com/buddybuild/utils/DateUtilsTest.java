@@ -205,6 +205,7 @@ public final class DateUtilsTest {
         // arrange
         List<Pair<Duration, String>> testCases = new ArrayList<>();
         testCases.add(new Pair<>(Duration.ofDays(1), "1d 0h 0m 0s"));
+        testCases.add(new Pair<>(Duration.ofDays(1).plusHours(2).plusMinutes(3).plusSeconds(4), "1d 2h 3m 4s"));
 
         for (Pair<Duration, String> testCase : testCases) {
             Duration duration = testCase.first;

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="material_side_margin">16dp</dimen>
 
     <dimen name="bb_button_padding">12dp</dimen>
+    <dimen name="build_details_key_width">128sp</dimen> <!-- yes SP -->!
+
+    <!-- material design specific dimensions -->
+    <dimen name="material_side_margin">16dp</dimen>
 
     <!-- private resources copied from AOSP -->
     <dimen name="button_inset_horizontal_material">4dp</dimen>

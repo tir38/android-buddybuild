@@ -56,6 +56,7 @@ android {
     lintOptions {
         abortOnError true
         ignoreWarnings false
+        warningsAsErrors true
         lintConfig file('../config/lint.xml')
     }
 }
@@ -130,18 +131,7 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
 
     // ---------------
-    // UNIT TEST DEPENDENCIES
-    // ---------------
-    testCompile 'junit:junit:' + rootProject.ext.junitVersion
-    testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
-    testCompile 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
-    // we need TZ info in tests, but rely on TZ build into 310BP, not ABP
-    testCompile('org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion) {
-        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
-    }
-
-    // ---------------
-    // UI TEST DEPENDENCIES
+    // INSTRUMENTATION TEST DEPENDENCIES
     // ---------------
     androidTestCompile 'junit:junit:' + rootProject.ext.junitVersion
     androidTestCompile "org.assertj:assertj-core:$rootProject.ext.assertJVersion"
@@ -149,4 +139,8 @@ dependencies {
     // Android Testing Support Library's runner and rules
     androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
     androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+
+    androidTestCompile('org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion) {
+        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
+    }
 }
