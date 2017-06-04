@@ -90,6 +90,7 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apps -> {
                     OverviewActivity.this.apps = apps;
+                    updateBuildsFragment(apps.get(0).getId());
                     updateToolbar();
                 });
     }
@@ -98,9 +99,7 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
     public void onAppClicked(String appId) {
         selectedAppId = appId;
 
-        BuildsFragment buildsFragment =
-                (BuildsFragment) getSupportFragmentManager().findFragmentByTag(TAG_DETAIL_FRAGMENT);
-        buildsFragment.setApp(appId);
+        updateBuildsFragment(appId);
 
         updateToolbar();
 
@@ -108,6 +107,12 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
         if (drawerLayout != null) {
             drawerLayout.closeDrawers();
         }
+    }
+
+    private void updateBuildsFragment(String appId) {
+        BuildsFragment buildsFragment =
+                (BuildsFragment) getSupportFragmentManager().findFragmentByTag(TAG_DETAIL_FRAGMENT);
+        buildsFragment.setApp(appId);
     }
 
     private void updateToolbar() {
