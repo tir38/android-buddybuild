@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.R;
+import com.buddybuild.ui.view.BuddyBuildWhiteButton;
 
 import javax.inject.Inject;
 
@@ -29,11 +32,30 @@ public class LoginFragment extends Fragment {
     protected Coordinator coordinator;
 
     @BindView(R.id.fragment_login_email_edittext)
-    EditText emailEditText;
+    protected EditText emailEditText;
     @BindView(R.id.fragment_login_password_edittext)
-    EditText passwordEditText;
+    protected EditText passwordEditText;
+    @BindView(R.id.fragment_login_button)
+    protected BuddyBuildWhiteButton loginButton;
 
-    Unbinder unbinder;
+    private Unbinder unbinder;
+
+    private TextWatcher validateTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            validate();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -52,6 +74,10 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        emailEditText.addTextChangedListener(validateTextWatcher);
+        passwordEditText.addTextChangedListener(validateTextWatcher);
+        validate();
 
         return view;
     }
@@ -80,5 +106,15 @@ public class LoginFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    private void validate() {
+        if (emailEditText.getText().toString().isEmpty()
+                || passwordEditText.getText().toString().isEmpty()) {
+            loginButton.setEnabled(false);
+            return;
+        }
+
+        loginButton.setEnabled(true);
     }
 }
