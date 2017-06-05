@@ -1,5 +1,6 @@
 package com.buddybuild.core;
 
+import org.threeten.bp.Duration;
 import org.threeten.bp.ZonedDateTime;
 
 import lombok.Getter;
@@ -47,6 +48,28 @@ public class Build {
             return startTime;
         }
         return createTime;
+    }
+
+    /**
+     * @return Duration of how long build was queued. Will return null if either create time or start time are null
+     */
+    public Duration getQueuedDuration() {
+        if (createTime == null || startTime == null) {
+            return null;
+        }
+
+        return Duration.between(createTime, startTime);
+    }
+
+    /**
+     * @return Duration of how long build was building. Will return null if either finish time or start time are null
+     */
+    public Duration getBuildDuration() {
+        if (finishTime == null || startTime == null) {
+            return null;
+        }
+
+        return Duration.between(startTime, finishTime);
     }
 
     private Build(String id, Status buildStatus, String branchName, Integer buildNumber, String author, String

@@ -1,5 +1,5 @@
-# general
 -dontobfuscate
+-dontnote **
 
 -dontwarn java.lang.invoke.*
 
@@ -22,5 +22,16 @@
 # for Butterknife
 -dontwarn rx.functions.Func1
 
-# for NetworkMonkey
--keep class io.jasonatwood.networkmonkey.** { *; }
+# Buddybuild specific
+-keep class com.buddybuild.ui.view.** { *; }
+
+-keep class org.threeten.bp.Duration { *; }
+
+# New Android Gradle Plugin (3.0) has some temp bugs. TODO revisit this
+# read more:
+# https://stackoverflow.com/questions/44215368/android-gradle-plugin-3-0-0-alpha2-error-inflating-class-android-support-v7-wid
+-keep class android.arch.** { *; }
+-keep class android.support.v7.widget.** { *; }
+-keep class android.support.v4.widget.** { *; }
+-keep class android.support.v4.view.** { *; }
+-keep class android.support.design.** { *; }

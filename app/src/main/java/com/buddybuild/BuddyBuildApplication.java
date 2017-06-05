@@ -1,13 +1,13 @@
 package com.buddybuild;
 
-import android.support.multidex.MultiDexApplication;
+import android.app.Application;
 
 import com.buddybuild.di.DaggerMainComponent;
 import com.buddybuild.di.MainComponent;
 import com.buddybuild.di.MainModule;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-public class BuddyBuildApplication extends MultiDexApplication {
+public class BuddyBuildApplication extends Application {
 
     private MainComponent component;
 

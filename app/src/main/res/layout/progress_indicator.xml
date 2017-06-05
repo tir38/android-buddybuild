@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_material_dialog_window_background"
+    android:visibility="gone"
+    tools:ignore="Overdraw">
+    <!-- ignore overdraw; we purposely want to put semitransparent view over rest of screen-->
+
+    <!-- NOTE: on Pre-lollipop you have to manually set color in-code -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/bb_progress_indicator_color"
+        tools:ignore="UnusedAttribute"/>
+</FrameLayout>

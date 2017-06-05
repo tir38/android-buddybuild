@@ -26,7 +26,7 @@ public class StatusIcon extends AppCompatImageView {
     }
 
     public void setStatus(Build.Status status) {
-        Drawable icon = null;
+        Drawable icon;
         switch (status) {
             case CANCELLED:
                 icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_canceled);
@@ -35,7 +35,7 @@ public class StatusIcon extends AppCompatImageView {
                 icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_failed);
                 break;
             case QUEUED:
-                // TODO
+                icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_queued);
                 break;
             case RUNNING:
                 icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_running);

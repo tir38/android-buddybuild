@@ -1,6 +1,7 @@
 package com.buddybuild.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -121,7 +122,7 @@ public class BuildsFragment extends Fragment {
                 });
     }
 
-    private static class BranchBuildsAdapter extends ExpandableRecyclerAdapter<BranchItem,
+    private class BranchBuildsAdapter extends ExpandableRecyclerAdapter<BranchItem,
             BuildItem, BranchViewHolder, BuildViewHolder> {
 
         private BranchBuildsAdapter(@NonNull List<BranchItem> branchItems) {
@@ -175,7 +176,7 @@ public class BuildsFragment extends Fragment {
         }
     }
 
-    private static class BuildViewHolder extends ChildViewHolder {
+    private class BuildViewHolder extends ChildViewHolder {
 
         private final TextView nameTextView;
         private final StatusIcon statusIcon;
@@ -201,9 +202,13 @@ public class BuildsFragment extends Fragment {
             nameTextView.setText(buildNumber);
             authorTextView.setText(build.getAuthor());
             commitTextView.setText(build.getCommitMessage().split("\n", 2)[0]); // truncate at first '\n'
-            String someTimeAgo = DateUtils.ago(build.getMostRecentBuildEvent());
+            String someTimeAgo = DateUtils.ago(build.getMostRecentBuildEvent(), getContext());
             timeTextView.setText(someTimeAgo);
             statusIcon.setStatus(build.getBuildStatus());
+            itemView.setOnClickListener(v -> {
+                Intent intent = BuildDetailActivity.newIntent(getActivity(), build.getId());
+                startActivity(intent);
+            });
         }
     }
 

@@ -24,6 +24,8 @@
 
         <activity android:name=".ui.OverviewActivity"/>
 
+        <activity android:name=".ui.BuildDetailActivity"/>
+
     </application>
 
 </manifest>
