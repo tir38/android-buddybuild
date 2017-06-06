@@ -4,6 +4,7 @@ import com.buddybuild.core.App;
 import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
 import com.buddybuild.core.LogItem;
+import com.buddybuild.rest.LoginResult;
 import com.buddybuild.rest.RestCoordinator;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class LiveCoordinator implements Coordinator {
     }
 
     @Override
-    public Single<Boolean> login(String email, String password) {
+    public Single<LoginResult> login(String email, String password) {
         return restCoordinator.login(email, password);
     }
 

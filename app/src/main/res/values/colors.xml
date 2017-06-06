@@ -32,5 +32,4 @@
     <!-- standard Material design colors -->
     <color name="default_material_dialog_window_background">@color/black60percentTransparent</color>
 
-
 </resources>

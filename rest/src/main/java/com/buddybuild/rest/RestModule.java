@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestModule {
 
     private static final String TAG = RestModule.class.getSimpleName();
+    public static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
 
     @Provides
     @Singleton
@@ -47,13 +48,14 @@ public class RestModule {
     @Singleton
     DashboardWebService provideDashboardWebService(OkHttpClient okHttpClient) {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://dashboard.buddybuild.com/")
+                .baseUrl(DASHBOARD_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
 
-        return builder.client(okHttpClient)
-                .build()
-                .create(DashboardWebService.class);
+        Retrofit retrofit = builder.client(okHttpClient)
+                .build();
+
+        return retrofit.create(DashboardWebService.class);
     }
 
     @Provides

@@ -43,6 +43,7 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlHighlight">@color/white</item>
+        <item name="textColorError">@color/bb_dark_blue</item>
     </style>
 
 </resources>
