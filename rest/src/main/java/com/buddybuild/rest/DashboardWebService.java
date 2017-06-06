@@ -11,6 +11,8 @@ import retrofit2.http.Path;
 
 /**
  * Retrofit interface for https://dashboard.buddybuild.com/
+ *
+ * Internal
  */
 interface DashboardWebService {
 

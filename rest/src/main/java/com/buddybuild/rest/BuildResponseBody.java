@@ -1,13 +1,14 @@
 package com.buddybuild.rest;
 
 import com.buddybuild.core.Build;
-import com.buddybuild.rest.util.DateTimeUtil;
 import com.google.gson.annotations.SerializedName;
 
 import timber.log.Timber;
 
-
-public class BuildResponseBody {
+/**
+ * Internal
+ */
+class BuildResponseBody {
 
     @SerializedName("_id")
     private String id;

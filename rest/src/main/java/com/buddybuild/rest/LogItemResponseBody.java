@@ -1,10 +1,12 @@
 package com.buddybuild.rest;
 
 import com.buddybuild.core.LogItem;
-import com.buddybuild.rest.util.DateTimeUtil;
 import com.google.gson.annotations.SerializedName;
 
-final class LogItemResponseBody {
+/**
+ * Internal
+ */
+class LogItemResponseBody {
 
     @SerializedName("level")
     private String level;

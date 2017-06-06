@@ -72,7 +72,7 @@ public class RestCoordinatorTest {
                 = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
         // act
-        TestObserver<Boolean> testObserver = new TestObserver<>();
+        TestObserver<LoginResult> testObserver = new TestObserver<>();
         restCoordinator.login(email, password)
                 .subscribe(testObserver);
 

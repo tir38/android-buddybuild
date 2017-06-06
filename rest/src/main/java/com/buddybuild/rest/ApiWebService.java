@@ -11,6 +11,8 @@ import retrofit2.http.Query;
 
 /**
  * Retrofit interface for https://api.buddybuild.com/v1/
+ *
+ * Internal
  */
 interface ApiWebService {
 

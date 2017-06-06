@@ -1,10 +1,13 @@
-package com.buddybuild.rest.util;
+package com.buddybuild.rest;
 
 import android.support.annotation.Nullable;
 
 import org.threeten.bp.ZonedDateTime;
 
-public class DateTimeUtil {
+/**
+ * Internal
+ */
+class DateTimeUtil {
 
     private DateTimeUtil() {
     }
