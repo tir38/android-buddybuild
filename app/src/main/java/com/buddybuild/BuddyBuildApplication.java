@@ -7,6 +7,8 @@ import com.buddybuild.di.MainComponent;
 import com.buddybuild.di.MainModule;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import timber.log.Timber;
+
 public class BuddyBuildApplication extends Application {
 
     private MainComponent component;
@@ -17,6 +19,8 @@ public class BuddyBuildApplication extends Application {
         component = createComponent();
 
         AndroidThreeTen.init(this);
+
+        setupLogging();
     }
 
     public MainComponent getComponent() {
@@ -28,4 +32,14 @@ public class BuddyBuildApplication extends Application {
                 .mainModule(new MainModule(this))
                 .build();
     }
+
+    private void setupLogging() {
+        // we want to log in Debug builds
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            // TODO crash reporting tree
+        }
+    }
+
 }

@@ -13,10 +13,11 @@
     <color name="bb_list_item_pressed">#BFE1F9</color>
     <color name="bb_list_item_selected">#F0F7FF</color>
 
-    <color name="bb_log_red">#FFA8A7</color>
-    <color name="bb_log_purple">#EBB7FB</color>
-    <color name="bb_log_blue">#91DFE6</color>
-    <color name="bb_log_line_number_color">#85929F</color>
+    <color name="bb_log_red">#FFA8A8</color>
+    <color name="bb_log_purple">#eab9f9</color>
+    <color name="bb_log_blue">#94dfe5</color>
+    <color name="bb_log_yellow">#FFF092</color>
+    <color name="bb_log_line_number_color">#85929E</color>
     <color name="bb_log_background">#32485F</color>
 
     <color name="bb_progress_indicator_color">#8DCAF0</color>
