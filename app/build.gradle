@@ -31,8 +31,8 @@ android {
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
         }
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
             signingConfig signingConfigs.release
