@@ -31,6 +31,8 @@ import timber.log.Timber;
 
 public class LoginFragment extends Fragment {
 
+    private static final String TAG_OOPS_DIALOG = "TAG_OOPS_DIALOG" ;
+
     @Inject
     protected Coordinator coordinator;
 
@@ -48,6 +50,7 @@ public class LoginFragment extends Fragment {
     TextInputLayout passwordTextInputLayout;
 
     private Unbinder unbinder;
+    private ProgressIndicatorDelegate progressIndicatorDelegate;
 
     private TextWatcher validateTextWatcher = new TextWatcher() {
         @Override
@@ -65,7 +68,6 @@ public class LoginFragment extends Fragment {
         public void afterTextChanged(Editable s) {
         }
     };
-    private ProgressIndicatorDelegate progressIndicatorDelegate;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -119,19 +121,19 @@ public class LoginFragment extends Fragment {
                                     break;
 
                                 case UNKNOWN_EMAIL:
-                                    emailTextInputLayout.setError("unknown email");
+                                    emailTextInputLayout.setError(getString(R.string.unknown_email));
                                     break;
 
                                 case EMAIL_PASSWORD_MISMATCH:
-                                    passwordTextInputLayout.setError("email and pw don't match");
+                                    passwordTextInputLayout.setError(getString(R.string.email_mismatch_error));
                                     break;
 
                                 case THROTTLE_LIMIT:
-                                    emailTextInputLayout.setError("too many attempts, please wait");
+                                    emailTextInputLayout.setError(getString(R.string.too_many_attempts_error));
                                     break;
 
                                 case UNKNOWN_FAILURE:
-                                    // todo generic dialog?
+                                    showOopsDialog();
                                     break;
 
                                 default:
@@ -140,10 +142,13 @@ public class LoginFragment extends Fragment {
                         }),
                         throwable -> {
                             Timber.w(throwable.getMessage());
-                            progressIndicatorDelegate.fadeOutProgress(() -> {
-                                // todo generic dialog?
-                            });
+                            progressIndicatorDelegate.fadeOutProgress(this::showOopsDialog);
                         });
+    }
+
+    private void showOopsDialog() {
+        MessageDialogFragment messageDialogFragment = MessageDialogFragment.newInstance(R.string.generic_ooops_message);
+        messageDialogFragment.show(getFragmentManager(), TAG_OOPS_DIALOG);
     }
 
     private void validate() {
