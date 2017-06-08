@@ -23,7 +23,6 @@ class LogItemResponseBody {
     /**
      * @return conversion from server string to {@link LogItem.Level} enum
      */
-    // TODO add tests
     private LogItem.Level getLogLevel() {
         switch (level) {
             case "cc":
@@ -37,7 +36,5 @@ class LogItemResponseBody {
             default:
                 throw new IllegalStateException("unknown log level: " + level);
         }
-
     }
-
 }

@@ -10,8 +10,7 @@ class LoginErrorResponseBody {
     @SerializedName("message")
     private String message;
 
-    // TODO add test
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 }
