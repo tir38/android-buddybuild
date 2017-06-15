@@ -167,7 +167,7 @@ public class RestCoordinatorTest {
                 );
 
         RestCoordinator restCoordinator
-                = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore, timeCoordinator);
+                = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
