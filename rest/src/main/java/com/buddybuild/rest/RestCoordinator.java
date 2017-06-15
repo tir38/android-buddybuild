@@ -8,6 +8,7 @@ import com.buddybuild.core.LogItem;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
@@ -132,8 +133,7 @@ public class RestCoordinator {
                             .baseUrl(RestModule.DASHBOARD_URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build()
-                            .responseBodyConverter
-                                    (LoginErrorResponseBody.class, new Annotation[0]);
+                            .responseBodyConverter(LoginErrorResponseBody.class, new Annotation[0]);
 
                     LoginErrorResponseBody errorBody = converter.convert(response.errorBody());
 
@@ -146,13 +146,13 @@ public class RestCoordinator {
 
                     switch (code) {
                         case 401:
-                            if (errorMessage.toLowerCase().contains(UNKNOWN_EMAIL_MESSAGE)) {
+                            if (errorMessage.toLowerCase(Locale.getDefault()).contains(UNKNOWN_EMAIL_MESSAGE)) {
                                 return LoginResult.UNKNOWN_EMAIL;
                             }
-                            if (errorMessage.toLowerCase().contains(MISMATCHED_PASSWORD_MESSAGE)) {
+                            if (errorMessage.toLowerCase(Locale.getDefault()).contains(MISMATCHED_PASSWORD_MESSAGE)) {
                                 return LoginResult.EMAIL_PASSWORD_MISMATCH;
                             }
-                            if (errorMessage.toLowerCase().contains(THROTTLE_LIMIT_MESSAGE)) {
+                            if (errorMessage.toLowerCase(Locale.getDefault()).contains(THROTTLE_LIMIT_MESSAGE)) {
                                 return LoginResult.THROTTLE_LIMIT;
                             }
                             return LoginResult.UNKNOWN_FAILURE;

@@ -31,7 +31,7 @@ import timber.log.Timber;
 
 public class LoginFragment extends Fragment {
 
-    private static final String TAG_OOPS_DIALOG = "TAG_OOPS_DIALOG" ;
+    private static final String TAG_OOPS_DIALOG = "TAG_OOPS_DIALOG";
 
     @Inject
     protected Coordinator coordinator;
