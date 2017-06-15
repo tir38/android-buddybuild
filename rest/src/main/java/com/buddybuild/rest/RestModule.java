@@ -26,9 +26,9 @@ public class RestModule {
 
     @Provides
     @Singleton
-    RestCoordinator provideWebserviceWrapper(ApiWebService apiWebService, DashboardWebService dashboardWebService,
-                                             TokenStore tokenStore) {
-        return new RestCoordinator(apiWebService, dashboardWebService, tokenStore);
+    RestCoordinator provideRestCoordinator(ApiWebService apiWebService, DashboardWebService dashboardWebService,
+                                           TokenStore tokenStore) {
+        return new LiveRestCoordinator(apiWebService, dashboardWebService, tokenStore);
     }
 
     @Provides

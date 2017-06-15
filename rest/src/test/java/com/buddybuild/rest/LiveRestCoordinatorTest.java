@@ -23,7 +23,10 @@ import retrofit2.mock.NetworkBehavior;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class RestCoordinatorTest {
+/**
+ * Unit tests for {@link LiveRestCoordinator}
+ */
+public class LiveRestCoordinatorTest {
 
     private DashboardWebService mockDashboardWebService;
     private ApiWebService mockApiWebService;
@@ -75,8 +78,8 @@ public class RestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        RestCoordinator restCoordinator
-                = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+        LiveRestCoordinator restCoordinator
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -106,8 +109,8 @@ public class RestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        RestCoordinator restCoordinator
-                = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+        LiveRestCoordinator restCoordinator
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -136,8 +139,8 @@ public class RestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        RestCoordinator restCoordinator
-                = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+        LiveRestCoordinator restCoordinator
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -166,8 +169,8 @@ public class RestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        RestCoordinator restCoordinator
-                = new RestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+        LiveRestCoordinator restCoordinator
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
