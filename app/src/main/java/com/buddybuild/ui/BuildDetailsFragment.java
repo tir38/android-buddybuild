@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 
 public final class BuildDetailsFragment extends Fragment {
@@ -55,10 +56,9 @@ public final class BuildDetailsFragment extends Fragment {
         coordinator.getBuild(buildId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(viewModel::setBuild,
-                        throwable -> {
-                            // TODO
-                        });
+                .subscribe(
+                        viewModel::setBuild,
+                        Timber::e);
 
         return binding.getRoot();
     }

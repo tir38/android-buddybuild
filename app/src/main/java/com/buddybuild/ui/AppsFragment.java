@@ -91,7 +91,9 @@ public class AppsFragment extends Fragment {
         coordinator.getApps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apps -> adapter.update(apps));
+                .subscribe(
+                        apps -> adapter.update(apps),
+                        Timber::e);
     }
 
     @Override

@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Fragment to host other fragments in view pager to display build details
@@ -70,7 +71,9 @@ public final class BuildDetailPagerFragment extends Fragment {
         coordinator.getBuild(buildId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateUi);
+                .subscribe(
+                        this::updateUi,
+                        Timber::e);
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getFragmentManager()) {
             @Override

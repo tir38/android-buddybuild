@@ -1,9 +1,10 @@
 package com.buddybuild.ui;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.R;
 import com.buddybuild.core.LogItem;
+import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle;
+import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,7 @@ import timber.log.Timber;
 /**
  * Fragment for displaying the logs from a single build
  */
-public final class LogFragment extends Fragment {
+public final class LogFragment extends LifecycleFragment {
 
     private static final String ARG_BUILD_ID = "ARG_BUILD_ID";
 
@@ -48,6 +51,9 @@ public final class LogFragment extends Fragment {
 
     private ProgressIndicatorDelegate progressIndicatorDelegate;
     private Unbinder unbinder;
+
+    private final LifecycleProvider<Lifecycle.Event> lifecycleProvider
+            = AndroidLifecycle.createLifecycleProvider(this);
 
     public static LogFragment newInstance(String buildId) {
         Bundle args = new Bundle();
@@ -82,6 +88,7 @@ public final class LogFragment extends Fragment {
         coordinator.getLogs(buildId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(lifecycleProvider.bindUntilEvent(Lifecycle.Event.ON_PAUSE))
                 .subscribe(
                         logs -> progressIndicatorDelegate.fadeOutProgress(
                                 () -> {
@@ -94,7 +101,7 @@ public final class LogFragment extends Fragment {
                                         adapter.updateLogs(logs);
                                     }
                                 }),
-                        t -> progressIndicatorDelegate.fadeOutProgress(() -> Timber.e(t)));
+                        error -> progressIndicatorDelegate.fadeOutProgress(() -> Timber.e(error)));
 
         return view;
     }

@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Fragment for displaying list of builds
@@ -112,14 +113,16 @@ public class BuildsFragment extends Fragment {
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(branchItems -> {
-                    // Because of how ExpandableRecyclerAdapter works,
-                    // the data is maintained OUTSIDE the adapter,
-                    // contrary to normal pattern.
-                    this.branchItems.clear();
-                    this.branchItems.addAll(branchItems);
-                    adapter.notifyParentDataSetChanged(true);
-                });
+                .subscribe(
+                        branchItems -> {
+                            // Because of how ExpandableRecyclerAdapter works,
+                            // the data is maintained OUTSIDE the adapter,
+                            // contrary to normal pattern.
+                            this.branchItems.clear();
+                            this.branchItems.addAll(branchItems);
+                            adapter.notifyParentDataSetChanged(true);
+                        },
+                        Timber::e);
     }
 
     private class BranchBuildsAdapter extends ExpandableRecyclerAdapter<BranchItem,
