@@ -33,6 +33,8 @@ class LogItemResponseBody {
                 return LogItem.Level.CI;
             case "ct":
                 return LogItem.Level.CT;
+            case "cw":
+                return LogItem.Level.CW;
             default:
                 throw new IllegalStateException("unknown log level: " + level);
         }

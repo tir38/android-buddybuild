@@ -90,8 +90,11 @@ public final class ProgressIndicatorDelegate {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        progressIndicator.setAlpha(0f);
-                        progressIndicator.setVisibility(View.GONE);
+                        // progress indicator may finish animation after view has been destroyed
+                        if (progressIndicator != null) {
+                            progressIndicator.setAlpha(0f);
+                            progressIndicator.setVisibility(View.GONE);
+                        }
                         if (afterAnimationAction != null)
                             try {
                                 afterAnimationAction.run();

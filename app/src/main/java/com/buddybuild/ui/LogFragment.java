@@ -39,10 +39,12 @@ public final class LogFragment extends Fragment {
     @Inject
     protected Coordinator coordinator;
 
-    @BindView(R.id.fragment_build_detail_log_recyclerview)
+    @BindView(R.id.fragment_logs_recyclerview)
     protected RecyclerView logsRecyclerView;
     @BindView(R.id.progress_indicator)
     protected View progressIndicator;
+    @BindView(R.id.fragment_logs_no_logs_textview)
+    protected TextView noLogsTextView;
 
     private ProgressIndicatorDelegate progressIndicatorDelegate;
     private Unbinder unbinder;
@@ -82,9 +84,17 @@ public final class LogFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         logs -> progressIndicatorDelegate.fadeOutProgress(
-                                () -> adapter.updateLogs(logs)),
-                        t -> progressIndicatorDelegate.fadeOutProgress(
-                                () -> Timber.e(t)));
+                                () -> {
+                                    if (logs.isEmpty()) {
+                                        noLogsTextView.setVisibility(View.VISIBLE);
+                                        logsRecyclerView.setVisibility(View.GONE);
+                                    } else {
+                                        noLogsTextView.setVisibility(View.GONE);
+                                        logsRecyclerView.setVisibility(View.VISIBLE);
+                                        adapter.updateLogs(logs);
+                                    }
+                                }),
+                        t -> progressIndicatorDelegate.fadeOutProgress(() -> Timber.e(t)));
 
         return view;
     }
@@ -131,6 +141,7 @@ public final class LogFragment extends Fragment {
         private final int purple;
         private final int red;
         private final int white;
+        private final int yellow;
 
         private LogViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +152,7 @@ public final class LogFragment extends Fragment {
             purple = ContextCompat.getColor(itemView.getContext(), R.color.bb_log_purple);
             red = ContextCompat.getColor(itemView.getContext(), R.color.bb_log_red);
             white = ContextCompat.getColor(itemView.getContext(), R.color.white);
+            yellow = ContextCompat.getColor(itemView.getContext(), R.color.bb_log_yellow);
 
         }
 
@@ -160,6 +172,9 @@ public final class LogFragment extends Fragment {
                     break;
                 case CE:
                     msgTextView.setTextColor(red);
+                    break;
+                case CW:
+                    msgTextView.setTextColor(yellow);
                     break;
                 default:
                     throw new RuntimeException("unknown level");

@@ -36,6 +36,7 @@ public class LogItem {
         CI,
         CT,
         CC,
-        CE
+        CE,
+        CW
     }
 }
