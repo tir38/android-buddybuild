@@ -19,9 +19,27 @@ public interface Coordinator {
      *
      * @param email    user's email address
      * @param password user's password
-     * @return a single of boolean which emits a {@link LoginResult}
+     * @return a single which emits a {@link LoginResult}
      */
     Single<LoginResult> login(String email, String password);
+
+    /**
+     * logout current user
+     *
+     * @return a single which emits a Boolean: true for success, false for failure
+     */
+    Single<Boolean> logout();
+
+    /**
+     * @return true if a user is currently logged in, false if not
+     */
+    boolean isLoggedIn();
+
+
+    /**
+     * @return If a user is logged in, returns their email
+     */
+    String getLoggedInUserEmail();
 
     /**
      * Get all {@link App}s for a signed-in user
@@ -40,14 +58,17 @@ public interface Coordinator {
 
     /**
      * @param buildId ID of the {@link Build}
-     * @return a maybe of Build
+     * @return a {@link Maybe} of {@link Build}
      */
     Maybe<Build> getBuild(String buildId);
 
     /**
      * Get logs for a single build
+     *
      * @param buildId ID of the build
      * @return single of list of log items
      */
     Single<List<LogItem>> getLogs(String buildId);
+
+
 }

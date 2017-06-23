@@ -49,6 +49,18 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
         ((BuddyBuildApplication) getApplication()).getComponent().inject(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.activity_overview);
+        toolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.settings_menu_item:
+                    Intent intent = SettingsActivity.newIntent(OverviewActivity.this);
+                    startActivity(intent);
+                    return true;
+
+                default:
+                    throw new RuntimeException("unknown menu item");
+            }
+        });
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (drawerLayout != null) {
@@ -124,7 +136,7 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
                 }
             }
         } else {
-            // if none selected just display the top one
+            // if none selected, just display the top one
             App app = apps.get(0);
             toolbar.setTitle(app.getName());
             toolbar.setSubtitle(app.getPlatform().prettyString());

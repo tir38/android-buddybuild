@@ -2,7 +2,7 @@ package com.buddybuild.rest;
 
 import android.support.annotation.Nullable;
 
-public class LiveTokenStore implements TokenStore {
+class LiveTokenStore implements TokenStore {
 
     private String token;
 

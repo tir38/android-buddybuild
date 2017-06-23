@@ -22,13 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestModule {
 
     private static final String TAG = RestModule.class.getSimpleName();
-    public static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
+    static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
 
     @Provides
     @Singleton
-    RestCoordinator provideWebserviceWrapper(ApiWebService apiWebService, DashboardWebService dashboardWebService,
-                                             TokenStore tokenStore) {
-        return new RestCoordinator(apiWebService, dashboardWebService, tokenStore);
+    RestCoordinator provideRestCoordinator(ApiWebService apiWebService, DashboardWebService dashboardWebService,
+                                           TokenStore tokenStore) {
+        return new LiveRestCoordinator(apiWebService, dashboardWebService, tokenStore);
     }
 
     @Provides

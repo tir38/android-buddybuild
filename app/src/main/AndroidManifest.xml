@@ -27,6 +27,7 @@
         <activity android:name=".ui.OverviewActivity"/>
 
         <activity android:name=".ui.BuildDetailActivity"/>
+        <activity android:name=".ui.SettingsActivity"/>
 
     </application>
 
