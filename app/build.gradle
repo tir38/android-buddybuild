@@ -114,6 +114,12 @@ dependencies {
     // Apache 2.0
     compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
 
+    // Automatically terminate RxStreams at certain lifecycle events
+    // https://github.com/trello/RxLifecycle
+    // Apache 2.0
+    compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.1.0'
+
     // support libs; not all of these are directly used by the app
     // some are used by third-party libs and we need to ensure they are all on the same version number
     // so override third-party libs dependencies' by declaring them as top level dependencies

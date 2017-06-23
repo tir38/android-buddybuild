@@ -27,6 +27,11 @@
 
 -keep class org.threeten.bp.Duration { *; }
 
+# For RxLifecycle
+-dontwarn javax.annotation.Nonnull
+-dontwarn javax.annotation.CheckReturnValue
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
 # New Android Gradle Plugin (3.0) has some temp bugs. TODO revisit this
 # read more:
 # https://stackoverflow.com/questions/44215368/android-gradle-plugin-3-0-0-alpha2-error-inflating-class-android-support-v7-wid
