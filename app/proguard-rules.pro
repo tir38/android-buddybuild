@@ -29,6 +29,7 @@
 
 # For RxLifecycle
 -dontwarn javax.annotation.Nonnull
+-dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.CheckReturnValue
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 
