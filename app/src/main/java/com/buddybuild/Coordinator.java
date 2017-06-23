@@ -5,6 +5,7 @@ import com.buddybuild.core.App;
 import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
 import com.buddybuild.core.LogItem;
+import com.buddybuild.rest.LoginResult;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public interface Coordinator {
      *
      * @param email    user's email address
      * @param password user's password
-     * @return a single of boolean which emits true if successful, false if failed
+     * @return a single of boolean which emits a {@link LoginResult}
      */
-    Single<Boolean> login(String email, String password);
+    Single<LoginResult> login(String email, String password);
 
     /**
      * Get all {@link App}s for a signed-in user

@@ -23,6 +23,10 @@
     <string name="details">Details</string>
     <string name="android">android</string>
     <string name="ios">ios</string>
+    <string name="generic_ooops_message">Oops… Something went wrong. Please try again.</string>
+    <string name="unknown_email">Unknown email</string>
+    <string name="email_mismatch_error">Email and password do not match</string>
+    <string name="too_many_attempts_error">Too many attempts, try again later</string>
     <plurals name="minutes_ago">
         <item quantity="one">1 minute ago</item>
         <item quantity="other">%d minutes ago</item>

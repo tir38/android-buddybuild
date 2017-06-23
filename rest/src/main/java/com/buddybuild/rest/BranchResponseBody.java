@@ -3,6 +3,9 @@ package com.buddybuild.rest;
 import com.buddybuild.core.Branch;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Internal
+ */
 class BranchResponseBody {
 
     @SerializedName("name")

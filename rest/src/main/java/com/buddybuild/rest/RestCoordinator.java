@@ -5,15 +5,28 @@ import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
 import com.buddybuild.core.LogItem;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Single;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 /**
  * Coordinates all requests to the BuddyBuild REST API
  */
 public class RestCoordinator {
+
+    // Buddybuild supplied error messages (subject to change w/out notice)
+    private static final String UNKNOWN_EMAIL_MESSAGE = "unknown email address";
+    private static final String MISMATCHED_PASSWORD_MESSAGE = "email and password you entered do not match";
+    private static final String THROTTLE_LIMIT_MESSAGE = "throttle limit for login";
+
 
     private ApiWebService apiWebService;
     private DashboardWebService dashboardWebService;
@@ -99,16 +112,54 @@ public class RestCoordinator {
      *
      * @param email    user's email
      * @param password user's password
-     * @return a {@link Single} that emits true if success, and false if failure
+     * @return a {@link Single} that emits a {@link LoginResult}
      */
-    public Single<Boolean> login(String email, String password) {
+    public Single<LoginResult> login(String email, String password) {
         return dashboardWebService
                 .login(new LoginRequestBody(email, password))
-                .map(response -> {
+                .doOnSuccess(response -> {
                     if (response.isSuccessful()) {
                         tokenStore.setToken(response.body().getSessionToken());
                     }
-                    return response.isSuccessful();
+                })
+                .map(response -> {
+                    if (response.isSuccessful()) {
+                        return LoginResult.SUCCESS;
+                    }
+
+                    // convert errorBody
+                    Converter<ResponseBody, LoginErrorResponseBody> converter
+                            = new Retrofit.Builder()
+                            .baseUrl(RestModule.DASHBOARD_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
+                            .responseBodyConverter(LoginErrorResponseBody.class, new Annotation[0]);
+
+                    LoginErrorResponseBody errorBody = converter.convert(response.errorBody());
+
+                    int code = response.code();
+                    String errorMessage = errorBody.getMessage();
+                    Timber.d("%d: %s", code, errorMessage);
+                    if (errorMessage == null || errorMessage.isEmpty()) {
+                        return LoginResult.UNKNOWN_FAILURE;
+                    }
+
+                    switch (code) {
+                        case 401:
+                            if (errorMessage.toLowerCase(Locale.getDefault()).contains(UNKNOWN_EMAIL_MESSAGE)) {
+                                return LoginResult.UNKNOWN_EMAIL;
+                            }
+                            if (errorMessage.toLowerCase(Locale.getDefault()).contains(MISMATCHED_PASSWORD_MESSAGE)) {
+                                return LoginResult.EMAIL_PASSWORD_MISMATCH;
+                            }
+                            if (errorMessage.toLowerCase(Locale.getDefault()).contains(THROTTLE_LIMIT_MESSAGE)) {
+                                return LoginResult.THROTTLE_LIMIT;
+                            }
+                            return LoginResult.UNKNOWN_FAILURE;
+
+                        default:
+                            return LoginResult.UNKNOWN_FAILURE;
+                    }
                 });
     }
 

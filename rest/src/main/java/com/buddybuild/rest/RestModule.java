@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestModule {
 
     private static final String TAG = RestModule.class.getSimpleName();
+    public static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
 
     @Provides
     @Singleton
@@ -47,13 +48,14 @@ public class RestModule {
     @Singleton
     DashboardWebService provideDashboardWebService(OkHttpClient okHttpClient) {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://dashboard.buddybuild.com/")
+                .baseUrl(DASHBOARD_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
 
-        return builder.client(okHttpClient)
-                .build()
-                .create(DashboardWebService.class);
+        Retrofit retrofit = builder.client(okHttpClient)
+                .build();
+
+        return retrofit.create(DashboardWebService.class);
     }
 
     @Provides
@@ -85,11 +87,11 @@ public class RestModule {
 
         // add logging interceptor
         // (since this will use system Log (not Timber) we have to manually disable logging in release builds)
-//        if (BuildConfig.DEBUG) { // TODO fix
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okHttpClientBuilder.addInterceptor(loggingInterceptor);
-//        }
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpClientBuilder.addInterceptor(loggingInterceptor);
+        }
 
         return okHttpClientBuilder.build();
     }

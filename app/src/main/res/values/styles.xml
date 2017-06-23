@@ -7,7 +7,7 @@
     </style>
 
     <style name="ToolbarStyle" parent="AppTheme">
-        <item name="android:background">@color/bb_light_blue</item>
+        <item name="android:background">@color/bb_background_blue</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
@@ -32,6 +32,18 @@
         <item name="android:textSize">16sp</item>
         <item name="android:capitalize">words</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="WhiteText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WhiteTextInputAccents">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="textColorError">@color/bb_dark_blue</item>
     </style>
 
 </resources>

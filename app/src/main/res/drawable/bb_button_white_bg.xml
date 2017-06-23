@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- disabled -->
+    <item android:state_enabled="false">
+
+        <inset
+            android:insetBottom="@dimen/button_inset_vertical_material"
+            android:insetLeft="@dimen/button_inset_horizontal_material"
+            android:insetRight="@dimen/button_inset_horizontal_material"
+            android:insetTop="@dimen/button_inset_vertical_material">
+
+            <shape android:shape="rectangle">
+
+                <corners android:radius="@dimen/control_corner_material"/>
+
+                <stroke
+                    android:width="@dimen/ghost_button_stroke_width"
+                    android:color="@color/white60percentTransparent"/>
+
+            </shape>
+        </inset>
+    </item>
+
+    <!-- pressed -->
+    <item android:state_pressed="true">
+
+        <inset
+            android:insetBottom="@dimen/button_inset_vertical_material"
+            android:insetLeft="@dimen/button_inset_horizontal_material"
+            android:insetRight="@dimen/button_inset_horizontal_material"
+            android:insetTop="@dimen/button_inset_vertical_material">
+
+            <shape android:shape="rectangle">
+
+                <corners android:radius="@dimen/control_corner_material"/>
+
+                <stroke
+                    android:width="@dimen/ghost_button_stroke_width"
+                    android:color="@color/white"/>
+
+                <solid
+                    android:color="@color/white60percentTransparent"/>
+
+            </shape>
+        </inset>
+    </item>
+
+    <!-- enabled -->
+    <item>
+        <inset
+            android:insetBottom="@dimen/button_inset_vertical_material"
+            android:insetLeft="@dimen/button_inset_horizontal_material"
+            android:insetRight="@dimen/button_inset_horizontal_material"
+            android:insetTop="@dimen/button_inset_vertical_material">
+
+            <shape android:shape="rectangle">
+
+                <corners android:radius="@dimen/control_corner_material"/>
+
+                <stroke
+                    android:width="@dimen/ghost_button_stroke_width"
+                    android:color="@color/white"/>
+
+            </shape>
+        </inset>
+    </item>
+
+</selector>

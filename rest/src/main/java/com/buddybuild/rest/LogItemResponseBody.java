@@ -1,10 +1,12 @@
 package com.buddybuild.rest;
 
 import com.buddybuild.core.LogItem;
-import com.buddybuild.rest.util.DateTimeUtil;
 import com.google.gson.annotations.SerializedName;
 
-final class LogItemResponseBody {
+/**
+ * Internal
+ */
+class LogItemResponseBody {
 
     @SerializedName("level")
     private String level;
@@ -21,7 +23,6 @@ final class LogItemResponseBody {
     /**
      * @return conversion from server string to {@link LogItem.Level} enum
      */
-    // TODO add tests
     private LogItem.Level getLogLevel() {
         switch (level) {
             case "cc":
@@ -35,7 +36,5 @@ final class LogItemResponseBody {
             default:
                 throw new IllegalStateException("unknown log level: " + level);
         }
-
     }
-
 }
