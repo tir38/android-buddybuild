@@ -8,6 +8,7 @@ import com.buddybuild.ui.LogFragment;
 import com.buddybuild.ui.BuildsFragment;
 import com.buddybuild.ui.LoginFragment;
 import com.buddybuild.ui.OverviewActivity;
+import com.buddybuild.ui.SettingsFragment;
 
 import javax.inject.Singleton;
 
@@ -33,5 +34,7 @@ public interface MainComponent {
     void inject(BuildDetailPagerFragment buildDetailPagerFragment);
 
     void inject(BuildDetailsFragment buildDetailsFragment);
+
+    void inject(SettingsFragment settingsFragment);
 }
 

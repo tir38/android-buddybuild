@@ -26,7 +26,6 @@ public final class BuildDetailsFragment extends Fragment {
     @Inject
     protected Coordinator coordinator;
 
-
     public static BuildDetailsFragment newInstance(String buildId) {
         Bundle args = new Bundle();
         args.putString(ARG_BUILD_ID, buildId);

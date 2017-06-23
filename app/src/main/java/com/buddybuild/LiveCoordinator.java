@@ -18,6 +18,7 @@ import io.reactivex.Single;
 public class LiveCoordinator implements Coordinator {
 
     private static final String PREF_LOGIN_TOKEN = "PREF_LOGIN_TOKEN";
+    private static final String PREF_EMAIL = "PREF_EMAIL";
     private RestCoordinator restCoordinator;
     private Context context;
     private List<Branch> branches;
@@ -36,18 +37,33 @@ public class LiveCoordinator implements Coordinator {
         return restCoordinator.login(email, password)
                 .doOnSuccess(loginResult -> {
                     if (loginResult.getToken() != null) {
-                        // save token to shared pref
-                        PreferenceManager.getDefaultSharedPreferences(context)
-                                .edit()
-                                .putString(PREF_LOGIN_TOKEN, loginResult.getToken())
-                                .apply();
+                        saveLoginToken(loginResult.getToken());
+                        saveEmail(email);
                     }
                 });
     }
 
     @Override
+    public Single<Boolean> logout() {
+        restCoordinator.setLoginToken(null);
+        deleteLoginToken();
+        deleteEmail();
+        branches = null;
+        return Single.just(true);
+    }
+
+    @Override
     public boolean isLoggedIn() {
         return getLoginToken() != null;
+    }
+
+    @Override
+    public String getLoggedInUserEmail() {
+        if (isLoggedIn()) {
+            return getEmail();
+        }
+
+        return null;
     }
 
     @Override
@@ -89,5 +105,38 @@ public class LiveCoordinator implements Coordinator {
     private String getLoginToken() {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(PREF_LOGIN_TOKEN, null);
+    }
+
+    private void saveLoginToken(String token) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_LOGIN_TOKEN, token)
+                .apply();
+    }
+
+    private void deleteLoginToken() {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .remove(PREF_LOGIN_TOKEN)
+                .apply();
+    }
+
+    private String getEmail() {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(PREF_EMAIL, null);
+    }
+
+    private void saveEmail(String token) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_EMAIL, token)
+                .apply();
+    }
+
+    private void deleteEmail() {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .remove(PREF_EMAIL)
+                .apply();
     }
 }
