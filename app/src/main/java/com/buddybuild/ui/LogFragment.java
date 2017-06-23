@@ -101,7 +101,7 @@ public final class LogFragment extends LifecycleFragment {
                                         adapter.updateLogs(logs);
                                     }
                                 }),
-                        t -> progressIndicatorDelegate.fadeOutProgress(() -> Timber.e(t)));
+                        error -> progressIndicatorDelegate.fadeOutProgress(() -> Timber.e(error)));
 
         return view;
     }

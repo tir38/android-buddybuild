@@ -21,9 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -90,7 +88,7 @@ public class SettingsFragment extends Fragment {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
-                    Timber.e("something went wrong trying to log out");
+                    Timber.e(throwable, "something went wrong trying to log out");
                 });
     }
 

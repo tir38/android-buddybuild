@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class OverviewActivity extends AppCompatActivity implements AppsFragment.Callbacks {
 
@@ -100,11 +101,13 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
         coordinator.getApps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apps -> {
-                    OverviewActivity.this.apps = apps;
-                    updateBuildsFragment(apps.get(0).getId());
-                    updateToolbar();
-                });
+                .subscribe(
+                        apps -> {
+                            OverviewActivity.this.apps = apps;
+                            updateBuildsFragment(apps.get(0).getId());
+                            updateToolbar();
+                        },
+                        Timber::e);
     }
 
     @Override
