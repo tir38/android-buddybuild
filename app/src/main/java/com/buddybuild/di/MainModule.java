@@ -23,6 +23,6 @@ public class MainModule {
     @Provides
     @Singleton
     Coordinator provideCoordinator(RestCoordinator restCoordinator) {
-        return new LiveCoordinator(restCoordinator);
+        return new LiveCoordinator(restCoordinator, context);
     }
 }

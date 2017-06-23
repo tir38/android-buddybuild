@@ -46,11 +46,15 @@ public interface RestCoordinator {
     Single<LoginResult> login(String email, String password);
 
     /**
+     * @param token  login token
+     */
+    void setLoginToken(String token);
+
+    /**
      * Get Logs for a single {@link Build}
      *
      * @param buildId ID of the build
      * @return a {@link Single} that emits list of logs
      */
     Single<List<LogItem>> getLog(String buildId);
-
 }

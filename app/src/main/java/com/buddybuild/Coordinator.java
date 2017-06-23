@@ -24,6 +24,11 @@ public interface Coordinator {
     Single<LoginResult> login(String email, String password);
 
     /**
+     * @return true if a user is currently logged in, false if not
+     */
+    boolean isLoggedIn();
+
+    /**
      * Get all {@link App}s for a signed-in user
      *
      * @return a single of List<App>
@@ -50,4 +55,6 @@ public interface Coordinator {
      * @return single of list of log items
      */
     Single<List<LogItem>> getLogs(String buildId);
+
+
 }

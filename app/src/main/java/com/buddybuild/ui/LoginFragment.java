@@ -78,6 +78,10 @@ public class LoginFragment extends Fragment {
         super.onAttach(context);
         BuddyBuildApplication application = (BuddyBuildApplication) context.getApplicationContext();
         application.getComponent().inject(this);
+
+        if (coordinator.isLoggedIn()) {
+            navigateToOverview();
+        }
     }
 
     @Nullable
@@ -113,11 +117,9 @@ public class LoginFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> progressIndicatorDelegate.fadeOutProgress(() -> {
-                            switch (result) {
+                            switch (result.getResult()) {
                                 case SUCCESS:
-                                    Intent intent = OverviewActivity.newIntent(getContext());
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
+                                    navigateToOverview();
                                     break;
 
                                 case UNKNOWN_EMAIL:
@@ -144,6 +146,12 @@ public class LoginFragment extends Fragment {
                             Timber.w(throwable.getMessage());
                             progressIndicatorDelegate.fadeOutProgress(this::showOopsDialog);
                         });
+    }
+
+    private void navigateToOverview() {
+        Intent intent = OverviewActivity.newIntent(getContext());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void showOopsDialog() {

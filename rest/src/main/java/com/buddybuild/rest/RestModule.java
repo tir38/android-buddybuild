@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestModule {
 
     private static final String TAG = RestModule.class.getSimpleName();
-    public static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
+    static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
 
     @Provides
     @Singleton

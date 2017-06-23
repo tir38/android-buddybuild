@@ -30,7 +30,7 @@ public class LiveRestCoordinatorTest {
 
     private DashboardWebService mockDashboardWebService;
     private ApiWebService mockApiWebService;
-    private TokenStore spyTokenStore;
+    private TokenStore mockTokenStore;
     private BehaviorDelegate<DashboardWebService> dashboardWebServiceBehaviorDelegate;
     private Gson gson;
 
@@ -56,7 +56,7 @@ public class LiveRestCoordinatorTest {
         dashboardWebServiceBehaviorDelegate = mockRetrofit.create(DashboardWebService.class);
         mockDashboardWebService = Mockito.mock(DashboardWebService.class);
         mockApiWebService = Mockito.mock(ApiWebService.class);
-        spyTokenStore = Mockito.spy(TokenStore.class);
+        mockTokenStore = Mockito.mock(TokenStore.class);
 
         gson = new Gson();
     }
@@ -78,6 +78,8 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
+        TokenStore spyTokenStore = Mockito.spy(TokenStore.class);
+
         LiveRestCoordinator restCoordinator
                 = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
 
@@ -87,9 +89,10 @@ public class LiveRestCoordinatorTest {
                 .subscribe(testObserver);
 
         // assert
+        String expectedToken = "some returned token";
         testObserver.assertNoErrors();
-        testObserver.assertValueCount(1);
-        verify(spyTokenStore).setToken("some returned token");
+        testObserver.assertResult(new LoginResult(LoginResult.Result.SUCCESS, expectedToken));
+        verify(spyTokenStore).setToken(expectedToken);
     }
 
     @Test
@@ -110,7 +113,7 @@ public class LiveRestCoordinatorTest {
                 );
 
         LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, mockTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -119,7 +122,7 @@ public class LiveRestCoordinatorTest {
 
         // assert
         testObserver.assertNoErrors();
-        testObserver.assertResult(LoginResult.UNKNOWN_EMAIL);
+        testObserver.assertResult(new LoginResult(LoginResult.Result.UNKNOWN_EMAIL, null));
     }
 
     @Test
@@ -140,7 +143,7 @@ public class LiveRestCoordinatorTest {
                 );
 
         LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, mockTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -149,7 +152,7 @@ public class LiveRestCoordinatorTest {
 
         // assert
         testObserver.assertNoErrors();
-        testObserver.assertResult(LoginResult.EMAIL_PASSWORD_MISMATCH);
+        testObserver.assertResult(new LoginResult(LoginResult.Result.EMAIL_PASSWORD_MISMATCH, null));
     }
 
     @Test
@@ -170,7 +173,7 @@ public class LiveRestCoordinatorTest {
                 );
 
         LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, mockTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -179,6 +182,6 @@ public class LiveRestCoordinatorTest {
 
         // assert
         testObserver.assertNoErrors();
-        testObserver.assertResult(LoginResult.THROTTLE_LIMIT);
+        testObserver.assertResult(new LoginResult(LoginResult.Result.THROTTLE_LIMIT, null));
     }
 }

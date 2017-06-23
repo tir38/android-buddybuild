@@ -101,7 +101,7 @@ class LiveRestCoordinator implements RestCoordinator {
                 })
                 .map(response -> {
                     if (response.isSuccessful()) {
-                        return LoginResult.SUCCESS;
+                        return new LoginResult(LoginResult.Result.SUCCESS, response.body().getSessionToken());
                     }
 
                     // convert errorBody
@@ -118,26 +118,31 @@ class LiveRestCoordinator implements RestCoordinator {
                     String errorMessage = errorBody.getMessage();
                     Timber.d("%d: %s", code, errorMessage);
                     if (errorMessage == null || errorMessage.isEmpty()) {
-                        return LoginResult.UNKNOWN_FAILURE;
+                        return new LoginResult(LoginResult.Result.UNKNOWN_FAILURE, null);
                     }
 
                     switch (code) {
                         case 401:
                             if (errorMessage.toLowerCase(Locale.getDefault()).contains(UNKNOWN_EMAIL_MESSAGE)) {
-                                return LoginResult.UNKNOWN_EMAIL;
+                                return new LoginResult(LoginResult.Result.UNKNOWN_EMAIL, null);
                             }
                             if (errorMessage.toLowerCase(Locale.getDefault()).contains(MISMATCHED_PASSWORD_MESSAGE)) {
-                                return LoginResult.EMAIL_PASSWORD_MISMATCH;
+                                return new LoginResult(LoginResult.Result.EMAIL_PASSWORD_MISMATCH, null);
                             }
                             if (errorMessage.toLowerCase(Locale.getDefault()).contains(THROTTLE_LIMIT_MESSAGE)) {
-                                return LoginResult.THROTTLE_LIMIT;
+                                return new LoginResult(LoginResult.Result.THROTTLE_LIMIT, null);
                             }
-                            return LoginResult.UNKNOWN_FAILURE;
+                            return new LoginResult(LoginResult.Result.UNKNOWN_FAILURE, null);
 
                         default:
-                            return LoginResult.UNKNOWN_FAILURE;
+                            return new LoginResult(LoginResult.Result.UNKNOWN_FAILURE, null);
                     }
                 });
+    }
+
+    @Override
+    public void setLoginToken(String token) {
+        tokenStore.setToken(token);
     }
 
     @Override
