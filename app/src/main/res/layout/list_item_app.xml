@@ -4,15 +4,16 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/list_item_background_selector"
+              android:gravity="center_vertical"
               android:orientation="horizontal"
               android:paddingBottom="8dp"
               android:paddingLeft="@dimen/material_side_margin"
               android:paddingRight="@dimen/material_side_margin"
-              android:gravity="center_vertical"
               android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/list_item_app_name"
+        style="@style/ListItemPrimaryText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bb_background_blue">
+    android:background="@color/bb_background_blue"
+    tools:ignore="Overdraw">
+    <!--ignore because login content has no background, so there shouldn't be any overdraw-->
 
     <LinearLayout
         android:layout_width="@dimen/narrow_screen_max_width"
