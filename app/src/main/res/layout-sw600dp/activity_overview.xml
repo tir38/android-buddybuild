@@ -16,9 +16,8 @@
 
         <FrameLayout
             android:id="@+id/master_fragment_container"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_width="@dimen/material_tablet_max_nav_drawer_width"
+            android:layout_height="match_parent"/>
 
         <View
             android:layout_width="1dp"
@@ -29,7 +28,7 @@
             android:id="@+id/detail_fragment_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"/>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

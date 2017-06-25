@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="bb_button_padding">12dp</dimen>
-    <dimen name="build_details_key_width">128sp</dimen> <!-- yes SP -->!
-
     <!-- material design specific dimensions -->
     <dimen name="material_side_margin">16dp</dimen>
 
@@ -14,4 +10,10 @@
     <dimen name="ghost_button_stroke_width">1dp</dimen>
     <dimen name="status_icon_size">16dp</dimen>
 
+
+    <dimen name="bb_button_padding">12dp</dimen>
+    <dimen name="build_details_key_width">128sp</dimen> <!-- yes SP -->!
+    <dimen name="narrow_view_side_margin">32dp</dimen>
+    <dimen name="narrow_screen_max_width">500dp</dimen>
+    <dimen name="material_tablet_max_nav_drawer_width">320dp</dimen>
 </resources>

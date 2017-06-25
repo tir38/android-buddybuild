@@ -1,0 +1,55 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:android.support.design="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@null"
+        android:src="@drawable/bb_logo_white"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fragment_login_email_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:theme="@style/WhiteTextInputAccents">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/fragment_login_email_edittext"
+            style="@style/WhiteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:theme="@style/WhiteTextInputAccents"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fragment_login_password_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/password"
+        android:theme="@style/WhiteTextInputAccents"
+        android.support.design:passwordToggleEnabled="true"
+        android.support.design:passwordToggleTint="@color/white">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/fragment_login_password_edittext"
+            style="@style/WhiteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:theme="@style/WhiteTextInputAccents"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.buddybuild.ui.view.BuddyBuildWhiteButton
+        android:id="@+id/fragment_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/login"/>
+</merge>

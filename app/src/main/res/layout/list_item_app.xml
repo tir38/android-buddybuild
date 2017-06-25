@@ -8,9 +8,8 @@
               android:paddingBottom="8dp"
               android:paddingLeft="@dimen/material_side_margin"
               android:paddingRight="@dimen/material_side_margin"
-              android:paddingTop="8dp"
-              tools:ignore="UseCompoundDrawables">
-    <!--suppress since we are going to put more in this view soon anyways-->
+              android:gravity="center_vertical"
+              android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/list_item_app_name"
@@ -23,7 +22,9 @@
         android:id="@+id/list_item_app_platform_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:enabled="false"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:enabled="false"
+        android:textAllCaps="true"/>
 
 </LinearLayout>

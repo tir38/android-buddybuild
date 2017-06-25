@@ -6,9 +6,8 @@
     android:background="@color/bb_background_blue">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/narrow_screen_max_width"
         android:layout_height="match_parent"
-        android:maxWidth="@dimen/narrow_screen_max_width"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/narrow_view_side_margin"
         android:layout_marginRight="@dimen/narrow_view_side_margin"
