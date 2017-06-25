@@ -9,57 +9,68 @@
                 android:paddingRight="@dimen/material_side_margin"
                 android:paddingTop="8dp">
 
-    <com.buddybuild.ui.view.StatusIcon
-        android:id="@+id/list_item_build_status_icon"
-        android:layout_width="@dimen/status_icon_size"
-        android:layout_height="@dimen/status_icon_size"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"/>
-
-    <TextView
-        android:id="@+id/list_item_build_name_textview"
+    <LinearLayout
+        android:id="@+id/list_item_build_title_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/list_item_build_status_icon"
-        android:layout_toRightOf="@+id/list_item_build_status_icon"
-        android:paddingBottom="4dp"
-        android:textStyle="bold"
-        tools:text="My Build"/>
+        android:layout_marginBottom="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.buddybuild.ui.view.StatusIcon
+            android:id="@+id/list_item_build_status_icon"
+            android:layout_width="@dimen/status_icon_size"
+            android:layout_height="@dimen/status_icon_size"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <TextView
+            android:id="@+id/list_item_build_name_textview"
+            style="@style/ListItemPrimaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:textStyle="bold"
+            tools:text="My Build"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/list_item_build_time_textview"
+        style="@style/ListItemSecondaryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_item_build_name_textview"
-        android:layout_toEndOf="@+id/list_item_build_status_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/list_item_build_title_linear_layout"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_toLeftOf="@+id/list_item_build_author_textview"
-        android:layout_toRightOf="@+id/list_item_build_status_icon"
         android:layout_toStartOf="@+id/list_item_build_author_textview"
-
         tools:text="3 days ago"/>
 
     <TextView
         android:id="@+id/list_item_build_author_textview"
+        style="@style/ListItemSecondaryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/list_item_build_name_textview"
+        android:layout_below="@+id/list_item_build_title_linear_layout"
         tools:text="S. Nagheenanajar"/>
 
     <TextView
         android:id="@+id/list_item_build_commit_msg_textview"
-        android:layout_width="wrap_content"
+        style="@style/ListItemSecondaryText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/list_item_build_time_textview"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/list_item_build_status_icon"
-        android:layout_toRightOf="@+id/list_item_build_status_icon"
         android:ellipsize="end"
         android:maxLines="3"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>

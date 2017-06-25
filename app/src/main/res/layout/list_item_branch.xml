@@ -4,13 +4,14 @@
               android:layout_height="wrap_content"
               android:background="@color/bb_list_item_selected"
               android:orientation="vertical"
-              android:paddingBottom="8dp"
+              android:paddingBottom="16dp"
               android:paddingLeft="@dimen/material_side_margin"
               android:paddingRight="@dimen/material_side_margin"
-              android:paddingTop="8dp">
+              android:paddingTop="16dp">
 
     <TextView
         android:id="@+id/list_item_branch_name"
+        style="@style/ListItemPrimaryText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"/>
