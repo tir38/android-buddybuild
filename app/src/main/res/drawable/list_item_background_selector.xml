@@ -6,4 +6,7 @@
     <item android:state_selected="true">
         <color android:color="@color/bb_list_item_selected"/>
     </item>
+    <item>
+        <color android:color="@color/white"/>
+    </item>
 </selector>
