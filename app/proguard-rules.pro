@@ -31,6 +31,7 @@
 -dontwarn javax.annotation.Nonnull
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.CheckReturnValue
+-keep class javax.annotation.CheckReturnValue { *; }
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 
 # New Android Gradle Plugin (3.0) has some temp bugs. TODO revisit this
