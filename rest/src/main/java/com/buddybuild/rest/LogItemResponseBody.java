@@ -13,7 +13,7 @@ class LogItemResponseBody {
     @SerializedName("message")
     private String message;
     @SerializedName("timestamp")
-    private String timestamp;
+    private String timestamp; // TODO we never use this. Should we remove it?
 
     LogItem toLogItem() {
         String trimmedMsg = message.startsWith("\n") ? message.substring(2) : message;
