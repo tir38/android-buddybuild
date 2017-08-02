@@ -2,11 +2,18 @@ package com.buddybuild.rest;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -26,22 +33,9 @@ public class RestModule {
 
     @Provides
     @Singleton
-    RestCoordinator provideRestCoordinator(ApiWebService apiWebService, DashboardWebService dashboardWebService,
+    RestCoordinator provideRestCoordinator(DashboardWebService dashboardWebService,
                                            TokenStore tokenStore) {
-        return new LiveRestCoordinator(apiWebService, dashboardWebService, tokenStore);
-    }
-
-    @Provides
-    @Singleton
-    ApiWebService provideApiWebservice(OkHttpClient okHttpClient) {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.buddybuild.com/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
-
-        return builder.client(okHttpClient)
-                .build()
-                .create(ApiWebService.class);
+        return new LiveRestCoordinator(dashboardWebService, tokenStore);
     }
 
     @Provides
@@ -92,6 +86,24 @@ public class RestModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             okHttpClientBuilder.addInterceptor(loggingInterceptor);
         }
+
+        // add cookie jar to store cookies for request
+        CookieJar cookieJar = new CookieJar() {
+            private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+
+            @Override
+            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                cookieStore.put(url.host(), cookies);
+            }
+
+            @Override
+            public List<Cookie> loadForRequest(HttpUrl url) {
+                List<Cookie> cookies = cookieStore.get(url.host());
+                return cookies != null ? cookies : new ArrayList<>();
+            }
+        };
+        okHttpClientBuilder.cookieJar(cookieJar);
+        // TODO persist cookies across app restart
 
         return okHttpClientBuilder.build();
     }
