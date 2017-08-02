@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,9 @@ public class BuildsFragment extends Fragment {
     @Inject
     protected Coordinator coordinator;
     @BindView(R.id.fragment_builds_recyclerview)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
+    @BindView(R.id.fragment_builds_empty_textview)
+    protected TextView emptyMessageTextView;
 
     private Unbinder unbinder;
     private BranchBuildsAdapter adapter;
@@ -93,11 +96,17 @@ public class BuildsFragment extends Fragment {
     }
 
     /**
-     * Set the {@link App} displayed by this fragment
+     * Set the {@link App} displayed by this fragment. If passing in null, will display empty state.
      *
      * @param appId the ID of the {@link App} to display
      */
-    public void setApp(String appId) {
+    public void setApp(@Nullable String appId) {
+
+        if (TextUtils.isEmpty(appId)) {
+            emptyMessageTextView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            return;
+        }
 
         coordinator.getBranches(appId)
                 .map(branches -> {
@@ -115,12 +124,16 @@ public class BuildsFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         branchItems -> {
-                            // Because of how ExpandableRecyclerAdapter works,
-                            // the data is maintained OUTSIDE the adapter,
-                            // contrary to normal pattern.
-                            this.branchItems.clear();
-                            this.branchItems.addAll(branchItems);
-                            adapter.notifyParentDataSetChanged(true);
+                            if (branchItems.size() > 0) {
+                                emptyMessageTextView.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
+                                // Because of how ExpandableRecyclerAdapter works,
+                                // the data is maintained OUTSIDE the adapter,
+                                // contrary to normal pattern.
+                                this.branchItems.clear();
+                                this.branchItems.addAll(branchItems);
+                                adapter.notifyParentDataSetChanged(true);
+                            }
                         },
                         Timber::e);
     }
