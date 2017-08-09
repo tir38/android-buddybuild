@@ -60,6 +60,11 @@ dependencies {
     // Apache 2.0
     compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
 
+    // A persistent CookieJar implementation for OkHttp 3 based on SharedPreferences
+    // https://github.com/franmontiel/PersistentCookieJar
+    // Apache 2.0
+    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
     compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
 
     // ---------------

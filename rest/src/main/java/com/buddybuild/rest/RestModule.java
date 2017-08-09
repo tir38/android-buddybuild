@@ -1,6 +1,12 @@
 package com.buddybuild.rest;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +60,7 @@ public class RestModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(TokenStore tokenStore) {
+    OkHttpClient provideOkHttpClient(TokenStore tokenStore, Context context) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
         // add session token
@@ -88,22 +94,10 @@ public class RestModule {
         }
 
         // add cookie jar to store cookies for request
-        CookieJar cookieJar = new CookieJar() {
-            private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+        ClearableCookieJar cookieJar = new PersistentCookieJar(
+                new SetCookieCache(), new SharedPrefsCookiePersistor(context));
 
-            @Override
-            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                cookieStore.put(url.host(), cookies);
-            }
-
-            @Override
-            public List<Cookie> loadForRequest(HttpUrl url) {
-                List<Cookie> cookies = cookieStore.get(url.host());
-                return cookies != null ? cookies : new ArrayList<>();
-            }
-        };
         okHttpClientBuilder.cookieJar(cookieJar);
-        // TODO persist cookies across app restart
 
         return okHttpClientBuilder.build();
     }
