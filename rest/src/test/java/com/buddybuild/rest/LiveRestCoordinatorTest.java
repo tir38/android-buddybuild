@@ -29,7 +29,6 @@ import static org.mockito.Mockito.when;
 public class LiveRestCoordinatorTest {
 
     private DashboardWebService mockDashboardWebService;
-    private ApiWebService mockApiWebService;
     private TokenStore mockTokenStore;
     private BehaviorDelegate<DashboardWebService> dashboardWebServiceBehaviorDelegate;
     private Gson gson;
@@ -55,7 +54,6 @@ public class LiveRestCoordinatorTest {
 
         dashboardWebServiceBehaviorDelegate = mockRetrofit.create(DashboardWebService.class);
         mockDashboardWebService = Mockito.mock(DashboardWebService.class);
-        mockApiWebService = Mockito.mock(ApiWebService.class);
         mockTokenStore = Mockito.mock(TokenStore.class);
 
         gson = new Gson();
@@ -80,8 +78,7 @@ public class LiveRestCoordinatorTest {
 
         TokenStore spyTokenStore = Mockito.spy(TokenStore.class);
 
-        LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, spyTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, spyTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -112,8 +109,7 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, mockTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -142,8 +138,7 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, mockTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -172,8 +167,7 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        LiveRestCoordinator restCoordinator
-                = new LiveRestCoordinator(mockApiWebService, mockDashboardWebService, mockTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
