@@ -89,7 +89,7 @@ dependencies {
     // https://github.com/ReactiveX/RxJava
     // https://github.com/ReactiveX/RxAndroid
     // Apache 2.0
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // Dependency Injection for Views
@@ -128,9 +128,15 @@ dependencies {
     compile "com.android.support:design:" + rootProject.ext.supportLibVersion
 
     // Lifecycles, LiveData, and Viewmodel Architecture Components
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
+    compile ("android.arch.lifecycle:runtime:1.0.0-alpha8") {
+        exclude group: 'com.android.support'
+    }
+    compile ("android.arch.lifecycle:extensions:1.0.0-alpha8") {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor ("android.arch.lifecycle:compiler:1.0.0-alpha8") {
+        exclude group: 'com.android.support'
+    }
 
     // ---------------
     // INSTRUMENTATION TEST DEPENDENCIES
