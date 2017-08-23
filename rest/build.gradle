@@ -33,46 +33,50 @@ check {
 }
 
 dependencies {
-    compile project(':core')
+    implementation project(':core')
 
     // REST + HTTP client
     // http://square.github.io/retrofit/
     // Apache 2.0
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    // TODO stop leaking these dependencies out of this module:
+    // Right now we provide an OkHttpClient via dagger.
+    // That provide is available to classes OUTSIDE this module.
+    // As such, the app module needs access to OkHttp3 =(
+    // TL;DR change 'api' -> 'implementation'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
     // Better logging
     // https://github.com/JakeWharton/timber
     // Apache 2.0
-    compile 'com.jakewharton.timber:timber:' + rootProject.ext.timberLibVersion
+    implementation 'com.jakewharton.timber:timber:' + rootProject.ext.timberLibVersion
 
     // Dependency injection
     // http://google.github.io/dagger/
     // Apache 2.0
-    compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
+    implementation "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
     annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
 
     // An adaptation of the JSR-310 backport for Android
     // (i.e. better date and time classes)
     // https://github.com/JakeWharton/ThreeTenABP
     // Apache 2.0
-    compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
+    implementation 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
 
     // A persistent CookieJar implementation for OkHttp 3 based on SharedPreferences
     // https://github.com/franmontiel/PersistentCookieJar
     // Apache 2.0
-    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
-    compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
+    implementation "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
 
     // ---------------
     // UNIT TEST DEPENDENCIES
     // ---------------
-    testCompile 'junit:junit:' + rootProject.ext.junitVersion
-    testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
-    testCompile 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
-
-    testCompile 'com.squareup.retrofit2:retrofit-mock:2.2.0'
+    testImplementation 'junit:junit:' + rootProject.ext.junitVersion
+    testImplementation 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
+    testImplementation 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
+    testImplementation 'com.squareup.retrofit2:retrofit-mock:2.2.0'
 }

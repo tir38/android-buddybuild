@@ -18,7 +18,7 @@ dependencies {
     // Backport of java.time.* from java 8
     // http://www.threeten.org/threetenbp/
     // BSD 3-clause "New" or "Revised" License
-    compile 'org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion + ":no-tzdb"
+    implementation 'org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion + ":no-tzdb"
 
     // Annotation-based model creation
     // https://projectlombok.org
@@ -28,7 +28,7 @@ dependencies {
     // ---------------
     // UNIT TEST DEPENDENCIES
     // ---------------
-    testCompile 'junit:junit:' + rootProject.ext.junitVersion
-    testCompile 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
-    testCompile 'org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion
+    testImplementation 'junit:junit:' + rootProject.ext.junitVersion
+    testImplementation 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
+    testImplementation 'org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion
 }
