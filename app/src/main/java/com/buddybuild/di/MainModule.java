@@ -22,6 +22,12 @@ public class MainModule {
 
     @Provides
     @Singleton
+    Context provideApplicationContext() {
+        return context;
+    }
+
+    @Provides
+    @Singleton
     Coordinator provideCoordinator(RestCoordinator restCoordinator) {
         return new LiveCoordinator(restCoordinator, context);
     }

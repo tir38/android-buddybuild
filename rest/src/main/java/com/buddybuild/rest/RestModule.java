@@ -1,6 +1,12 @@
 package com.buddybuild.rest;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import javax.inject.Singleton;
 
@@ -26,22 +32,9 @@ public class RestModule {
 
     @Provides
     @Singleton
-    RestCoordinator provideRestCoordinator(ApiWebService apiWebService, DashboardWebService dashboardWebService,
+    RestCoordinator provideRestCoordinator(DashboardWebService dashboardWebService,
                                            TokenStore tokenStore) {
-        return new LiveRestCoordinator(apiWebService, dashboardWebService, tokenStore);
-    }
-
-    @Provides
-    @Singleton
-    ApiWebService provideApiWebservice(OkHttpClient okHttpClient) {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.buddybuild.com/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
-
-        return builder.client(okHttpClient)
-                .build()
-                .create(ApiWebService.class);
+        return new LiveRestCoordinator(dashboardWebService, tokenStore);
     }
 
     @Provides
@@ -60,7 +53,7 @@ public class RestModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(TokenStore tokenStore) {
+    OkHttpClient provideOkHttpClient(TokenStore tokenStore, Context context) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
         // add session token
@@ -92,6 +85,12 @@ public class RestModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             okHttpClientBuilder.addInterceptor(loggingInterceptor);
         }
+
+        // add cookie jar to store cookies for request
+        ClearableCookieJar cookieJar = new PersistentCookieJar(
+                new SetCookieCache(), new SharedPrefsCookiePersistor(context));
+
+        okHttpClientBuilder.cookieJar(cookieJar);
 
         return okHttpClientBuilder.build();
     }

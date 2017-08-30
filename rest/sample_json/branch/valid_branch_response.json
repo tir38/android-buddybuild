@@ -1,8 +1,8 @@
 [
   {
-    "name": "master"
+    "branch_name": "master"
   },
   {
-    "name": "release"
+    "branch_name": "release"
   }
 ]

@@ -21,6 +21,9 @@ public class Branch {
     private List<Build> builds;
 
     public Branch(String name) {
+        if (name == null) { // TODO add test
+            throw new IllegalArgumentException("name cannot be null");
+        }
         this.name = name;
     }
 
