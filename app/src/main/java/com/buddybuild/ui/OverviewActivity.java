@@ -104,7 +104,11 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
                 .subscribe(
                         apps -> {
                             OverviewActivity.this.apps = apps;
-                            updateBuildsFragment(apps.get(0).getId());
+                            if (!apps.isEmpty()) {
+                                updateBuildsFragment(apps.get(0).getId());
+                            } else {
+                                updateBuildsFragment(null);
+                            }
                             updateToolbar();
                         },
                         Timber::e);
@@ -124,7 +128,7 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
         }
     }
 
-    private void updateBuildsFragment(String appId) {
+    private void updateBuildsFragment(@Nullable String appId) {
         BuildsFragment buildsFragment =
                 (BuildsFragment) getSupportFragmentManager().findFragmentByTag(TAG_DETAIL_FRAGMENT);
         buildsFragment.setApp(appId);

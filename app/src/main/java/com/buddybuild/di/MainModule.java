@@ -17,13 +17,13 @@ import timber.log.Timber;
 @Module
 public class MainModule {
 
-    private Context context;
+    private Context applicationContext;
 
     private DemoCoordinator demoCoordinator;
     private LiveCoordinator liveCoordinator;
 
-    public MainModule(Context context) {
-        this.context = context.getApplicationContext();
+    public MainModule(Context applicationContext) {
+        this.applicationContext = applicationContext.getApplicationContext();
     }
 
     @Provides
@@ -40,7 +40,7 @@ public class MainModule {
         } else {
             if (liveCoordinator == null) {
                 Timber.d("DI: creating live coordinator");
-                liveCoordinator = new LiveCoordinator(restCoordinator, context);
+                liveCoordinator = new LiveCoordinator(restCoordinator, applicationContext);
             }
 
             Timber.d("DI: returning live coordinator");
@@ -52,5 +52,11 @@ public class MainModule {
     @Singleton
     DemoManager provideDemoManager() {
         return new DemoManager();
+    }
+
+    @Provides
+    @Singleton
+    Context provideApplicationContext() {
+        return applicationContext;
     }
 }

@@ -23,20 +23,19 @@ class LiveRestCoordinator implements RestCoordinator {
     private static final String UNKNOWN_EMAIL_MESSAGE = "unknown email address";
     private static final String MISMATCHED_PASSWORD_MESSAGE = "email and password you entered do not match";
     private static final String THROTTLE_LIMIT_MESSAGE = "throttle limit for login";
+    private static final int BUILD_COUNT_LIMIT = 5;
 
-    private ApiWebService apiWebService;
     private DashboardWebService dashboardWebService;
     private TokenStore tokenStore;
 
-    LiveRestCoordinator(ApiWebService apiWebService, DashboardWebService dashboardWebService, TokenStore tokenStore) {
-        this.apiWebService = apiWebService;
+    LiveRestCoordinator(DashboardWebService dashboardWebService, TokenStore tokenStore) {
         this.dashboardWebService = dashboardWebService;
         this.tokenStore = tokenStore;
     }
 
     @Override
     public Single<List<App>> getApps() {
-        return apiWebService
+        return dashboardWebService
                 .getApps()
                 .map(response -> {
                     List<App> apps = new ArrayList<>();
@@ -57,7 +56,7 @@ class LiveRestCoordinator implements RestCoordinator {
 
     @Override
     public Single<List<Branch>> getBranches(String appId) {
-        return apiWebService
+        return dashboardWebService
                 .getBranchesForApp(appId)
                 .map(response -> {
                     List<Branch> branches = new ArrayList<>();
@@ -78,7 +77,7 @@ class LiveRestCoordinator implements RestCoordinator {
 
     @Override
     public Single<List<Build>> getBuildsForBranch(final String appId, final String branchName) {
-        return apiWebService.getBuildsForBranch(appId, branchName)
+        return dashboardWebService.getBuildsForBranch(appId, branchName, BUILD_COUNT_LIMIT)
                 .map(response -> {
                     List<Build> builds = new ArrayList<>();
                     if (response.isSuccessful()) {

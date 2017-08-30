@@ -71,78 +71,84 @@ dependencies {
     // https://developer.android.com/studio/preview/features/new-android-plugin-migration.html#new_configurations
     // once we don't have a million proguard-related errors
 
-    compile project(':core')
-    compile project(':rest')
+    implementation project(':core')
+    implementation project(':rest')
 
     // Better logging
     // https://github.com/JakeWharton/timber
     // Apache 2.0
-    compile 'com.jakewharton.timber:timber:' + rootProject.ext.timberLibVersion
+    implementation 'com.jakewharton.timber:timber:' + rootProject.ext.timberLibVersion
 
     // Dependency injection
     // http://google.github.io/dagger/
     // Apache 2.0
-    compile "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
+    implementation "com.google.dagger:dagger:" + rootProject.ext.daggerLibVersion
     annotationProcessor "com.google.dagger:dagger-compiler:" + rootProject.ext.daggerLibVersion
 
     // RxJava2 and Reactive Extensions for Android
     // https://github.com/ReactiveX/RxJava
     // https://github.com/ReactiveX/RxAndroid
     // Apache 2.0
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // Dependency Injection for Views
     // http://jakewharton.github.io/butterknife/
     // Apache 2.0
-    compile 'com.jakewharton:butterknife:8.5.1'
+    implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     // Easily add item decoration to recyclerviews
     // http://bignerdranch.github.io/simple-item-decoration/
     // MIT
-    compile 'com.bignerdranch.android:simple-item-decoration:1.0.0'
+    implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
 
     // Expand recycler view elements
     // https://bignerdranch.github.io/expandable-recycler-view/
     // MIT
-    compile 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+    implementation 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
 
     // An adaptation of the JSR-310 backport for Android
     // (i.e. better date and time classes)
     // https://github.com/JakeWharton/ThreeTenABP
     // Apache 2.0
-    compile 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
+    implementation 'com.jakewharton.threetenabp:threetenabp:' + rootProject.ext.threetenapbLibVersion
 
     // Automatically terminate RxStreams at certain lifecycle events
     // https://github.com/trello/RxLifecycle
     // Apache 2.0
-    compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
-    compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.1.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.1.0'
 
     // support libs; not all of these are directly used by the app
     // some are used by third-party libs and we need to ensure they are all on the same version number
     // so override third-party libs dependencies' by declaring them as top level dependencies
-    compile "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
-    compile "com.android.support:recyclerview-v7:" + rootProject.ext.supportLibVersion
-    compile "com.android.support:design:" + rootProject.ext.supportLibVersion
+    implementation "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
+    implementation "com.android.support:recyclerview-v7:" + rootProject.ext.supportLibVersion
+    implementation "com.android.support:design:" + rootProject.ext.supportLibVersion
 
     // Lifecycles, LiveData, and Viewmodel Architecture Components
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
+    implementation ("android.arch.lifecycle:runtime:1.0.0-alpha9") {
+        exclude group: 'com.android.support'
+    }
+    implementation ("android.arch.lifecycle:extensions:1.0.0-alpha9") {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor ("android.arch.lifecycle:compiler:1.0.0-alpha9") {
+        exclude group: 'com.android.support'
+    }
 
     // ---------------
     // INSTRUMENTATION TEST DEPENDENCIES
     // ---------------
-    androidTestCompile 'junit:junit:' + rootProject.ext.junitVersion
-    androidTestCompile "org.assertj:assertj-core:$rootProject.ext.assertJVersion"
+    androidTestImplementation 'junit:junit:' + rootProject.ext.junitVersion
+    androidTestImplementation "org.assertj:assertj-core:$rootProject.ext.assertJVersion"
 
     // Android Testing Support Library's runner and rules
-    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
 
-    androidTestCompile('org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion) {
+    androidTestImplementation('org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion) {
         exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
     }
 }
