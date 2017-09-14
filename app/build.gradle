@@ -147,8 +147,4 @@ dependencies {
     // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
     androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
-
-    androidTestImplementation('org.threeten:threetenbp:' + rootProject.ext.threetenbpLibVersion) {
-        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
-    }
 }
