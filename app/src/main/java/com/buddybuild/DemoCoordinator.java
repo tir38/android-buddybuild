@@ -18,7 +18,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
- * A {@link Coordinator} that supplies dummy models for demoing the app
+ * A {@link Coordinator} that supplies dummy models for demo-ing the app
  */
 public class DemoCoordinator implements Coordinator {
 
@@ -27,7 +27,10 @@ public class DemoCoordinator implements Coordinator {
     private List<App> apps;
     private Map<String, List<Branch>> appsBranchesMap;
     private List<LogItem> logs;
-    private List<Build> builds;
+    private List<Build> androidMasterBuilds;
+    private List<Build> androidFeatureBuilds;
+    private List<Build> iosMasterBuilds;
+    private List<Build> iosFeatureBuilds;
 
     public DemoCoordinator(DemoManager demoManager) {
         this.demoManager = demoManager;
@@ -68,7 +71,22 @@ public class DemoCoordinator implements Coordinator {
 
     @Override
     public Maybe<Build> getBuild(String buildId) {
-        for (Build build : builds) {
+        for (Build build : androidMasterBuilds) {
+            if (build.getId().equals(buildId)) {
+                return Maybe.just(build);
+            }
+        }
+        for (Build build : androidFeatureBuilds) {
+            if (build.getId().equals(buildId)) {
+                return Maybe.just(build);
+            }
+        }
+        for (Build build : iosMasterBuilds) {
+            if (build.getId().equals(buildId)) {
+                return Maybe.just(build);
+            }
+        }
+        for (Build build : iosFeatureBuilds) {
             if (build.getId().equals(buildId)) {
                 return Maybe.just(build);
             }
@@ -85,71 +103,141 @@ public class DemoCoordinator implements Coordinator {
     private void setupDemoData() {
         apps = new ArrayList<>();
         appsBranchesMap = new HashMap<>();
-        setupDemoBuilds();
-        setupDemoAndroidApp();
-        setupDemoIosApp();
-        setupDemoLogs();
+        setupBuilds();
+        setupAndroidApp();
+        setupIosApp();
+        setupLogs();
     }
 
-    private void setupDemoIosApp() {
+    private void setupIosApp() {
         App iosApp = new App("2", "2048 iOS app", App.Platform.IOS);
         apps.add(iosApp);
 
         List<Branch> branches = new ArrayList<>();
         Branch masterBranch = new Branch("master");
-        masterBranch.setBuilds(builds);
+        masterBranch.setBuilds(iosMasterBuilds);
         branches.add(masterBranch);
 
-        Branch featureBranch = new Branch("feature/multiplayer");
-        featureBranch.setBuilds(builds);
+        Branch featureBranch = new Branch("feature/uiRedesign");
+        featureBranch.setBuilds(iosFeatureBuilds);
         branches.add(featureBranch);
 
         appsBranchesMap.put(iosApp.getId(), branches);
     }
 
-    private void setupDemoAndroidApp() {
+    private void setupAndroidApp() {
         App androidApp = new App("1", "2048 android app", App.Platform.ANDROID);
         apps.add(androidApp);
 
         List<Branch> branches = new ArrayList<>();
         Branch masterBranch = new Branch("master");
-        masterBranch.setBuilds(builds);
+        masterBranch.setBuilds(androidMasterBuilds);
         branches.add(masterBranch);
 
         Branch featureBranch = new Branch("feature/multiplayer");
-        featureBranch.setBuilds(builds);
+        featureBranch.setBuilds(androidFeatureBuilds);
         branches.add(featureBranch);
 
         appsBranchesMap.put(androidApp.getId(), branches);
     }
 
-    private void setupDemoBuilds() {
-        builds = new ArrayList<>();
+    private void setupBuilds() {
+        setupAndroidBuilds();
+        setupIosBuilds();
+    }
 
-        builds.add(new Build.Builder()
-                .id("1")
+    private void setupIosBuilds() {
+        iosMasterBuilds = new ArrayList<>();
+        iosMasterBuilds.add(new Build.Builder()
+                .id("5")
                 .buildNumber(1)
-                .author("Ali Connors")
+                .author("Steve Jobs")
                 .buildStatus(Build.Status.SUCCESS)
-                .commitMessage("Update game controller to allow multiplayer")
+                .commitMessage("Refactor UI")
+                .createTime(ZonedDateTime.now().minus(70, ChronoUnit.MINUTES))
+                .startTime(ZonedDateTime.now().minus(68, ChronoUnit.MINUTES))
+                .finishTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
+                .build());
+        iosMasterBuilds.add(new Build.Builder()
+                .id("6")
+                .buildNumber(2)
+                .author("Steve Wozniak")
+                .buildStatus(Build.Status.FAILED)
+                .commitMessage("Add support for configuring clock and timers")
                 .createTime(ZonedDateTime.now().minus(65, ChronoUnit.MINUTES))
                 .startTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
                 .finishTime(ZonedDateTime.now().minus(50, ChronoUnit.MINUTES))
                 .build());
 
-        builds.add(new Build.Builder()
+        iosFeatureBuilds = new ArrayList<>();
+        iosFeatureBuilds.add(new Build.Builder()
+                .id("7")
+                .buildNumber(3)
+                .author("Steve Wozniak")
+                .buildStatus(Build.Status.SUCCESS)
+                .commitMessage("Clean up code formatting")
+                .createTime(ZonedDateTime.now().minus(70, ChronoUnit.MINUTES))
+                .startTime(ZonedDateTime.now().minus(68, ChronoUnit.MINUTES))
+                .finishTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
+                .build());
+        iosFeatureBuilds.add(new Build.Builder()
+                .id("8")
+                .buildNumber(4)
+                .author("Steve Jobs")
+                .buildStatus(Build.Status.RUNNING)
+                .commitMessage("Remove support for configuring clock and timers")
+                .createTime(ZonedDateTime.now().minus(20, ChronoUnit.MINUTES))
+                .startTime(ZonedDateTime.now().minus(10, ChronoUnit.MINUTES))
+                .build());
+    }
+
+    private void setupAndroidBuilds() {
+        androidMasterBuilds = new ArrayList<>();
+        androidMasterBuilds.add(new Build.Builder()
+                .id("1")
+                .buildNumber(1)
+                .author("Ali Connors")
+                .buildStatus(Build.Status.SUCCESS)
+                .commitMessage("Update game controller to allow multiplayer")
+                .createTime(ZonedDateTime.now().minus(70, ChronoUnit.MINUTES))
+                .startTime(ZonedDateTime.now().minus(68, ChronoUnit.MINUTES))
+                .finishTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
+                .build());
+        androidMasterBuilds.add(new Build.Builder()
                 .id("2")
                 .buildNumber(2)
-                .author("Aaron Bennett")
+                .author("Andy Rubin")
                 .buildStatus(Build.Status.FAILED)
                 .commitMessage("Derezz the master control program")
+                .createTime(ZonedDateTime.now().minus(65, ChronoUnit.MINUTES))
+                .startTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
+                .finishTime(ZonedDateTime.now().minus(50, ChronoUnit.MINUTES))
+                .build());
+
+        androidFeatureBuilds = new ArrayList<>();
+        androidFeatureBuilds.add(new Build.Builder()
+                .id("3")
+                .buildNumber(3)
+                .author("Andy Rubin")
+                .buildStatus(Build.Status.FAILED)
+                .commitMessage("Refactor the gizmo generator")
+                .createTime(ZonedDateTime.now().minus(65, ChronoUnit.MINUTES))
+                .startTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
+                .finishTime(ZonedDateTime.now().minus(50, ChronoUnit.MINUTES))
+                .build());
+        androidFeatureBuilds.add(new Build.Builder()
+                .id("4")
+                .buildNumber(4)
+                .author("Ali Connors")
+                .buildStatus(Build.Status.QUEUED)
+                .commitMessage("Implement in-game stats")
                 .createTime(ZonedDateTime.now().minus(70, ChronoUnit.MINUTES))
                 .startTime(ZonedDateTime.now().minus(68, ChronoUnit.MINUTES))
                 .finishTime(ZonedDateTime.now().minus(60, ChronoUnit.MINUTES))
                 .build());
     }
 
-    private void setupDemoLogs() {
+    private void setupLogs() {
         logs = new ArrayList<>();
         logs.add(new LogItem(ZonedDateTime.now().minus(400, ChronoUnit.SECONDS),
                 "logs", LogItem.Level.CT));
@@ -164,15 +252,15 @@ public class DemoCoordinator implements Coordinator {
         logs.addAll(logs);
         logs.addAll(logs);
         logs.addAll(logs);
-        logs.addAll(logs);
-        logs.addAll(logs);
-        logs.addAll(logs);
     }
 
     private void clearDemoData() {
         apps = null;
         appsBranchesMap = null;
         logs = null;
-        builds = null;
+        androidMasterBuilds = null;
+        iosMasterBuilds = null;
+        androidFeatureBuilds = null;
+        iosFeatureBuilds = null;
     }
 }

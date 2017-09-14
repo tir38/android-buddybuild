@@ -1,6 +1,5 @@
 package com.buddybuild;
 
-
 import com.buddybuild.core.App;
 import com.buddybuild.core.Branch;
 import com.buddybuild.core.Build;
@@ -35,7 +34,6 @@ public interface Coordinator {
      */
     boolean isLoggedIn();
 
-
     /**
      * @return If a user is logged in, returns their email
      */
@@ -69,6 +67,4 @@ public interface Coordinator {
      * @return single of list of log items
      */
     Single<List<LogItem>> getLogs(String buildId);
-
-
 }

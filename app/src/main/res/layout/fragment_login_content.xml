@@ -51,11 +51,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="@string/login"/>
+        android:text="@string/login"
+        android:textAllCaps="true"/>
 
     <Button
         android:id="@+id/fragment_login_demo_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="demo"/>
+        android:layout_marginTop="32dp"
+        android:text="@string/demo"
+        android:textAllCaps="true"
+        android:theme="@style/FlatButton"/>
 </merge>

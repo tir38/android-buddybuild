@@ -11,6 +11,7 @@ import com.buddybuild.R;
  * Custom {@link AppCompatButton} that implements BuddyBuild's button style
  */
 public class BuddyBuildButton extends AppCompatButton {
+    // TODO why are these not auto-capitalizing text?
     public BuddyBuildButton(Context context) {
         this(context, null);
     }
