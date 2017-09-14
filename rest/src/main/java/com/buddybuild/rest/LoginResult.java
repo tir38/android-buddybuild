@@ -10,6 +10,10 @@ public final class LoginResult {
     private final Result result;
     private final String token;
 
+    public static LoginResult getDemoLoginResult() {
+        return new LoginResult(Result.SUCCESS, "demo_token");
+    }
+
     LoginResult(Result result, @Nullable String token) {
         this.result = result;
         this.token = token;

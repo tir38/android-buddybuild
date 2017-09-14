@@ -13,7 +13,7 @@ import lombok.Getter;
 public class LogItem {
 
     @Getter
-    private final ZonedDateTime time;
+    private final ZonedDateTime time; // TODO do we really need this?
 
     @Getter
     private final String message;

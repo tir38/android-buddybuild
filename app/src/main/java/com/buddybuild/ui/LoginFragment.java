@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
+import com.buddybuild.DemoManager;
 import com.buddybuild.R;
 import com.buddybuild.ui.view.BuddyBuildWhiteButton;
 import com.buddybuild.utils.ObservableUtils;
@@ -35,6 +36,8 @@ public class LoginFragment extends Fragment {
 
     @Inject
     protected Coordinator coordinator;
+    @Inject
+    protected DemoManager demoManager;
 
     @BindView(R.id.fragment_login_email_edittext)
     protected EditText emailEditText;
@@ -146,6 +149,14 @@ public class LoginFragment extends Fragment {
                             Timber.w(throwable.getMessage());
                             progressIndicatorDelegate.fadeOutProgress(this::showOopsDialog);
                         });
+    }
+
+    @OnClick(R.id.fragment_login_demo_button)
+    protected void onDemoClicked() {
+        demoManager.setDemoMode(true);
+        // re-inject ourselves to update dagger provides
+        ((BuddyBuildApplication) getContext().getApplicationContext()).getComponent().inject(this);
+        onLoginClicked();
     }
 
     private void navigateToOverview() {
