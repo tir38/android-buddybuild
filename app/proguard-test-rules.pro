@@ -43,3 +43,9 @@
 -dontwarn org.apache.tools.ant.Project
 -dontwarn org.assertj.core.internal.cglib.transform.AbstractProcessTask
 -dontwarn org.assertj.core.internal.cglib.transform.AbstractTransformTask
+
+-keep class org.threeten.bp.Duration { *; }
+-dontwarn org.threeten.bp.Duration
+-keep class org.threeten.bp.ZonedDateTime { *; }
+-dontwarn org.threeten.bp.ZonedDateTime
+
