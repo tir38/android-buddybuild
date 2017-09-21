@@ -11,6 +11,11 @@
 
     <!-- suppressed warnings -->
 
+    <!-- TODO remove once we update Timber and Butterknife
+    https://github.com/JakeWharton/butterknife/issues/1074
+    https://github.com/JakeWharton/timber/issues/242-->
+    <issue id="ObsoleteLintCustomCheck" severity="ignore"/>
+
     <!--suppress since we can't put digital asset on buddybuild.com-->
     <issue id="GoogleAppIndexingWarning" severity="ignore"/>
 

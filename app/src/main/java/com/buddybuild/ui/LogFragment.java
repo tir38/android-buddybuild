@@ -1,10 +1,10 @@
 package com.buddybuild.ui;
 
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +35,7 @@ import timber.log.Timber;
 /**
  * Fragment for displaying the logs from a single build
  */
-public final class LogFragment extends LifecycleFragment {
+public final class LogFragment extends Fragment {
 
     private static final String ARG_BUILD_ID = "ARG_BUILD_ID";
 
@@ -52,8 +52,7 @@ public final class LogFragment extends LifecycleFragment {
     private ProgressIndicatorDelegate progressIndicatorDelegate;
     private Unbinder unbinder;
 
-    private final LifecycleProvider<Lifecycle.Event> lifecycleProvider
-            = AndroidLifecycle.createLifecycleProvider(this);
+    private final LifecycleProvider<Lifecycle.Event> lifecycleProvider = AndroidLifecycle.createLifecycleProvider(this);
 
     public static LogFragment newInstance(String buildId) {
         Bundle args = new Bundle();

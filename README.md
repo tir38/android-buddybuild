@@ -31,6 +31,6 @@ We run Lint and Checkstyle on the project. Check `lint.xml` and `checkstyle.xml`
 checks. Run all of these checks from command line with:
 
 ```
-$ ./gradlew clean rest:lint app:lintDebug app:lintRelease
+$ ./gradlew clean rest:lint app:lintDebug
 $ ./gradlew clean core:checkStyleMain core:checkStyleTest rest:androidCheckstyle app:androidCheckstyle
 ```
