@@ -28,20 +28,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestModule {
 
     private static final String TAG = RestModule.class.getSimpleName();
-    static final String DASHBOARD_URL = "https://dashboard.buddybuild.com/";
 
     @Provides
     @Singleton
-    RestCoordinator provideRestCoordinator(DashboardWebService dashboardWebService,
-                                           TokenStore tokenStore) {
-        return new LiveRestCoordinator(dashboardWebService, tokenStore);
+    RestCoordinator provideRestCoordinator(DashboardWebService dashboardWebService, TokenStore tokenStore,
+                                           ApiConstants apiConstants) {
+        return new LiveRestCoordinator(dashboardWebService, tokenStore, apiConstants);
     }
 
     @Provides
     @Singleton
-    DashboardWebService provideDashboardWebService(OkHttpClient okHttpClient) {
+    DashboardWebService provideDashboardWebService(ApiConstants apiConstants, OkHttpClient okHttpClient) {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(DASHBOARD_URL)
+                .baseUrl(apiConstants.getBaseDashboardUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()));
 
