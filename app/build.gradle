@@ -151,5 +151,5 @@ dependencies {
     // Easy mock http requests
     // https://github.com/andrzejchm/RESTMock
     // Apache 2.0
-    androidTestImplementation 'com.github.andrzejchm.RESTMock:android:0.2.2'
+    androidTestImplementation "com.github.andrzejchm.RESTMock:android:$rootProject.ext.restMockVersion"
 }

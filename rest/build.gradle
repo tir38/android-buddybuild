@@ -73,10 +73,15 @@ dependencies {
     implementation "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
 
     // ---------------
-    // UNIT TEST DEPENDENCIES
+    // NON-INSTRUMENTATION TEST DEPENDENCIES
     // ---------------
     testImplementation 'junit:junit:' + rootProject.ext.junitVersion
     testImplementation 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
     testImplementation 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
     testImplementation 'com.squareup.retrofit2:retrofit-mock:2.2.0'
+
+    // Easy mock http requests
+    // https://github.com/andrzejchm/RESTMock
+    // Apache 2.0
+    testImplementation "com.github.andrzejchm.RESTMock:android:$rootProject.ext.restMockVersion"
 }

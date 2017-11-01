@@ -42,4 +42,5 @@ ext {
     mockitoVersion = "2.0.53-beta"
     runnerVersion = "0.5"
     rulesVersion = "0.5"
+    restMockVersion = "0.2.2"
 }
