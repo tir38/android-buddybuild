@@ -11,7 +11,8 @@ import dagger.Provides;
 @Module
 public class MockWebConstantsModule {
     @Provides
-    public ApiConstants provideRizeApiConstants() {
+    public ApiConstants provideApiConstants() {
         return new RestMockApiConstants();
     }
 }
+

@@ -38,6 +38,8 @@ public class LiveRestCoordinatorTest {
     public void setUp() throws Exception {
         stubApiConstants = () -> "https://stuburl.com/";
 
+        // TODO if this is really going to be unit tests, we shouldn't mock retrofit with MockRetrofit, we should
+        // just mock our own interface DashboardWebService
         Retrofit dashboardRetrofit = new Retrofit.Builder()
                 .baseUrl(stubApiConstants.getBaseDashboardUrl())
                 .addConverterFactory(GsonConverterFactory.create())

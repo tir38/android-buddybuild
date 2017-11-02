@@ -86,15 +86,8 @@ dependencies {
     // ---------------
     androidTestImplementation 'org.assertj:assertj-core:' + rootProject.ext.assertJVersion
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1' // TODO move to root build.gradle // do we
-    // actually need these?
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
-
     // we need Dagger compiler in tests too
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerLibVersion"
-    
-    androidTestImplementation 'com.squareup.retrofit2:retrofit-mock:2.2.0'
-    androidTestImplementation 'org.mockito:mockito-core:' + rootProject.ext.mockitoVersion
 
     // Easy mock http requests
     // https://github.com/andrzejchm/RESTMock

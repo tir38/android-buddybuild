@@ -38,7 +38,7 @@ public class IntegrationTests {
 
         // we need to start server before setting up D.I.
         restMockFileParser = new AndroidAssetsFileParser(context);
-        RESTMockServerStarter.startSync(restMockFileParser); // TODO add logger?
+        RESTMockServerStarter.startSync(restMockFileParser);
 
         context.getMockComponent().inject(this);
     }

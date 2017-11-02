@@ -72,6 +72,7 @@ public class RestModule {
             if (contentType.contains("json")) {
                 return response;
             } else {
+                // TODO can we use Timber here?
                 Log.w(TAG, "received non-json response");
                 return null;
             }
