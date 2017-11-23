@@ -6,7 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta5'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.2.1'
         classpath 'org.stoyicker.android-check:plugin:2.162'
     }
@@ -28,7 +28,7 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 26
     compileSdkVersion = 26
-    buildToolsVersion = "26.0.1"
+    buildToolsVersion = "26.0.2"
 
     daggerLibVersion = "2.10"
     timberLibVersion = "4.5.1"
