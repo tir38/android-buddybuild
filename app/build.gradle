@@ -138,6 +138,23 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
+    // Buddybuild SDK
+    // https://docs.buddybuild.com/index.html
+    // closed source
+    implementation 'com.buddybuild:sdk:0.0.84@aar'
+
+    // Android device shake detection
+    // used with Buddy Build
+    // https://github.com/square/seismic
+    // Apache 2.0
+    implementation 'com.squareup:seismic:1.0.2'
+
+    // Application Crash Reports for Android
+    // used with Buddy Build
+    // https://github.com/ACRA/acra
+    // Apache 2.0
+    implementation 'com.faendir:acra:4.10.0'
+
     // ---------------
     // INSTRUMENTATION TEST DEPENDENCIES
     // ---------------
