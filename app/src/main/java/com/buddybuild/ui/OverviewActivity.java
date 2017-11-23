@@ -107,6 +107,7 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
                             if (!apps.isEmpty()) {
                                 updateBuildsFragment(apps.get(0).getId());
                             } else {
+                                // TODO instead consider showing empty "create an app first" screen
                                 updateBuildsFragment(null);
                             }
                             updateToolbar();
@@ -142,11 +143,15 @@ public class OverviewActivity extends AppCompatActivity implements AppsFragment.
                     toolbar.setSubtitle(app.getPlatform().prettyString());
                 }
             }
-        } else {
-            // if none selected, just display the top one
+        } else if (apps.size() > 0) {
+            // if none selected, just display the first one
             App app = apps.get(0);
             toolbar.setTitle(app.getName());
             toolbar.setSubtitle(app.getPlatform().prettyString());
+        } else {
+            // if user has no apps, clear everything
+            toolbar.setTitle("");
+            toolbar.setSubtitle("");
         }
     }
 }
