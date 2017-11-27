@@ -14,6 +14,9 @@ import dagger.Module;
 import dagger.Provides;
 import timber.log.Timber;
 
+/**
+ * Dagger module to provide everything the app module needs that isn't is it's own {@link Module} for specific reasons.
+ */
 @Module
 public class MainModule {
 

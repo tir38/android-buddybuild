@@ -32,11 +32,16 @@ public class LiveRestCoordinatorTest {
     private TokenStore mockTokenStore;
     private BehaviorDelegate<DashboardWebService> dashboardWebServiceBehaviorDelegate;
     private Gson gson;
+    private ApiConstants stubApiConstants;
 
     @Before
     public void setUp() throws Exception {
+        stubApiConstants = () -> "https://stuburl.com/";
+
+        // TODO if this is really going to be unit tests, we shouldn't mock retrofit with MockRetrofit, we should
+        // just mock our own interface DashboardWebService
         Retrofit dashboardRetrofit = new Retrofit.Builder()
-                .baseUrl(RestModule.DASHBOARD_URL)
+                .baseUrl(stubApiConstants.getBaseDashboardUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // This is the magic....
                 // we can't use createWithScheduler(Schedulers.io())
@@ -78,7 +83,8 @@ public class LiveRestCoordinatorTest {
 
         TokenStore spyTokenStore = Mockito.spy(TokenStore.class);
 
-        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, spyTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, spyTokenStore,
+                stubApiConstants);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -109,7 +115,8 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore,
+                stubApiConstants);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -138,7 +145,8 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore,
+                stubApiConstants);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();
@@ -167,7 +175,8 @@ public class LiveRestCoordinatorTest {
                                 .login(new LoginRequestBody(email, password))
                 );
 
-        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore);
+        LiveRestCoordinator restCoordinator = new LiveRestCoordinator(mockDashboardWebService, mockTokenStore,
+                stubApiConstants);
 
         // act
         TestObserver<LoginResult> testObserver = new TestObserver<>();

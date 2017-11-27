@@ -27,10 +27,12 @@ class LiveRestCoordinator implements RestCoordinator {
 
     private DashboardWebService dashboardWebService;
     private TokenStore tokenStore;
+    private final ApiConstants apiConstants;
 
-    LiveRestCoordinator(DashboardWebService dashboardWebService, TokenStore tokenStore) {
+    LiveRestCoordinator(DashboardWebService dashboardWebService, TokenStore tokenStore, ApiConstants apiConstants) {
         this.dashboardWebService = dashboardWebService;
         this.tokenStore = tokenStore;
+        this.apiConstants = apiConstants;
     }
 
     @Override
@@ -106,7 +108,7 @@ class LiveRestCoordinator implements RestCoordinator {
                     // convert errorBody
                     Converter<ResponseBody, LoginErrorResponseBody> converter
                             = new Retrofit.Builder()
-                            .baseUrl(RestModule.DASHBOARD_URL)
+                            .baseUrl(apiConstants.getBaseDashboardUrl())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build()
                             .responseBodyConverter(LoginErrorResponseBody.class, new Annotation[0]);

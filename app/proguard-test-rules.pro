@@ -49,3 +49,12 @@
 -keep class org.threeten.bp.ZonedDateTime { *; }
 -dontwarn org.threeten.bp.ZonedDateTime
 
+
+# for RestMock
+-dontwarn org.bouncycastle.x509.X509V3CertificateGenerator
+-dontwarn org.bouncycastle.asn1.x509.X509Extensions
+-dontwarn org.bouncycastle.asn1.x509.BasicConstraints
+-dontwarn org.bouncycastle.asn1.ASN1Encodable
+-dontwarn org.bouncycastle.asn1.x509.GeneralName
+-dontwarn org.bouncycastle.asn1.DERSequence
+-dontwarn org.bouncycastle.jce.provider.BouncyCastleProvider

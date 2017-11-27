@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.buddybuild.rest">
+
+    <!-- We need to add this permission for our test apk -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>

@@ -11,7 +11,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 4
         versionName "0.3"
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'com.buddybuild.IntegrationTestRunner' // for instrumented integration tests
     }
     signingConfigs {
         release {
@@ -27,7 +27,7 @@ android {
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
         }
         release {
-            minifyEnabled false
+            minifyEnabled false // TODO why is this false?
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-rules.pro'
@@ -147,4 +147,9 @@ dependencies {
     // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
     androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+
+    // Easy mock http requests
+    // https://github.com/andrzejchm/RESTMock
+    // Apache 2.0
+    androidTestImplementation "com.github.andrzejchm.RESTMock:android:$rootProject.ext.restMockVersion"
 }
