@@ -5,6 +5,7 @@ import android.app.Application;
 import com.buddybuild.di.DaggerMainComponent;
 import com.buddybuild.di.MainComponent;
 import com.buddybuild.di.MainModule;
+import com.buddybuild.sdk.BuddyBuild;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import timber.log.Timber;
@@ -21,6 +22,8 @@ public class BuddyBuildApplication extends Application {
         AndroidThreeTen.init(this);
 
         setupLogging();
+
+        BuddyBuild.setup(this);
     }
 
     public MainComponent getComponent() {
