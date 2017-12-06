@@ -55,6 +55,11 @@ android {
         warningsAsErrors true
         lintConfig file('../config/lint.xml')
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 check {
@@ -154,6 +159,17 @@ dependencies {
     // https://github.com/ACRA/acra
     // Apache 2.0
     implementation 'com.faendir:acra:4.10.0'
+
+    // ---------------
+    // LOCAL UNIT TEST DEPENDENCIES
+    // ---------------
+    testCompile('org.threeten:threetenbp:1.3.2') {
+        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
+    }
+    testImplementation 'junit:junit:' + rootProject.ext.junitVersion
+    testImplementation "org.assertj:assertj-core:$rootProject.ext.assertJVersion"
+    testImplementation "org.robolectric:robolectric:3.4.2"
+    testImplementation "org.robolectric:shadows-support-v4:3.4-rc2"
 
     // ---------------
     // INSTRUMENTATION TEST DEPENDENCIES
