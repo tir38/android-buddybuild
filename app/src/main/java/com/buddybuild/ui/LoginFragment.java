@@ -108,6 +108,7 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        progressIndicatorDelegate = null;
     }
 
     @OnClick(R.id.fragment_login_button)
