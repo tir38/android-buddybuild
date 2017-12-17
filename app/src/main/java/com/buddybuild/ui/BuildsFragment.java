@@ -50,14 +50,18 @@ public class BuildsFragment extends Fragment {
 
     @Inject
     protected Coordinator coordinator;
+
     @BindView(R.id.fragment_builds_recyclerview)
     protected RecyclerView recyclerView;
     @BindView(R.id.fragment_builds_empty_textview)
     protected TextView emptyMessageTextView;
+    @BindView(R.id.progress_indicator)
+    protected View progressIndicator;
 
     private Unbinder unbinder;
     private BranchBuildsAdapter adapter;
     private List<BranchItem> branchItems;
+    private ProgressIndicatorDelegate progressIndicatorDelegate;
 
     public static BuildsFragment newInstance() {
         return new BuildsFragment();
@@ -108,6 +112,10 @@ public class BuildsFragment extends Fragment {
             return;
         }
 
+        progressIndicatorDelegate = new ProgressIndicatorDelegate(getContext());
+        progressIndicatorDelegate.setProgressIndicator(progressIndicator);
+        progressIndicatorDelegate.fadeInProgress();
+
         coordinator.getBranches(appId)
                 .map(branches -> {
                     Collections.sort(branches, new Branch.SortByMostRecentEvent());
@@ -124,6 +132,7 @@ public class BuildsFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         branchItems -> {
+                            progressIndicatorDelegate.fadeOutProgress(null);
                             if (branchItems.size() > 0) {
                                 emptyMessageTextView.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
@@ -133,6 +142,8 @@ public class BuildsFragment extends Fragment {
                                 this.branchItems.clear();
                                 this.branchItems.addAll(branchItems);
                                 adapter.notifyParentDataSetChanged(true);
+                            } else {
+                                // TODO? didn't find any branches?
                             }
                         },
                         Timber::e);
