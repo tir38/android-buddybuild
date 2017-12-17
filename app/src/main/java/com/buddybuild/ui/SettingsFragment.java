@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
@@ -34,7 +35,7 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.fragment_settings_sign_out_button)
-    protected Button signOutButton;
+    protected TextView signOutButton;
 
     @Inject
     protected Coordinator coordinator;
@@ -89,7 +90,7 @@ public class SettingsFragment extends Fragment {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
-                    Timber.e(throwable, "something went wrong trying to log out");
+                    Timber.e(throwable, "Something went wrong trying to log out");
                 });
     }
 
