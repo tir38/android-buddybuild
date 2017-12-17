@@ -19,4 +19,7 @@
     <!--suppress since we can't put digital asset on buddybuild.com-->
     <issue id="GoogleAppIndexingWarning" severity="ignore"/>
 
+    <!-- suppress since we can't keep failing builds because of new libs -->
+    <issue id="GradleDependency" severity="ignore"/>
+
 </lint>
