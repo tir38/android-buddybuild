@@ -17,6 +17,7 @@ import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
 import com.buddybuild.DemoManager;
 import com.buddybuild.R;
+import com.buddybuild.UnofficialNoticeDialogFragment;
 import com.buddybuild.ui.view.BuddyBuildWhiteButton;
 import com.buddybuild.utils.ObservableUtils;
 
@@ -33,6 +34,7 @@ import timber.log.Timber;
 public class LoginFragment extends Fragment {
 
     private static final String TAG_OOPS_DIALOG = "TAG_OOPS_DIALOG";
+    private static final String TAG_UNOFFICIAL_NOTICE_DIALOG = "TAG_UNOFFICIAL_NOTICE_DIALOG";
 
     @Inject
     protected Coordinator coordinator;
@@ -100,6 +102,8 @@ public class LoginFragment extends Fragment {
 
         progressIndicatorDelegate = new ProgressIndicatorDelegate(getContext());
         progressIndicatorDelegate.setProgressIndicator(progressIndicator);
+
+        showUnofficialNoticeDialog();
 
         return view;
     }
@@ -180,4 +184,10 @@ public class LoginFragment extends Fragment {
 
         loginButton.setEnabled(true);
     }
+
+    private void showUnofficialNoticeDialog() {
+        UnofficialNoticeDialogFragment unofficialNoticeDialogFragment = UnofficialNoticeDialogFragment.newInstance();
+        unofficialNoticeDialogFragment.show(getFragmentManager(), TAG_UNOFFICIAL_NOTICE_DIALOG);
+    }
+
 }
