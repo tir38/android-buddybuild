@@ -5,10 +5,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/list_item_background_selector"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:paddingBottom="16dp"
                 android:paddingLeft="@dimen/material_side_margin"
                 android:paddingRight="@dimen/material_side_margin"
-                android:paddingTop="8dp">
+                android:paddingTop="16dp">
 
     <LinearLayout
         android:id="@+id/list_item_build_title_linear_layout"
