@@ -2,6 +2,7 @@ package com.buddybuild.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -90,6 +91,14 @@ public class SettingsFragment extends Fragment {
                     }
                     Timber.e(throwable, "something went wrong trying to log out");
                 });
+    }
+
+    @OnClick(R.id.fragment_settings_send_feedback_button)
+    protected void onSendFeedbackClicked() {
+        String url = "https://github.com/tir38/android-buddybuild/issues/new";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     private void setupToolbar() {

@@ -13,12 +13,19 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/material_side_margin"
         android:layout_marginRight="@dimen/material_side_margin"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
 
         <com.buddybuild.ui.view.BuddyBuildButton
             android:id="@+id/fragment_settings_sign_out_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <com.buddybuild.ui.view.BuddyBuildButton
+            android:id="@+id/fragment_settings_send_feedback_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_feedback"/>
 
     </LinearLayout>
 

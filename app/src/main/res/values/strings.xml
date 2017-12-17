@@ -40,6 +40,7 @@
         free, spyware free, and open source.</string>
     <string name="unofficial_notice_title">Notice</string>
     <string name="more_info">More Info…</string>
+    <string name="send_feedback">Send feedback</string>
     <plurals name="minutes_ago">
         <item quantity="one">1 minute ago</item>
         <item quantity="other">%d minutes ago</item>
