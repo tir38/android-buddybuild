@@ -1,3 +1,7 @@
+# DEPRECATED
+
+Now that BuddyBuild is owned by Apple and no longer supporting Android apps I have no interest in continuing this project. So long and thanks for all the fish.
+
 # BuddyBuild Android Client
 
 ### Continuous Integration
