@@ -55,6 +55,11 @@ android {
         warningsAsErrors true
         lintConfig file('../config/lint.xml')
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 check {
@@ -154,6 +159,30 @@ dependencies {
     // https://github.com/ACRA/acra
     // Apache 2.0
     implementation 'com.faendir:acra:4.10.0'
+
+    // ---------------
+    // LOCAL UNIT TEST DEPENDENCIES
+    // ---------------
+    testCompile('org.threeten:threetenbp:1.3.2') {
+        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
+    }
+
+    testImplementation 'junit:junit:' + rootProject.ext.junitVersion
+
+    testImplementation "org.assertj:assertj-core:$rootProject.ext.assertJVersion"
+
+    testImplementation "org.mockito:mockito-core:2.13.0"
+
+    testImplementation "org.robolectric:robolectric:3.4.2"
+    testImplementation "org.robolectric:shadows-support-v4:3.4-rc2"
+
+    // LEFT OFF HERE: we have to have these dependencies "in-app" for test to work. Does this cause Dagger to stop
+    // working in-app?
+    implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:1.1.1'
+    implementation 'com.github.stephanenicolas.toothpick:smoothie:1.1.1'
+    annotationProcessor 'com.github.stephanenicolas.toothpick:toothpick-compiler:1.1.1'
+    testImplementation 'com.github.stephanenicolas.toothpick:toothpick-testing:1.1.1'
+    testAnnotationProcessor 'com.github.stephanenicolas.toothpick:toothpick-compiler:1.1.1'
 
     // ---------------
     // INSTRUMENTATION TEST DEPENDENCIES

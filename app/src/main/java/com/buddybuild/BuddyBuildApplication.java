@@ -19,7 +19,7 @@ public class BuddyBuildApplication extends Application {
         super.onCreate();
         component = createComponent();
 
-        AndroidThreeTen.init(this);
+        setupThreeTenLib();
 
         setupLogging();
 
@@ -34,6 +34,13 @@ public class BuddyBuildApplication extends Application {
         return DaggerMainComponent.builder()
                 .mainModule(new MainModule(this))
                 .build();
+    }
+    
+    /**
+     * Subclasses can override to enable/disable/change setup of Three Ten ABP library
+     */
+    protected void setupThreeTenLib() {
+        AndroidThreeTen.init(this);
     }
 
     private void setupLogging() {
