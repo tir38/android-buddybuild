@@ -44,5 +44,4 @@ public class BuddyBuildApplication extends Application {
             // TODO crash reporting tree
         }
     }
-
 }

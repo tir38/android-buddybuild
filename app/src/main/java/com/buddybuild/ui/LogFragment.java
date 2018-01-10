@@ -109,6 +109,7 @@ public final class LogFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        progressIndicatorDelegate = null;
     }
 
     private static class LogAdapter extends RecyclerView.Adapter<LogViewHolder> {

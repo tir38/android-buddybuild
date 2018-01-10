@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -11,14 +12,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/material_side_margin"
-        android:layout_marginRight="@dimen/material_side_margin"
-        android:layout_marginTop="16dp">
+        android:orientation="vertical">
 
-        <com.buddybuild.ui.view.BuddyBuildButton
+        <TextView
             android:id="@+id/fragment_settings_sign_out_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/ListItemPrimaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_item_background_selector"
+            android:paddingBottom="16dp"
+            android:paddingLeft="@dimen/material_side_margin"
+            android:paddingRight="@dimen/material_side_margin"
+            android:paddingTop="16dp"
+            android:textStyle="bold"
+            tools:text="Sign Out: john@doe.com"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/line_divider"/>
+
+        <TextView
+            android:id="@+id/fragment_settings_send_feedback_button"
+            style="@style/ListItemPrimaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_item_background_selector"
+            android:paddingBottom="16dp"
+            android:paddingLeft="@dimen/material_side_margin"
+            android:paddingRight="@dimen/material_side_margin"
+            android:paddingTop="16dp"
+            android:text="@string/send_feedback"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/line_divider"/>
 
     </LinearLayout>
 

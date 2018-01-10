@@ -2,6 +2,7 @@ package com.buddybuild.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.buddybuild.BuddyBuildApplication;
 import com.buddybuild.Coordinator;
@@ -33,7 +35,7 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.fragment_settings_sign_out_button)
-    protected Button signOutButton;
+    protected TextView signOutButton;
 
     @Inject
     protected Coordinator coordinator;
@@ -88,8 +90,16 @@ public class SettingsFragment extends Fragment {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
-                    Timber.e(throwable, "something went wrong trying to log out");
+                    Timber.e(throwable, "Something went wrong trying to log out");
                 });
+    }
+
+    @OnClick(R.id.fragment_settings_send_feedback_button)
+    protected void onSendFeedbackClicked() {
+        String url = "https://github.com/tir38/android-buddybuild/issues/new";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     private void setupToolbar() {

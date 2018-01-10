@@ -27,7 +27,6 @@ public final class MessageDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         int messageResId = getArguments().getInt(ARGS_MESSAGE_ID);
         return new AlertDialog.Builder(getContext())
                 .setMessage(messageResId)

@@ -19,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-
 public final class BuildDetailsFragment extends Fragment {
 
     private static final String ARG_BUILD_ID = "ARG_BUILD_ID";
